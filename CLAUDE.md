@@ -57,9 +57,18 @@ schemas, careful row-level security, protected media, shared identity, and budge
 it reduces real duplicated work. Do not move existing production data or change app schemas in place
 without a reviewed migration, backup, and verification plan.
 
+**Supabase project `xpqzvmggzhsaggrebxxv` layout as of 2026-10-23 (inspected directly):**
+- `public`: NoBucks' Prisma tables (`User`, `Event`, `Listing`, …; a handful of test rows). Prisma's
+  migration tooling may offer to reset a schema with unknown tables, so no other app goes in `public`.
+- `afoot`: Afoot's tables, created from `Afoot/supabase/schema.sql` and exposed in Data API settings;
+  161 researched events imported. The live Vercel site still reads `data/events.csv` until its env
+  vars point at Supabase.
+- No `core` or `kinmap` schema exists yet. No Supabase Auth users yet.
+
 **Current Kinmap Supabase status as of 2026-10-23:** a local SQL migration exists at
-`../kinmap/supabase/migrations/20261023000000_somedude_core_kinmap.sql`. It creates additive `core`
-and `kinmap` schema foundations with RLS. It has not been confirmed applied to the Supabase project,
+`../kinmap/supabase/migrations/20261023000000_somedude_core_kinmap.sql` on the original Windows machine
+(it is not in the Kinmap GitHub repository). It creates additive `core`
+and `kinmap` schema foundations with RLS. It has not been applied to the Supabase project,
 and Kinmap's running app still uses development-only `x-user-id` authentication and local JSON-file
 storage. The migration alone does not connect the app to Supabase. Do not claim live Supabase
 integration until the migration, auth, API/data access, and private media path have been implemented
