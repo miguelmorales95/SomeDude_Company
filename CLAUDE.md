@@ -11,7 +11,8 @@ or launch claims.
   using it publicly.
 - **Founder:** Miguel Morales, a solo developer. The long-term goal is to make sustainable income to
   support his family. Any founder story should be truthful and optional; do not invent personal
-  details or make family hardship a marketing gimmick.
+  details or make family hardship a marketing gimmick. He is building these as a private individual,
+  not affiliated with any employer or nonprofit; don't present the apps as connected to one.
 - **Portfolio:** Kinmap (family history), Afoot (local events), NoBucks (neighborhood mutual aid).
   These are separate apps with distinct identities and separate GitHub repositories, not a monorepo.
 - Be practical about solo-founder time and cash. Prefer a reliable, maintainable next step over
@@ -75,7 +76,7 @@ environment files or a managed secret store; enforce authorization on the server
 |---|---|---|---|
 | Kinmap | [miguelmorales95/Kinmap](https://github.com/miguelmorales95/Kinmap) | `kinmap/` | Expo/React Native mobile app; Node/Express server |
 | Afoot | [miguelmorales95/Afoot](https://github.com/miguelmorales95/Afoot) | `Afoot/` | Renamed from `whatsup` on 2026-10-23; GitHub redirects the old URL |
-| NoBucks (formerly Clover) | [miguelmorales95/MyCommunity](https://github.com/miguelmorales95/MyCommunity) | `MyCommunity/` | React/Vite frontend; Node/Express/Prisma backend. Repository name unchanged |
+| NoBucks (formerly Clover) | [miguelmorales95/NoBucks](https://github.com/miguelmorales95/NoBucks) | `NoBucks/` | React/Vite frontend; Node/Express/Prisma backend. Renamed from `MyCommunity` on 2026-10-23 |
 | Company docs | [miguelmorales95/SomeDude_Company](https://github.com/miguelmorales95/SomeDude_Company) | `MASTER/` | This repository holds company planning and design docs, not the app source |
 
 These repositories live beside `MASTER` in the original Windows workspace. The table documents the

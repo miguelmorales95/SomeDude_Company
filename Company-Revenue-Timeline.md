@@ -156,7 +156,7 @@ and local businesses**.
 
 | Line | Range | Timing |
 |---|---|---|
-| **Community / civic-tech / mutual-aid grants** | $5k–50k each; plan on ~1 in 5–10 applications succeeding | 3–9 months from application to money |
+| **Community / civic-tech / mutual-aid grants** | $5k–50k each; plan on ~1 in 5–10 applications succeeding. Most require a nonprofit, so apply through a fiscal sponsor (5–10% fee) or partner | 3–9 months from application to money |
 | **Organization pilots** (nonprofit, city program, university, HOA) | $2k–15k per pilot, or $100–500 / month license | after one working neighborhood |
 | **Local business "village shops"** (see below) | $25–75 / month per business per neighborhood | after a pilot neighborhood has active users |
 | Optional cosmetics | small | only if it never gates help |
@@ -177,7 +177,7 @@ any business feature.
 
 | When | Milestone |
 |---|---|
-| Nov 2026 – Jan 2027 | Pick the new name; scope a single-neighborhood pilot with Project 180 LA; draft the one-page "for organizations" offer |
+| Nov 2026 – Jan 2027 | Name chosen (NoBucks); find a pilot host (neighborhood council, library, faith community, or local nonprofit) and a fiscal sponsor; draft the one-page "for organizations" offer |
 | Q1 2027 | Submit 2–3 grant applications |
 | Q2–Q3 2027 | Pilot runs (with funding if a grant lands) |
 | Q4 2027+ | First organization license or second pilot; village shops tested in the pilot neighborhood |

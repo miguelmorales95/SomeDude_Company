@@ -19,7 +19,7 @@
 1. **Afoot first** — it's the closest to done, the cheapest to run, and it needs no login to go live. Fastest path to a real audience and real learning. *(Launch window: ~2–4 weeks.)*
 2. **Build the shared account + database layer next** — introduce shared Supabase foundations without moving or breaking existing app data. *(~2–4 weeks, overlaps with Afoot being live.)*
 3. **Kinmap second** — the clearest willingness-to-pay of the three (genealogy is a proven paid market). Put it on the shared layer, add auth + a real DB + media storage + billing, and **charge from day one**. *(~6–10 weeks after the shared layer.)*
-4. **NoBucks last, as a mission / grant / B2B play** — the hardest to monetize directly (it's intentionally a non-cash mutual-aid economy). Pursue it through grants, your Project 180 LA ties, and selling pilots to nonprofits/cities — not consumer ads or fees. *(Pilot-ready in ~2–4 weeks; funding cycle 3–9 months.)*
+4. **NoBucks last, as a mission / grant / B2B play** — the hardest to monetize directly (it's intentionally a non-cash mutual-aid economy). Pursue it through grants (via a fiscal sponsor or nonprofit partner), local-business "village shops", and selling pilots to nonprofits/cities — not consumer ads or fees. *(Pilot-ready in ~2–4 weeks; funding cycle 3–9 months.)*
 
 **Why this order:** Afoot is inexpensive to operate and already has a GitHub repository; it can find an audience without burning cash. Kinmap is the first subscription candidate, but its production auth, database, and protected media still need to be implemented. NoBucks is the slowest to pay for itself, so it rides on grants and partnerships rather than your personal runway.
 
@@ -79,10 +79,10 @@ Scoring is my honest read, 1–5 (5 = best). "Monetization viability" = how real
 
 ### 3c. NoBucks — the most meaningful, the hardest to monetize directly
 
-- **Why it's special:** it's the most polished and most fully built (verified end-to-end backend, rich village/game layer, moderation, events, admin tooling). It's mission-driven and aligned with your work at Project 180 LA.
+- **Why it's special:** it's the most polished and most fully built (verified end-to-end backend, rich village/game layer, moderation, events, admin tooling). It's mission-driven: neighbors helping neighbors without money.
 - **The catch — and it's structural:** NoBucks is **intentionally a non-cash economy** (sprouts, anti-hoarding caps, a community pot). Taking a cut of trades or charging neighbors to participate would fight the entire ethos. So the usual consumer models (transaction fees, consumer subscriptions, targeted ads) are off the table or actively harmful.
 - **How it actually makes money — B2B / mission, not B2C:**
-  1. **Grants** — community-building, mutual-aid, mental-health, and civic-tech grants. Your nonprofit ties (Project 180 LA) are a real advantage here.
+  1. **Grants** — community-building, mutual-aid, mental-health, and civic-tech grants. Many funders only pay registered nonprofits, so as a private founder you would apply through a **fiscal sponsor** (a nonprofit that receives the grant for the project, usually for a 5–10% fee) or with a nonprofit partner. Some civic-tech and innovation funds do accept individuals or small companies.
   2. **Nonprofit / city / HOA / university licensing** — sell NoBucks as white-labelable "community infrastructure" to organizations that want a local time-bank/mutual-aid network (precedents: Ithaca HOURS, time-credit programs, "BOOK IT!"-style org rewards — already noted in your NoBucks design doc).
   3. **Sponsored community pot / local-business goodwill** — a business funds the pot or sponsors a neighborhood (brand-safe, non-extractive).
   4. **Optional cosmetic premium** — purely decorative village/card extras, if ever, and only if it never gates mutual aid.
@@ -166,7 +166,8 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - **Milestone:** first paying customers. This is your first real revenue line.
 
 ### Phase 4 — NoBucks pilot & funding (parallel, Weeks 2–30) · cost low, grant-funded
-- [ ] Finish the push; scope a single-neighborhood or single-org **pilot** (Project 180 LA is a natural first partner).
+- [ ] Scope a single-neighborhood or single-org **pilot** (a neighborhood council, library branch, faith community, or local nonprofit willing to host it).
+- [ ] Find a fiscal sponsor or nonprofit partner for grant applications.
 - [ ] Write 2–3 grant applications (mutual-aid / civic-tech / mental-health).
 - [ ] Draft a 1-page "NoBucks for organizations" offer (license/white-label).
 - **Milestone:** a funded pilot or first org license — *not* a mass consumer launch.
