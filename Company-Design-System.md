@@ -1,6 +1,6 @@
 # Company Design System
 
-**Owner:** Miguel Morales · **As of:** 2026-10-20 · **Status:** working draft (v1)
+**Owner:** Miguel Morales · **As of:** 2026-10-23 · **Status:** working draft (v1.1)
 
 > One visual language across **NoBucks**, **Kinmap**, and **Afoot** — enough shared DNA that they read as a family, enough freedom that each keeps its own personality. This is the parent-brand design doc referenced by the [Company Roadmap & Launch Plan](./Company-Roadmap-and-Launch-Plan.md).
 
@@ -30,7 +30,7 @@ The company builds **AI-assisted tools for real life** — your neighborhood (No
 |---|---|---|---|
 | **Mood** | Cozy, playful, Animal-Crossing | Warm, heritage, intimate | Dark, modern, nightlife energy |
 | **Default theme** | Light, nature | Light, archival warmth | Dark, neon-accented |
-| **Accent** | Coral + teal + leaf green | Deep amber / sepia + sage | Electric magenta/cyan on near-black |
+| **Accent** | Coral + teal + leaf green | Target: deep amber / sepia + sage. *Current code: moss green + plum on pale paper* | Electric magenta/cyan on near-black |
 | **Illustration** | Cute characters + themed scenes | Soft portrait frames, tree lines | Photographic, map-forward |
 
 ---
@@ -88,7 +88,7 @@ Architecture: **a shared neutral spine** + **one accent family per app**. Define
 - **Icons:** one set, rounded, 2px stroke feel. Consistent metaphors across apps.
 - **Emoji as accent, not crutch** — fine for warmth (NoBucks uses them well); never the only signal.
 - **Illustration is where apps diverge the most — and that's good:**
-  - **NoBucks:** the **character system** (cute humans + animals, themed scenes, trading cards) is a genuine brand asset. It could even become a parent-brand mascot language.
+  - **NoBucks:** the **character system** (cute humans + animals, themed scenes, trading cards) is a genuine brand asset. It could even become a parent-brand mascot language. **No deer** characters (the name is NoBucks), and no money imagery: the currency is **sprouts** and the mark is a 🌱.
   - **Kinmap:** soft portrait frames, gentle tree/line work, archival paper textures — heritage warmth.
   - **Afoot:** map-forward, photographic venue imagery, neon accents on dark.
 - Keep a **shared "cute-but-credible" line quality** so even different illustration styles feel related.
@@ -109,6 +109,42 @@ Each app themes these via tokens; behavior and a11y are shared.
 
 ---
 
+## 8b. Trust and verification patterns (shared)
+
+All three apps ask people to check something the software isn't sure about: a misheard name
+(Kinmap), an event time (Afoot), a trade or listing (NoBucks). Use the same patterns everywhere so
+"please check this" always looks and feels the same.
+
+**Uncertainty labels.** A small pill next to the item: amber, text plus color, phrased as what's
+unconfirmed ("Time unconfirmed", "Location unconfirmed"). Never alarming red for uncertainty; red is
+reserved for "cancelled" or "removed".
+
+**One-tap checks.** A short question with Yes / No / Not sure ("Does this start at 8pm?"). Ask once
+per person per detail; say thanks; never block the page. A detail is confirmed only by more than one
+independent answer.
+
+**Reports (⚑).** A quiet ⚑ link that opens a short menu of plain reasons, modeled on Craigslist
+flags. Keep **"this listing is wrong or harmful"** separate from **"how was it"** feedback, so a bad
+night never removes a small venue. Say what happens next ("hidden until we review it"). No account
+needed and no identity stored; say so in the menu.
+
+**Highlighted text to verify.** When people need to proof AI or speech output, color the words most
+likely to be wrong and add a one-line legend. Kinmap's transcript uses: **bold green** for names
+already known, **bold plum underlined** for new names to check, **bold blue underlined** for places,
+**brown** for dates, and italics for words still being heard. Meaning is always carried by weight
+or underline as well as color.
+
+**Grouped review with kind tags.** Long lists of proposed changes are grouped by the thing they're
+about (the person, the event) and each row gets a colored kind tag with a text label (New, Family,
+Fact, Timeline, Place, Photo, Update, Remove). Headline with counts ("5 new people · 9 family
+links"), with a one-sentence summary underneath. Collapse groups when there are many.
+
+**Learning from corrections.** When a person fixes something the app will see again (a family
+name's spelling), learn it without an extra confirmation step, and show a brief "Got it… Undo"
+note.
+
+---
+
 ## 9. Accessibility (non-negotiable, all apps)
 
 - AA contrast both modes; visible focus rings; full keyboard operability.
@@ -121,10 +157,10 @@ Each app themes these via tokens; behavior and a11y are shared.
 ## 10. How each app applies this (and what to change)
 
 - **NoBucks** — *already the reference.* Keep its token file, Baloo 2, sheet pattern, character system. Action: promote its tokens/components into the shared `@company/ui` so the others inherit them.
-- **Kinmap** — adopt the shared tokens (rename its ad-hoc styles to the `--accent`/`--brand-2` system), the Baloo 2 + body pairing, the shared sheet/field/button components, and the shared auth screen. Keep its heritage illustration mood.
-- **Afoot** — it's Tailwind + dark; map Tailwind theme values to the **same token names** (so a shared sign-in and shared cards match), keep its dark/neon personality, and adopt the shared auth + avatar + map components.
+- **Kinmap** — it's React Native, so its "tokens" live in `mobile/src/lib/theme.ts` (`colors.moss`, `plum`, `gold`, `place`, `date`, …); map those to the shared token names (`accent`, `brand-2`, `good/warn/bad`) and, when ready, move toward the amber/sepia target. Adopt the Baloo 2 + body pairing, the shared sheet/field/button components, and the shared auth screen. Keep its heritage illustration mood. Its transcript and review screens are the reference for §8b.
+- **Afoot** — it's Tailwind + dark; map Tailwind theme values to the **same token names** (so a shared sign-in and shared cards match), keep its dark/neon personality, and adopt the shared auth + avatar + map components. Its event cards and ⚑ menu are the reference for §8b's labels, checks, and reports.
 
-> A short **`DESIGN.md`** has been added to each app's folder pointing back to this document with app-specific notes. NoBucks's own (Claude) design doc now references this company system as the source of truth for shared tokens.
+> Each app repository has a short **`DESIGN.md`** pointing back to this document with app-specific notes (Kinmap, Afoot, and NoBucks).
 
 ---
 

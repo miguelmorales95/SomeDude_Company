@@ -1,11 +1,27 @@
 # Revenue Timeline & Path to Self-Sustainability
 
-**Owner:** Miguel Morales · **As of:** 2026-10-23 · **Status:** planning model (v1), not a forecast
+**Owner:** Miguel Morales · **As of:** 2026-10-23 (evening) · **Status:** planning model (v1.1), not a forecast
 
 > Every number here is an **assumption to be replaced by measured data**. No app is earning money yet
 > (Kinmap has one reported early sale). Use this to choose what to measure and which levers to pull,
 > not for fundraising or public claims. Companion to the
 > [Company Roadmap](./Company-Roadmap-and-Launch-Plan.md).
+
+---
+
+## What changed in v1.1 (2026-10-23)
+
+- **Kinmap's AI is cheaper than v1 assumed.** It now defaults to Claude Haiku 5.5 at about **$0.001 per
+  request** (logged per call), or a free local model through Ollama. At 30–100 requests a month, that's
+  **$0.03–0.10 per family**, not $0.30–1.50. Contribution rises from ~$5.75 to ~**$6.40** per family, so
+  **~$4,000/month take-home needs ~840 families instead of ~930**: about 1–2 months sooner in each
+  scenario. The scenario tables below still use the v1 inputs; re-run `models/kinmap-model.mjs` with
+  `VAR = 0.60` once real usage is logged.
+- **Afoot is deployed** (private beta on Vercel, reading Supabase) with 161 real events and a
+  user-feedback loop (reports, tips, checks). Its running cost is still about $0 until sponsors appear,
+  when Vercel Pro ($20/month) becomes required.
+- **NoBucks** (renamed from Clover) needs a **fiscal sponsor** for most grants, since the founder is
+  building privately rather than through a nonprofit; budget a 5–10% sponsor fee on grant income.
 
 ---
 
@@ -33,7 +49,7 @@ The single biggest unknown is **how many families find Kinmap each month without
 |---|---|---|---|
 | Supabase | $0 | $25 | Free tier pauses after a week of inactivity and has no backups. Pro is required before real family data. |
 | Vercel | $0 | $20 | **The Hobby plan is non-commercial only.** Move Afoot to Pro before showing any sponsor or paid placement. |
-| Claude API | $1–5 | $15–60 | Sonnet 5.5 is $2/$10 per million tokens (input/output); Haiku 5.5 is $0.10/$0.50; batch requests are half price. |
+| Claude API | $1–5 | $5–30 | Haiku 5.5 ($0.10/$0.50 per million tokens in/out) is the default for Kinmap and Afoot; Sonnet 5.5 ($2/$10) only where quality needs it; batch requests are half price. A local Ollama model costs $0 for development. |
 | Media storage + bandwidth | $0 | $5–25 | Mostly Kinmap photos and video. |
 | Expo EAS | $0 | $0–19 | The free plan has limited monthly builds. Pay only if you rebuild often. |
 | Domains | ~$4 | ~$4 | ~$12/year each, after the availability check. |
@@ -47,10 +63,10 @@ The single biggest unknown is **how many families find Kinmap each month without
 |---|---|---|
 | List price | $8.99/month or $79.99/year | Prior hypothesis; still to be tested |
 | Net after fees | **~$7.00 blended** | Web (Stripe ~3%) and app stores (15% small-business rate) on a mix of monthly and annual plans |
-| AI cost | ~$0.30–1.50 | 30–100 "talk" requests at ~4K input / 1.5K output tokens on Sonnet 5.5 is $0.70–2.30; caching and shorter prompts lower it. Voice-to-text runs on the phone, so it's free. |
+| AI cost | ~$0.03–0.10 *(v1: $0.30–1.50)* | 30–100 "talk" requests at ~2–4K input / 0.5–1.5K output tokens on **Haiku 5.5** is about $0.001 each. (On Sonnet 5.5 it would be $0.70–2.30.) Voice-to-text runs on the phone, so it's free. |
 | Storage + bandwidth | ~$0.10–0.50 | A few GB per family, depending on video |
 | Support + misc | ~$0.25 | |
-| **Contribution** | **~$5.75** | $7.00 − $1.25 |
+| **Contribution** | **~$6.40** *(v1 model: $5.75)* | $7.00 − ~$0.60 (scenarios below still use $1.25) |
 
 **Taxes:** to take home about $4,000/month as a sole proprietor, plan on about **$5,200/month pre-tax
 profit** (15.3% self-employment tax plus income tax). Confirm with an accountant.
@@ -125,7 +141,7 @@ everything free and a few listing types are paid.
 
 | When | Milestone | Revenue |
 |---|---|---|
-| Nov–Dec 2026 | Live on Vercel; 1–2 LA areas; weekend-events focus | $0 |
+| Nov–Dec 2026 | **Live on Vercel (private beta since Oct 23)** with 161 real LA / South Bay events and feedback; open to testers, then 1–2 areas; weekend-events focus | $0 |
 | Q1 2027 | First 3–5 venues on a free Venue Pro trial; first sponsor conversations | $0–200 / mo |
 | Q2–Q4 2027 | 5–10 areas; weekly newsletter; paid features on | $200–1,000 / mo |
 | 2028 | 10–20k monthly visitors in LA | $1,000–3,000 / mo |
@@ -191,7 +207,7 @@ pilot is funded by the end of 2027, keep it running small and revisit.
 
 | Quarter | Afoot | Kinmap | NoBucks | Company profit / month* |
 |---|---|---|---|---|
-| **Q4 2026** | Deploy, real weekend events, soft launch | Android dev build; move to Supabase auth + data; free **Thanksgiving story-capture beta** | Rename; pilot scope | −$10 to −$50 |
+| **Q4 2026** | ✅ Deployed (private) with real events + feedback; open to testers, soft launch | ✅ Android dev build + voice dictation; next: Supabase auth + data; free **Thanksgiving story-capture beta** | ✅ Renamed NoBucks; pilot host + fiscal sponsor | −$10 to −$50 |
 | **Q1 2027** | Venue Pro trials, first sponsor talks | Private media, Stripe/store billing, **paid launch ~March** | Grant applications | −$50 to +$100 |
 | **Q2 2027** | Newsletter; more areas | ~50–100 families | Pilot (if funded) | $100–500 |
 | **Q3–Q4 2027** | $200–1,000/mo | ~150–260 families; **holiday keepsakes and gift subscriptions** | Org license / shops test | $700–2,000 |
@@ -218,7 +234,7 @@ Ranked by how much each moves the date you can pay yourself.
 | **Price** | +$1/month adds ~14% profit per family if conversion holds. | Test $7.99 / $8.99 / $9.99 only once traffic is meaningful (hundreds of visitors per variant) |
 | **Annual-plan share** | Less churn, cash up front, slightly lower monthly revenue. | Default to annual at checkout, with monthly as the option |
 | **Keepsakes and gifts** | Lumpy, high-margin; big in Nov–Dec. | Build before holiday 2027 |
-| **AI cost controls** | Small now (~$1/family) but protects margin. | Prompt caching, Haiku for simple parsing, free-tier credit caps |
+| **AI cost controls** | Small now (~$0.10/family on Haiku) but protects margin. | Haiku by default (done), per-request cost logging (done), local model for development (done), free-tier credit caps |
 | **Your hours** | Everything above runs on them. | One launch at a time; Afoot sales and NoBucks grants in fixed weekly blocks |
 | **Data collection** | Kinmap: none beyond your own analytics. Afoot: aggregate counts only. NoBucks: minimal verification data. | More data mostly means more risk here, not more revenue. Aggregate venue reports are Afoot's one safe data product. |
 

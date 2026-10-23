@@ -1,6 +1,6 @@
 # Company Roadmap, Launch & Monetization Plan
 
-**Owner:** Miguel Morales · **As of:** 2026-10-23 · **Status:** working draft (v1.1)
+**Owner:** Miguel Morales · **As of:** 2026-10-23 (evening) · **Status:** working draft (v1.2)
 
 > **Money and timing:** see [Revenue Timeline & Path to Self-Sustainability](./Company-Revenue-Timeline.md)
 > for when each app is likely to earn, how long until the business can pay a salary, and which levers
@@ -31,9 +31,9 @@
 
 | App | What it is | Stack | Maturity | Live backend? | Pushed to GitHub? |
 |---|---|---|---|---|---|
-| **Afoot** | "Craigslist for events" — aggregates small, hard-to-find local events (karaoke, open mics, trivia) via AI ingestion; no login required, sponsor-supported | Next.js 15, React 19, Supabase (Postgres), Claude Haiku ingestion, Vercel | **Advanced MVP / near-launch** | Yes (Supabase) + full demo mode | **Yes** |
-| **Kinmap** | Collaborative AI family tree — narrate relatives in plain speech → AI proposes reviewable "pull requests" to the tree | Expo/React Native (iOS+Android+web), Express, **JSON-file store (no DB)**, Claude Sonnet | **Early MVP (~40–50%)**; Android testing started 2026-10-23 | Partial (real API, file persistence) | **Yes** |
-| **NoBucks** | Hyperlocal, cashless mutual-aid — neighbors trade skills/goods/time for "sprouts," growing a cozy Animal-Crossing-style village | React + TS + Vite, Express + Prisma + Postgres (Supabase), Claude (optional) | **Advanced prototype / MVP** (web app still runs on an in-memory store; the API is separate) | **Yes, verified E2E** on Supabase | **Yes** (in sync as of 2026-10-23) |
+| **Afoot** | "Craigslist for events" — aggregates small, hard-to-find local events (karaoke, open mics, trivia) via AI ingestion; no login required, sponsor-supported | Next.js 15, React 19, Supabase (`afoot` schema), Claude Haiku ingestion, Vercel | **Advanced MVP / private beta on Vercel** (161 researched events; flags, tips and checks live) | **Yes:** Supabase `afoot` schema since 2026-10-23 | **Yes** (repo renamed `Afoot`) |
+| **Kinmap** | Collaborative AI family tree — narrate relatives in plain speech → AI proposes reviewable "pull requests" to the tree | Expo/React Native (iOS+Android+web), Express, **JSON-file store (no DB)**; AI via Claude Haiku 5.5 or a free local model (Ollama) | **Early MVP (~50%)**; Android development build with live voice dictation in testing since 2026-10-23 | Partial (real API, file persistence) | **Yes** |
+| **NoBucks** | Hyperlocal, cashless mutual-aid — neighbors trade skills/goods/time for "sprouts," growing a cozy Animal-Crossing-style village | React + TS + Vite, Express + Prisma + Postgres (Supabase), Claude (optional) | **Advanced prototype / MVP** (web app still runs on an in-memory store; the API is separate). Renamed from Clover 2026-10-23 | API tables in Supabase `public` (a few test rows) | **Yes** (repo renamed `NoBucks`) |
 
 **The through-line:** all three are *AI-assisted tools for real life* — local events, family history, neighborhood mutual aid. They share three reusable primitives: **identity/people**, **location (lat/lng)**, and a **Claude extraction/parsing pipeline**. That overlap is exactly what justifies one company and one database.
 
@@ -143,8 +143,12 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] Set a Claude spend cap and one API key with per-app budgets. *Founder-reported.*
 
 ### Phase 1 — Ship Afoot (Weeks 2–5) · cost ~$25–75/mo
-- [ ] Deploy Afoot to Vercel; point a domain at it once purchased. **The Hobby plan is non-commercial:** move to Pro ($20/mo) before any sponsor or paid placement goes live. *In progress: production build passes; Vercel project not yet created.*
-- [ ] Test with real local events before writing to Supabase. *In progress: Afoot can now serve events from a local CSV (`LOCAL_EVENTS_FILE`), with `npm run import:csv` to load the same file into Supabase later.*
+- [x] Deploy Afoot to Vercel (2026-10-23), reading from Supabase. *Still private behind Vercel Deployment Protection; point a domain at it once purchased.* **The Hobby plan is non-commercial:** move to Pro ($20/mo) before any sponsor or paid placement goes live.
+- [x] Test with real local events: 161 researched, source-linked events (LA-wide plus South Bay / Long Beach, Oct 23–Nov 1) imported into the `afoot` schema; every venue pin checked against its ZIP.
+- [x] Accuracy loop: Craigslist-style ⚑ reports, after-event "heads up" tips, one-tap checks on uncertain details, and a flagged-events queue in `/admin`. No login; hashed device ids, no IPs.
+- [ ] Turn off Deployment Protection (or add the domain) when ready for outside testers.
+- [ ] Refresh events weekly until automatic ingestion covers the best sources (Arts Council for Long Beach, Downtown Long Beach, Harvelle's, torranceca.gov, Palos Verdes Magazine, LAPL, indie bookstores).
+- [ ] AI clean-up job a few times a day: re-check uncertain events against their source pages with Haiku 5.5 (about 2–5¢ per run). Needs Vercel Pro, GitHub Actions, or a local machine to schedule more than once a day.
 - [x] Rename the app from "WhatsUp LA" to Afoot in the code, site title, and GitHub repository (2026-10-23). The contact email waits for a domain.
 - [ ] Run discovery + ingest to seed ~30–50 real LA venues; spot-check recurrence.
 - [ ] Turn on the **house ad** slot; line up 1–2 local sponsors.
@@ -158,7 +162,9 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - **Milestone:** one login works across the apps that exist.
 
 ### Phase 3 — Monetize Kinmap (Weeks 8–18) · cost ~$75–200/mo
-- [ ] Migrate Kinmap's JSON store → `kinmap` Postgres schema (persons + child tables).
+- [x] Android development build (EAS) with live, voice-first dictation; transcript highlights names, places and dates, learns family spellings, and edits in place (2026-10-23).
+- [x] AI cost control: Claude Haiku 5.5 by default (about $0.001 per request, logged per call) or a free local model through Ollama; AI output is cleaned up before review.
+- [ ] Migrate Kinmap's JSON store → `kinmap` Postgres schema (persons + child tables). *The `core`/`kinmap` migration is still only on the Windows machine.*
 - [ ] Replace dev auth with `core` sign-in; move media to S3 with access control.
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
 - [ ] Ship EAS builds to the App Store + Google Play (Apple $99/yr, Google $25 once).
@@ -166,6 +172,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - **Milestone:** first paying customers. This is your first real revenue line.
 
 ### Phase 4 — NoBucks pilot & funding (parallel, Weeks 2–30) · cost low, grant-funded
+- [x] Rename to **NoBucks** (2026-10-23): code, docs, and GitHub repository.
 - [ ] Scope a single-neighborhood or single-org **pilot** (a neighborhood council, library branch, faith community, or local nonprofit willing to host it).
 - [ ] Find a fiscal sponsor or nonprofit partner for grant applications.
 - [ ] Write 2–3 grant applications (mutual-aid / civic-tech / mental-health).
