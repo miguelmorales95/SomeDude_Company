@@ -1,0 +1,6 @@
+# Secrets and tokens: never commit
+*TOKEN*
+*.token
+*secret*
+.env
+.env.*

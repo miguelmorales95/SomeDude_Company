@@ -12,7 +12,7 @@ or launch claims.
 - **Founder:** Miguel Morales, a solo developer. The long-term goal is to make sustainable income to
   support his family. Any founder story should be truthful and optional; do not invent personal
   details or make family hardship a marketing gimmick.
-- **Portfolio:** Kinmap (family history), Afoot (local events), Clover (neighborhood mutual aid).
+- **Portfolio:** Kinmap (family history), Afoot (local events), NoBucks (neighborhood mutual aid).
   These are separate apps with distinct identities and separate GitHub repositories, not a monorepo.
 - Be practical about solo-founder time and cash. Prefer a reliable, maintainable next step over
   speculative shared infrastructure or launching all products at once.
@@ -43,9 +43,9 @@ revenue direction is privacy-respecting local sponsorships and paid venue/event 
 possible newsletters or ticketing referrals later. Avoid behavioral tracking unless the founder
 explicitly revisits the product's privacy promise.
 
-### Clover — mission and organization funding
+### NoBucks — mission and organization funding
 
-Clover is a cashless neighborhood mutual-aid/time-bank product using “sprouts.” Keep participation
+NoBucks is a cashless neighborhood mutual-aid/time-bank product using “sprouts.” Keep participation
 and help central; do not take a cut of trades or charge users in a way that undermines mutual aid.
 Explore grants, nonprofit/city/organization pilots or licensing, and optional nonessential cosmetics.
 
@@ -74,8 +74,8 @@ environment files or a managed secret store; enforce authorization on the server
 | Project | GitHub repository | Local folder in the original workspace | Notes |
 |---|---|---|---|
 | Kinmap | [miguelmorales95/Kinmap](https://github.com/miguelmorales95/Kinmap) | `kinmap/` | Expo/React Native mobile app; Node/Express server |
-| Afoot | [miguelmorales95/whatsup](https://github.com/miguelmorales95/whatsup) | `Afoot/` | Product and local folder are Afoot; remote repository is still named `whatsup` |
-| Clover | [miguelmorales95/MyCommunity](https://github.com/miguelmorales95/MyCommunity) | `MyCommunity/` | React/Vite frontend; Node/Express/Prisma backend |
+| Afoot | [miguelmorales95/Afoot](https://github.com/miguelmorales95/Afoot) | `Afoot/` | Renamed from `whatsup` on 2026-10-23; GitHub redirects the old URL |
+| NoBucks (formerly Clover) | [miguelmorales95/MyCommunity](https://github.com/miguelmorales95/MyCommunity) | `MyCommunity/` | React/Vite frontend; Node/Express/Prisma backend. Repository name unchanged |
 | Company docs | [miguelmorales95/SomeDude_Company](https://github.com/miguelmorales95/SomeDude_Company) | `MASTER/` | This repository holds company planning and design docs, not the app source |
 
 These repositories live beside `MASTER` in the original Windows workspace. The table documents the
@@ -90,7 +90,7 @@ Run commands from each repository root (or use the corresponding package manager
   API; `npm run app` starts Expo. Node.js 22.9 or newer is declared for the server.
 - Afoot: `npm run dev` starts the Next.js app; `npm run build` checks a production build. Its
   Supabase schema is under `supabase/`.
-- Clover: follow its root and `server/README.md`; frontend commands and backend commands run in their
+- NoBucks: follow its root and `server/README.md`; frontend commands and backend commands run in their
   respective package roots. It uses React/Vite and a Prisma/Postgres API.
 - Do not start long-running dev servers as part of an ordinary verification run unless asked.
 
