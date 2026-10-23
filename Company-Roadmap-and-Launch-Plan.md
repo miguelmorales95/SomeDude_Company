@@ -155,11 +155,12 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [ ] Soft-launch in 1–2 LA neighborhoods; gather usage + venue feedback.
 - **Milestone:** a live, public product with real local events and first sponsor conversations.
 
-### Phase 2 — Shared account + DB layer (Weeks 4–8, overlaps) · cost ~$25–75/mo
-- [ ] Finalize `core.users/profiles` + Supabase Auth as the single sign-on.
-- [ ] Stand up the shared `media` (S3) and `geo` services.
-- [ ] Migrate Afoot + NoBucks onto `core` identity after staging and auth tests.
-- **Milestone:** one login works across the apps that exist.
+### Phase 2 — Separate data per app (decided 2026-10-23) · cost $0 now, ~$45/mo when all three are on Pro
+- **Decision:** each app gets its own Supabase project and its own Vercel project, so a mistake, leaked key, or bad migration in one app can't reach another's data. This replaces the shared `core` schema and single sign-on plan; each app runs its own Supabase Auth with the same "Sign in with Google/Apple" buttons.
+- [x] Afoot: Supabase project `xpqzvmggzhsaggrebxxv`, schema `afoot`; Vercel project `some-dude1/afoot`. Weekly local backup.
+- [ ] Kinmap: new Supabase project (free tier allows 2) + Vercel project (created 2026-10-23). Apply the `kinmap` migration there, not in Afoot's project.
+- [ ] NoBucks: its own Supabase project when a pilot starts (a third project needs the Pro plan: $25/mo + ~$10 per extra project). Until then its test tables stay in `public` of Afoot's project.
+- [ ] Afoot sign-in: enable Google in Afoot's Supabase project (needs the domain for redirect URLs).
 
 ### Phase 3 — Monetize Kinmap (Weeks 8–18) · cost ~$75–200/mo
 - [x] Android development build (EAS) with live, voice-first dictation; transcript highlights names, places and dates, learns family spellings, and edits in place (2026-10-23).

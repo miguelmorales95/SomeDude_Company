@@ -52,9 +52,10 @@ Explore grants, nonprofit/city/organization pilots or licensing, and optional no
 
 ## Shared technology direction
 
-The intended direction is a gradual shared foundation—Supabase Auth and Postgres, app-isolated
-schemas, careful row-level security, protected media, shared identity, and budget-capped AI—only where
-it reduces real duplicated work. Do not move existing production data or change app schemas in place
+**Decision (2026-10-23): separate data per app.** Each app has its own Supabase project (database +
+auth) and its own Vercel project; there is no shared database or shared sign-in. Share code and
+patterns (design system, AI cost controls, trust UI), not data. Use careful row-level security,
+protected media, and budget-capped AI in each. Do not move existing production data or change app schemas in place
 without a reviewed migration, backup, and verification plan.
 
 **Supabase project `xpqzvmggzhsaggrebxxv` layout as of 2026-10-23 (inspected directly):**
@@ -63,7 +64,8 @@ without a reviewed migration, backup, and verification plan.
 - `afoot`: Afoot's tables, created from `Afoot/supabase/schema.sql` and exposed in Data API settings;
   161 researched events imported. The live Vercel site still reads `data/events.csv` until its env
   vars point at Supabase.
-- No `core` or `kinmap` schema exists yet. No Supabase Auth users yet.
+- No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
+  project. NoBucks moves to its own project when its pilot starts. No Supabase Auth users yet.
 
 **Current Kinmap Supabase status as of 2026-10-23:** a local SQL migration exists at
 `../kinmap/supabase/migrations/20261023000000_somedude_core_kinmap.sql` on the original Windows machine
