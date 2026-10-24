@@ -63,8 +63,9 @@ without a reviewed migration, backup, and verification plan.
 - `public`: NoBucks' Prisma tables (`User`, `Event`, `Listing`, …; a handful of test rows). Prisma's
   migration tooling may offer to reset a schema with unknown tables, so no other app goes in `public`.
 - `afoot`: Afoot's tables, created from `Afoot/supabase/schema.sql` and exposed in Data API settings;
-  161 researched events imported. The live Vercel site still reads `data/events.csv` until its env
-  vars point at Supabase.
+  267 events as of 2026-10-23. Sponsor tables (`sponsors`, `campaigns`, `campaign_daily`, `bump_campaign`)
+  were added 2026-10-23 after a backup (`npm run backup:db` in Afoot → `~/Backups/supabase-xpqzvmggzhsaggrebxxv/`).
+  Afoot is public at https://afoot.somedude.app; /admin needs `ADMIN_TOKEN`.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
   project. NoBucks moves to its own project when its pilot starts. No Supabase Auth users yet.
 

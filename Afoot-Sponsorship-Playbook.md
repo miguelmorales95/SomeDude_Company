@@ -197,10 +197,14 @@ from a real browser.
 
 ## 9. What to build in Afoot (in order)
 
-**Status (2026-10-23, Afoot `112efeb`):** steps 1–4 are built and deployed in code. Before they work on
-the live site, two things are needed: apply `supabase/migrations/20261023120000_sponsor_campaigns.sql`
-(additive; reviewed but not yet applied), and set `ADMIN_TOKEN` in Vercel (admin routes now refuse
-everyone in production without it). Stripe (step 5) and the sponsor dashboard (step 6) are not built.
+**Status (2026-10-23, Afoot `112efeb`):** steps 1–4 are live. The sponsor tables were applied
+2026-10-23 after a backup. An end-to-end test on the live database (since deleted) showed:
+- the campaign was served for its area;
+- a click redirected with UTM tags and a view was recorded (1 each);
+- bot traffic and junk ids were ignored.
+
+`ADMIN_TOKEN` is set in Vercel, so /admin on afoot.somedude.app needs the token. Stripe (step 5) and
+the sponsor dashboard (step 6) are not built.
 Known limits:
 - Featured events only pin in list view, and only once the site reads events from Supabase
   (CSV events have no stable ids).
