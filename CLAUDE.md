@@ -86,7 +86,7 @@ migrations in PGlite, app typecheck and production bundle, live server refuses m
 Android development build (EAS `0f85ab9a`), created a tree and recorded a family story. Email: `somedude.app`
 (Cloudflare Registrar, Email Routing for incoming mail) is verified in Resend, and Supabase sends auth
 email through Resend SMTP as `kinmap@somedude.app`. The Resend key is in the ignored `resend_key.txt`
-here; move it to a password manager. The API keeps database connections open and batches writes (Kinmap `a470dbb`): ~0.1 s per read, ~0.6 s to apply a 17-step change. It is hosted on Vercel (`kinmap-flax.vercel.app`, auto-deploys from `main`, Root Directory `server`); `/health` shows database reachability. The free plan has no backups: no real family data before Pro
+here; move it to a password manager. The API keeps database connections open and batches writes (Kinmap `a470dbb`): ~0.1 s per read, ~0.6 s to apply a 17-step change. It is hosted on Vercel at https://api.kinmap.somedude.app (auto-deploys from `main`, Root Directory `server`); `/health` shows database reachability. EAS profiles: `development` (code from the PC's dev server) and `preview` (standalone, hosted API). The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
