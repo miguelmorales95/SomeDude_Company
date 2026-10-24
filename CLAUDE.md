@@ -81,8 +81,10 @@ user's own token for Storage (no secret key on the server). The app signs in wit
 code; the `x-user-id` switcher and JSON store are gone. Verified: 16 server tests against the real
 migrations in PGlite, app typecheck and production bundle, live server refuses missing/forged tokens.
 **Not yet verified end to end on a phone:** that needs `{{ .Token }}` in the Magic Link and Confirm
-signup email templates, then a real sign-in. Supabase's built-in email reaches only team members (a few
-per hour), so families need custom SMTP. The free plan has no backups: no real family data before Pro
+signup email templates, then a real sign-in with the new Android development build (EAS build
+`0f85ab9a`, 2026-10-23). Email: `somedude.app` is bought (Cloudflare Registrar, Email Routing for incoming
+mail) and added to Resend with DNS verified publicly; Supabase's SMTP settings still need a Resend
+sending key. Until then Supabase's built-in email reaches only team members (a few per hour). The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in

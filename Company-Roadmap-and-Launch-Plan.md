@@ -172,8 +172,9 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] Kinmap server reads and writes those tables; each change request applies in one transaction, and a failed one is kept with its reason (2026-10-23, Kinmap commit `eb8c7df`). The JSON demo trees were not carried over.
 - [x] Real sign-in: emailed one-time code through Supabase Auth replaces the dev `x-user-id` switcher; the server verifies tokens with the project's public keys. Google/Apple sign-in waits for the domain.
 - [x] Media in the private Supabase `media` bucket: members-only, links expire after an hour, 50 MB per file on the free plan. The server uses each user's own token, so it holds no Supabase secret key.
-- [ ] **First real sign-in on a phone:** add `{{ .Token }}` to the Magic Link and Confirm signup email templates; install the new Android development build (queued on EAS 2026-10-23, includes the session-saving module).
-- [ ] Custom SMTP before inviting families: Resend account created (2026-10-23); next verify `somedude.app` in Resend (DNS records in Cloudflare), then Supabase SMTP with sender `kinmap@somedude.app`. Supabase's built-in email only reaches team members, a few per hour.
+- [ ] **First real sign-in on a phone:** add `{{ .Token }}` to the Magic Link and Confirm signup email templates; install the new Android development build (built on EAS 2026-10-23 with the session-saving module; APK from the Expo dashboard, build `0f85ab9a`).
+- [x] Sending domain: `somedude.app` added to Resend (US East) and its DNS auto-configured in Cloudflare (2026-10-23): DKIM on `resend._domainkey`, CNAMEs on `send` and `rsend`. All three resolve publicly; Cloudflare's DMARC record (`p=none`, reports to Cloudflare) was already in place. Email Routing still handles incoming mail.
+- [ ] Supabase custom SMTP: a sending-only Resend API key, then host `smtp.resend.com`, port 465, user `resend`, sender `kinmap@somedude.app` (name "Kinmap"). Until then Supabase's built-in email only reaches team members, a few per hour.
 - [ ] Before hosting the API on Vercel: switch `DATABASE_URL` to the IPv4 pooler and move uploads to signed upload URLs (Vercel's 4.5 MB request limit).
 - [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
