@@ -1,6 +1,6 @@
 # Company Roadmap, Launch & Monetization Plan
 
-**Owner:** Miguel Morales · **As of:** 2026-10-23 (evening) · **Status:** working draft (v1.2)
+**Owner:** Miguel Morales · **As of:** 2026-10-23 (late night) · **Status:** working draft (v1.4)
 
 > **Money and timing:** see [Revenue Timeline & Path to Self-Sustainability](./Company-Revenue-Timeline.md)
 > for when each app is likely to earn, how long until the business can pay a salary, and which levers
@@ -32,7 +32,7 @@
 | App | What it is | Stack | Maturity | Live backend? | Pushed to GitHub? |
 |---|---|---|---|---|---|
 | **Afoot** | "Craigslist for events" — aggregates small, hard-to-find local events (karaoke, open mics, trivia) via AI ingestion; no login required, sponsor-supported | Next.js 15, React 19, Supabase (`afoot` schema), Claude Haiku ingestion, Vercel | **Advanced MVP / private beta on Vercel** (161 researched events; flags, tips and checks live) | **Yes:** Supabase `afoot` schema since 2026-10-23 | **Yes** (repo renamed `Afoot`) |
-| **Kinmap** | Collaborative AI family tree — narrate relatives in plain speech → AI proposes reviewable "pull requests" to the tree | Expo/React Native (iOS+Android+web), Express, **JSON-file store (no DB)**; AI via Claude Haiku 5.5 or a free local model (Ollama) | **Early MVP (~50%)**; Android development build with live voice dictation in testing since 2026-10-23 | Partial (real API, file persistence) | **Yes** |
+| **Kinmap** | Collaborative AI family tree — narrate relatives in plain speech → AI proposes reviewable "pull requests" to the tree | Expo/React Native (iOS+Android+web), Express, Supabase (Postgres, Auth, Storage); AI via Claude Haiku 5.5 or a free local model (Ollama) | **Early MVP (~50%)**; Android development build with live voice dictation in testing since 2026-10-23 | **Yes, in development:** its own Supabase project (`puskxnikpiusgvtzhire`) for data, email sign-in and private media since 2026-10-23; no real families yet | **Yes** |
 | **NoBucks** | Hyperlocal, cashless mutual-aid — neighbors trade skills/goods/time for "sprouts," growing a cozy Animal-Crossing-style village | React + TS + Vite, Express + Prisma + Postgres (Supabase), Claude (optional) | **Advanced prototype / MVP** (web app still runs on an in-memory store; the API is separate). Renamed from Clover 2026-10-23 | API tables in Supabase `public` (a few test rows) | **Yes** (repo renamed `NoBucks`) |
 
 **The through-line:** all three are *AI-assisted tools for real life* — local events, family history, neighborhood mutual aid. They share three reusable primitives: **identity/people**, **location (lat/lng)**, and a **Claude extraction/parsing pipeline**. That overlap is exactly what justifies one company and one database.
@@ -93,6 +93,8 @@ Scoring is my honest read, 1–5 (5 = best). "Monetization viability" = how real
 
 ## 4. Unified architecture — one account, one database
 
+> **Superseded 2026-10-23:** each app now gets its own Supabase and Vercel project (see Phase 2). The shared `core` schema and single sign-on below are no longer the plan; keep reading for the shared *code and patterns* (LLM budgets, media access control, the change-request engine).
+
 The single most valuable unification decision: **one identity, one Postgres, shared services.** Here's the concrete shape.
 
 ### 4.1 One database, schema-per-app + a shared core
@@ -139,7 +141,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 ### Phase 0 — Foundations (Weeks 0–2) · cost ~$0–50/mo
 - [ ] Decide the company name + buy the domains (see §9). *Domains not purchased yet (2026-10-23).*
 - [x] Kinmap and NoBucks repositories are on GitHub and in sync (verified 2026-10-23). A GitHub org is still optional.
-- [x] Stand up the shared Supabase project; sketch the `core` schema. *Founder-reported. The Kinmap `core`/`kinmap` migration is not in the Kinmap GitHub repo yet.*
+- [x] Stand up Supabase. *Superseded by the per-app decision in Phase 2: the `core` schema was never applied.*
 - [x] Set a Claude spend cap and one API key with per-app budgets. *Founder-reported.*
 
 ### Phase 1 — Ship Afoot (Weeks 2–5) · cost ~$25–75/mo
@@ -158,15 +160,21 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 ### Phase 2 — Separate data per app (decided 2026-10-23) · cost $0 now, ~$45/mo when all three are on Pro
 - **Decision:** each app gets its own Supabase project and its own Vercel project, so a mistake, leaked key, or bad migration in one app can't reach another's data. This replaces the shared `core` schema and single sign-on plan; each app runs its own Supabase Auth with the same "Sign in with Google/Apple" buttons.
 - [x] Afoot: Supabase project `xpqzvmggzhsaggrebxxv`, schema `afoot`; Vercel project `some-dude1/afoot`. Weekly local backup.
-- [ ] Kinmap: new Supabase project (free tier allows 2) + Vercel project (created 2026-10-23). Apply the `kinmap` migration there, not in Afoot's project.
+- [x] Kinmap: own Supabase project `puskxnikpiusgvtzhire` + Vercel project `some-dude1/kinmap` (2026-10-23). First migration `kinmap/supabase/migrations/20261023120000_kinmap_init.sql` applied through the SQL editor: 12 tables, members-only read access (RLS), server-only writes, private `media` bucket. Verified from outside: signed-out requests are refused. Connected to the server and app the same day (see Phase 3).
 - [ ] NoBucks: its own Supabase project when a pilot starts (a third project needs the Pro plan: $25/mo + ~$10 per extra project). Until then its test tables stay in `public` of Afoot's project.
 - [ ] Afoot sign-in: enable Google in Afoot's Supabase project (needs the domain for redirect URLs).
 
 ### Phase 3 — Monetize Kinmap (Weeks 8–18) · cost ~$75–200/mo
 - [x] Android development build (EAS) with live, voice-first dictation; transcript highlights names, places and dates, learns family spellings, and edits in place (2026-10-23).
 - [x] AI cost control: Claude Haiku 5.5 by default (about $0.001 per request, logged per call) or a free local model through Ollama; AI output is cleaned up before review.
-- [ ] Migrate Kinmap's JSON store → `kinmap` Postgres schema (persons + child tables). *The `core`/`kinmap` migration is still only on the Windows machine.*
-- [ ] Replace dev auth with `core` sign-in; move media to S3 with access control.
+- [x] Kinmap database schema in its own Supabase project (2026-10-23; see Phase 2).
+- [x] Kinmap server reads and writes those tables; each change request applies in one transaction, and a failed one is kept with its reason (2026-10-23, Kinmap commit `eb8c7df`). The JSON demo trees were not carried over.
+- [x] Real sign-in: emailed one-time code through Supabase Auth replaces the dev `x-user-id` switcher; the server verifies tokens with the project's public keys. Google/Apple sign-in waits for the domain.
+- [x] Media in the private Supabase `media` bucket: members-only, links expire after an hour, 50 MB per file on the free plan. The server uses each user's own token, so it holds no Supabase secret key.
+- [ ] **First real sign-in on a phone:** add `{{ .Token }}` to the Magic Link and Confirm signup email templates; make a new Android development build (the session-saving module is native; until then the app asks you to sign in each launch).
+- [ ] Custom SMTP (e.g. Resend) before inviting families: Supabase's built-in email only reaches team members, a few per hour.
+- [ ] Before hosting the API on Vercel: switch `DATABASE_URL` to the IPv4 pooler and move uploads to signed upload URLs (Vercel's 4.5 MB request limit).
+- [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
 - [ ] Ship EAS builds to the App Store + Google Play (Apple $99/yr, Google $25 once).
 - [ ] Launch with a paywall from day one; invite beta families.
@@ -236,7 +244,7 @@ Each app earns in a way true to its users; the company is the portfolio that bal
 ## 8. Risks & open decisions
 
 - **Shared-DB blast radius** — one DB touching all three apps concentrates risk. Mitigate with per-schema RLS, per-app DB roles, backups, staging.
-- **Kinmap migration file not on GitHub** — the `core`/`kinmap` Supabase migration lives only on the Windows machine; push it so it's backed up.
+- **Kinmap backups** — the free Supabase plan keeps no backups and pauses after a week idle; upgrade to Pro (or run a backup script like Afoot's) before real families use it. The old `core`/`kinmap` migration on the Windows machine is superseded; don't apply it.
 - **Claude spend** — uncapped AI usage is the one line that can surprise you; cap it per app.
 - **Privacy posture** — Afoot's no-tracking stance and NoBucks's mutual-aid ethos both limit ad models; lean on sponsorship/B2B/subscription instead.
 - **Your time** — three apps + a day job is a lot. The sequence above is designed so you're only ever actively launching one.
@@ -245,7 +253,7 @@ Each app earns in a way true to its users; the company is the portfolio that bal
 
 ## 9. Naming & brand
 
-The working umbrella name is **SomeDude**; check domain and trademark availability before public use. The three apps share a theme: **AI-assisted tools for real-life community, place, and relationships.**
+The working umbrella name is **SomeDude**; check domain and trademark availability before public use. *2026-10-23: `somedude.app` is available on Cloudflare Registrar (not bought yet); one domain can serve every app through subdomains (`kinmap.somedude.app`, `afoot.somedude.app`). USPTO search shows no "SomeDude" but many "Some Dude" records; spacing doesn't distinguish marks, so review live ones in classes 9, 35 and 42. Kinmap, Afoot and NoBucks need their own clearance before launch.* The three apps share a theme: **AI-assisted tools for real-life community, place, and relationships.**
 
 - Keep each app's own name and personality; SomeDude is the quiet parent brand.
 - **NoBucks** (renamed from Clover, 2026-10-23): the name says it plainly, no money changes hands. Keep the cute animal/people villagers, keep **sprouts** as the currency, and include **no deer** characters ("no bucks"). Check trademark and app-store availability before public launch.
@@ -260,5 +268,5 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 1. Verify the SomeDude name + buy domains only after availability checks.
 2. Keep all three existing GitHub repositories backed up and current.
 3. Deploy Afoot to Vercel + a domain; seed LA venues.
-4. Apply the first `core` + `kinmap` schema migration in Supabase after reviewing it.
+4. ~~Apply the first Kinmap schema~~ and ~~connect the server and sign-in~~ (done 2026-10-23). Next: email templates + a new development build, then the first real sign-in on a phone.
 5. Read the [Company Design System](./Company-Design-System.md) and apply the shared tokens as you touch each app.

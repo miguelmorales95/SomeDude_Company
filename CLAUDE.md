@@ -67,14 +67,26 @@ without a reviewed migration, backup, and verification plan.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
   project. NoBucks moves to its own project when its pilot starts. No Supabase Auth users yet.
 
-**Current Kinmap Supabase status as of 2026-10-23:** a local SQL migration exists at
-`../kinmap/supabase/migrations/20261023000000_somedude_core_kinmap.sql` on the original Windows machine
-(it is not in the Kinmap GitHub repository). It creates additive `core`
-and `kinmap` schema foundations with RLS. It has not been applied to the Supabase project,
-and Kinmap's running app still uses development-only `x-user-id` authentication and local JSON-file
-storage. The migration alone does not connect the app to Supabase. Do not claim live Supabase
-integration until the migration, auth, API/data access, and private media path have been implemented
-and tested.
+**Current Kinmap Supabase status as of 2026-10-23 (late):** Kinmap has its own Supabase project
+`puskxnikpiusgvtzhire` (https://puskxnikpiusgvtzhire.supabase.co). Both migrations in
+`kinmap/supabase/migrations/` are applied: `20261023120000_kinmap_init.sql` (Kinmap-only tables in
+`public`, member read-only RLS, server-only writes, private `media` bucket) and
+`20261024000000_media_uploads.sql` (editors may upload to their tree's folder). The older
+`20261023000000_somedude_core_kinmap.sql` on the Windows machine (shared `core` schema) is superseded and
+must not be applied.
+
+The Kinmap server (commit `eb8c7df`) now reads and writes this database, verifies Supabase Auth tokens
+(ES256, public JWKS), applies change requests in one transaction, and stores media privately, using the
+user's own token for Storage (no secret key on the server). The app signs in with an emailed one-time
+code; the `x-user-id` switcher and JSON store are gone. Verified: 16 server tests against the real
+migrations in PGlite, app typecheck and production bundle, live server refuses missing/forged tokens.
+**Not yet verified end to end on a phone:** that needs `{{ .Token }}` in the Magic Link and Confirm
+signup email templates, then a real sign-in. Supabase's built-in email reaches only team members (a few
+per hour), so families need custom SMTP. The free plan has no backups: no real family data before Pro
+or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+
+The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
+`supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.
 
 The Supabase database URL shared in chat had a `[YOUR-PASSWORD]` placeholder. Never guess it or put
 database passwords, service-role keys, AI keys, or other secrets in this repository, a client app,

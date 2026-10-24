@@ -1,6 +1,6 @@
 # Revenue Timeline & Path to Self-Sustainability
 
-**Owner:** Miguel Morales · **As of:** 2026-10-23 (evening) · **Status:** planning model (v1.1), not a forecast
+**Owner:** Miguel Morales · **As of:** 2026-10-23 (night) · **Status:** planning model (v1.1), not a forecast
 
 > Every number here is an **assumption to be replaced by measured data**. No app is earning money yet
 > (Kinmap has one reported early sale). Use this to choose what to measure and which levers to pull,
@@ -20,6 +20,9 @@
 - **Afoot is deployed** (private beta on Vercel, reading Supabase) with 161 real events and a
   user-feedback loop (reports, tips, checks). Its running cost is still about $0 until sponsors appear,
   when Vercel Pro ($20/month) becomes required.
+- **Kinmap runs on its own Supabase project** (2026-10-23): database, email sign-in and private media are
+  wired up in development; no real families yet. Supabase Pro ($25/month) is needed for backups, and a
+  custom email sender (Resend's free tier covers early beta), before real family data.
 - **NoBucks** (renamed from Clover) needs a **fiscal sponsor** for most grants, since the founder is
   building privately rather than through a nonprofit; budget a 5–10% sponsor fee on grant income.
 
@@ -207,7 +210,7 @@ pilot is funded by the end of 2027, keep it running small and revisit.
 
 | Quarter | Afoot | Kinmap | NoBucks | Company profit / month* |
 |---|---|---|---|---|
-| **Q4 2026** | ✅ Deployed (private) with real events + feedback; open to testers, soft launch | ✅ Android dev build + voice dictation; next: Supabase auth + data; free **Thanksgiving story-capture beta** | ✅ Renamed NoBucks; pilot host + fiscal sponsor | −$10 to −$50 |
+| **Q4 2026** | ✅ Deployed (private) with real events + feedback; open to testers, soft launch | ✅ Android dev build + voice dictation; ✅ Supabase data + email sign-in (dev); next: first families on a backed-up plan; free **Thanksgiving story-capture beta** | ✅ Renamed NoBucks; pilot host + fiscal sponsor | −$10 to −$50 |
 | **Q1 2027** | Venue Pro trials, first sponsor talks | Private media, Stripe/store billing, **paid launch ~March** | Grant applications | −$50 to +$100 |
 | **Q2 2027** | Newsletter; more areas | ~50–100 families | Pilot (if funded) | $100–500 |
 | **Q3–Q4 2027** | $200–1,000/mo | ~150–260 families; **holiday keepsakes and gift subscriptions** | Org license / shops test | $700–2,000 |

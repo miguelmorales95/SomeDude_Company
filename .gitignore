@@ -2,5 +2,7 @@
 *TOKEN*
 *.token
 *secret*
+*key*
+*password*
 .env
 .env.*
