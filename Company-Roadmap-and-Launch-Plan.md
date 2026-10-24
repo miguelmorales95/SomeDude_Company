@@ -139,7 +139,7 @@ Use **one Supabase project** (you already run two of the three on Supabase). Ins
 Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 
 ### Phase 0 — Foundations (Weeks 0–2) · cost ~$0–50/mo
-- [ ] Decide the company name + buy the domains (see §9). *Domains not purchased yet (2026-10-23).*
+- [x] Buy the company domain: **`somedude.app`** on Cloudflare (2026-10-23), with Cloudflare Email Routing for incoming mail and `kinmap.somedude.app` / `afoot.somedude.app` subdomains set up. Trademark clearance for the app names is still open (see §9).
 - [x] Kinmap and NoBucks repositories are on GitHub and in sync (verified 2026-10-23). A GitHub org is still optional.
 - [x] Stand up Supabase. *Superseded by the per-app decision in Phase 2: the `core` schema was never applied.*
 - [x] Set a Claude spend cap and one API key with per-app budgets. *Founder-reported.*
@@ -148,7 +148,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] Deploy Afoot to Vercel (2026-10-23), reading from Supabase. *Still private behind Vercel Deployment Protection; point a domain at it once purchased.* **The Hobby plan is non-commercial:** move to Pro ($20/mo) before any sponsor or paid placement goes live.
 - [x] Test with real local events: 161 researched, source-linked events (LA-wide plus South Bay / Long Beach, Oct 23–Nov 1) imported into the `afoot` schema; every venue pin checked against its ZIP.
 - [x] Accuracy loop: Craigslist-style ⚑ reports, after-event "heads up" tips, one-tap checks on uncertain details, and a flagged-events queue in `/admin`. No login; hashed device ids, no IPs.
-- [x] Maps without API keys (2026-10-23, Afoot `ddaf70d`): CARTO's tiles started requiring a key, so map mode moved to **OpenFreeMap** (free, no key, commercial use allowed). Each event card now shows the start time over a small street map (major roads, freeway badges, a pin) drawn on Afoot's own server and cached, so the list contacts no third party. The map route only serves Southern California.
+- [x] Maps without API keys (2026-10-23, Afoot `ddaf70d`): CARTO's tiles started requiring a key, so map mode moved to **OpenFreeMap** (free, no key, commercial use allowed). Each event card now shows the start time over a small street map (main roads, freeway badges, up to three named streets nearest the venue, a pin; Afoot `7a9696f`) drawn on Afoot's own server and cached, so the list contacts no third party. The map route only serves Southern California.
 - [ ] Turn off Deployment Protection (or add the domain) when ready for outside testers.
 - [ ] Refresh events weekly until automatic ingestion covers the best sources (Arts Council for Long Beach, Downtown Long Beach, Harvelle's, torranceca.gov, Palos Verdes Magazine, LAPL, indie bookstores).
 - [ ] AI clean-up job a few times a day: re-check uncertain events against their source pages with Haiku 5.5 (about 2–5¢ per run). Needs Vercel Pro, GitHub Actions, or a local machine to schedule more than once a day.
@@ -172,8 +172,8 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] Kinmap server reads and writes those tables; each change request applies in one transaction, and a failed one is kept with its reason (2026-10-23, Kinmap commit `eb8c7df`). The JSON demo trees were not carried over.
 - [x] Real sign-in: emailed one-time code through Supabase Auth replaces the dev `x-user-id` switcher; the server verifies tokens with the project's public keys. Google/Apple sign-in waits for the domain.
 - [x] Media in the private Supabase `media` bucket: members-only, links expire after an hour, 50 MB per file on the free plan. The server uses each user's own token, so it holds no Supabase secret key.
-- [ ] **First real sign-in on a phone:** add `{{ .Token }}` to the Magic Link and Confirm signup email templates; make a new Android development build (the session-saving module is native; until then the app asks you to sign in each launch).
-- [ ] Custom SMTP (e.g. Resend) before inviting families: Supabase's built-in email only reaches team members, a few per hour.
+- [ ] **First real sign-in on a phone:** add `{{ .Token }}` to the Magic Link and Confirm signup email templates; install the new Android development build (queued on EAS 2026-10-23, includes the session-saving module).
+- [ ] Custom SMTP before inviting families: Resend account created (2026-10-23); next verify `somedude.app` in Resend (DNS records in Cloudflare), then Supabase SMTP with sender `kinmap@somedude.app`. Supabase's built-in email only reaches team members, a few per hour.
 - [ ] Before hosting the API on Vercel: switch `DATABASE_URL` to the IPv4 pooler and move uploads to signed upload URLs (Vercel's 4.5 MB request limit).
 - [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
@@ -254,7 +254,7 @@ Each app earns in a way true to its users; the company is the portfolio that bal
 
 ## 9. Naming & brand
 
-The working umbrella name is **SomeDude**; check domain and trademark availability before public use. *2026-10-23: `somedude.app` is available on Cloudflare Registrar (not bought yet); one domain can serve every app through subdomains (`kinmap.somedude.app`, `afoot.somedude.app`). USPTO search shows no "SomeDude" but many "Some Dude" records; spacing doesn't distinguish marks, so review live ones in classes 9, 35 and 42. Kinmap, Afoot and NoBucks need their own clearance before launch.* The three apps share a theme: **AI-assisted tools for real-life community, place, and relationships.**
+The working umbrella name is **SomeDude**; check domain and trademark availability before public use. *2026-10-23: `somedude.app` bought on Cloudflare Registrar; one domain can serve every app through subdomains (`kinmap.somedude.app`, `afoot.somedude.app`). USPTO search shows no "SomeDude" but many "Some Dude" records; spacing doesn't distinguish marks, so review live ones in classes 9, 35 and 42. Kinmap, Afoot and NoBucks need their own clearance before launch.* The three apps share a theme: **AI-assisted tools for real-life community, place, and relationships.**
 
 - Keep each app's own name and personality; SomeDude is the quiet parent brand.
 - **NoBucks** (renamed from Clover, 2026-10-23): the name says it plainly, no money changes hands. Keep the cute animal/people villagers, keep **sprouts** as the currency, and include **no deer** characters ("no bucks"). Check trademark and app-store availability before public launch.
