@@ -90,7 +90,7 @@ Architecture: **a shared neutral spine** + **one accent family per app**. Define
 - **Illustration is where apps diverge the most — and that's good:**
   - **NoBucks:** the **character system** (cute humans + animals, themed scenes, trading cards) is a genuine brand asset. It could even become a parent-brand mascot language. **No deer** characters (the name is NoBucks), and no money imagery: the currency is **sprouts** and the mark is a 🌱.
   - **Kinmap:** soft portrait frames, gentle tree/line work, archival paper textures — heritage warmth.
-  - **Afoot:** map-forward, photographic venue imagery, neon accents on dark.
+  - **Afoot:** map-forward, photographic venue imagery, neon accents on dark. Event cards lead with the start time over a small static street map (main roads and freeways, a pin, no interaction) so "when" and "roughly where" read at a glance; maps come from OpenFreeMap with OpenStreetMap credit shown.
 - Keep a **shared "cute-but-credible" line quality** so even different illustration styles feel related.
 
 ---
