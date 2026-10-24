@@ -184,6 +184,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] **Preview app tested (2026-10-24):** installed on the founder's phone; sign-in and a photo upload work through the hosted API. Photo uploads first failed with "Unsupported FormDataPart implementation" (this Expo version's fetch can't send React Native file parts); fixed by streaming the file natively with expo-file-system's `UploadTask` to the Storage signed-upload URL (Kinmap `9e0f7b2`). Voice waits on the Claude key above.
 - [ ] Full test on cellular data away from home Wi-Fi, including inviting a second account as an editor.
 - [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
+- [ ] **Next features** ([Kinmap Feature Specs](./Kinmap-Feature-Specs.md)): answer the AI's questions by voice, links & favorites on each person (songs, videos, articles), and a personal board with pins and stickers. The founder's cellular test on 2026-10-24 worked (sign-in, voice with Claude, photos).
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
 - [ ] Ship EAS builds to the App Store + Google Play (Apple $99/yr, Google $25 once).
 - [ ] Launch with a paywall from day one; invite beta families.
