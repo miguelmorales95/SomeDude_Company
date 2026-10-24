@@ -1,6 +1,6 @@
 # Company Roadmap, Launch & Monetization Plan
 
-**Owner:** Miguel Morales · **As of:** 2026-10-23 (late night) · **Status:** working draft (v1.4)
+**Owner:** Miguel Morales · **As of:** 2026-10-24 · **Status:** working draft (v1.5)
 
 > **Money and timing:** see [Revenue Timeline & Path to Self-Sustainability](./Company-Revenue-Timeline.md)
 > for when each app is likely to earn, how long until the business can pay a salary, and which levers
@@ -177,11 +177,11 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] Supabase custom SMTP through Resend (sending-only key, sender `kinmap@somedude.app`), with the sign-in code in the Magic Link template (2026-10-23). Supabase allows 30 auth emails/hour with custom SMTP; Resend's free tier is 100/day, 3,000/month.
 - [x] Replies to `kinmap@somedude.app` forward to the founder (Cloudflare Email Routing rule), and sign-in emails show the code (2026-10-23).
 - [x] Speed (2026-10-23, Kinmap `a470dbb`): connections stay open instead of reconnecting (~0.8 s each), names are cached, and a tree loads in one query. Measured against the live database: role check ~95 ms, whole tree ~120 ms, applying the 17-step test change ~0.6 s (was ~5 s).
-- [ ] AI speed: the local model (qwen2.5:7b) took 51 s for one spoken story; Claude Haiku 5.5 would take a few seconds for about $0.001. Switch before family testers, with the spend cap in place.
+- [ ] **Turn on Claude for voice updates (next):** add `ANTHROPIC_API_KEY` in Vercel (kinmap project, Sensitive) with a monthly spend limit in the Anthropic console, then redeploy. Online, the API can't reach the local model, so voice falls back to a simple parser that only understands sentences like "Rose Diaz is the mother of Ana Diaz" (seen 2026-10-24: an empty draft). The local model was also slow (51 s per story) and made mistakes (a husband proposed as a parent, a duplicate person); Claude Haiku 5.5 takes a few seconds for about $0.001. After that, discard the empty draft and the old failed change and record the story again.
 - [x] **Hosting (2026-10-23):** the Kinmap API runs on Vercel (`kinmap-flax.vercel.app`, `iad1`), redeploying on every push to `main`. `/health` reports `db: true` through Supabase's IPv4 pooler, and photos upload straight to Storage. Live at **https://api.kinmap.somedude.app** (CNAME in Cloudflare, proxy off; verified `db: true`).
-- [x] The dev app points at the hosted API (`EXPO_PUBLIC_API_URL`). A standalone **Kinmap (Preview)** Android build (`com.somedude.kinmap.preview`, EAS `d43e324d`, with native photo uploads) bundles its code and uses the hosted API, so it works on any network without the founder's PC.
-- [ ] Install the preview APK and run a full test away from home Wi-Fi (sign-in, tree, voice update, photo). Online, AI uses the offline parser until `ANTHROPIC_API_KEY` is set in Vercel.
-- [ ] Before hosting the API on Vercel: switch `DATABASE_URL` to the IPv4 pooler and move uploads to signed upload URLs (Vercel's 4.5 MB request limit).
+- [x] The dev app points at the hosted API (`EXPO_PUBLIC_API_URL` in `mobile/.env`). A standalone **Kinmap (Preview)** Android build (`com.somedude.kinmap.preview`, EAS `d43e324d`, with native photo uploads) bundles its code and uses the hosted API, so it works on any network without the founder's PC.
+- [x] **Preview app tested (2026-10-24):** installed on the founder's phone; sign-in and a photo upload work through the hosted API. Photo uploads first failed with "Unsupported FormDataPart implementation" (this Expo version's fetch can't send React Native file parts); fixed by streaming the file natively with expo-file-system's `UploadTask` to the Storage signed-upload URL (Kinmap `9e0f7b2`). Voice waits on the Claude key above.
+- [ ] Full test on cellular data away from home Wi-Fi, including inviting a second account as an editor.
 - [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
 - [ ] Ship EAS builds to the App Store + Google Play (Apple $99/yr, Google $25 once).
@@ -271,10 +271,23 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 
 ---
 
-## 10. Immediate next steps (this week)
+## 10. Immediate next steps (as of 2026-10-24)
 
-1. Verify the SomeDude name + buy domains only after availability checks.
-2. Keep all three existing GitHub repositories backed up and current.
-3. Deploy Afoot to Vercel + a domain; seed LA venues.
-4. ~~Apply the first Kinmap schema~~ and ~~connect the server and sign-in~~ (done 2026-10-23). Next: email templates + a new development build, then the first real sign-in on a phone.
-5. Read the [Company Design System](./Company-Design-System.md) and apply the shared tokens as you touch each app.
+Nothing has to run on the founder's computer: Kinmap's API is on Vercel (`api.kinmap.somedude.app`),
+Afoot is on Vercel (`afoot.somedude.app`), and the Kinmap (Preview) app is standalone. Local dev servers
+were stopped on 2026-10-24; to develop again, run `npm run server` / `npm run app` in `kinmap/` and
+`npm run dev` in `Afoot/`. The Kinmap (Dev) app only works while `npm run app` is running.
+
+1. **Kinmap:** add `ANTHROPIC_API_KEY` in Vercel and redeploy; re-record the family story; test on
+   cellular data and invite a second account.
+2. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
+3. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
+   for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before
+   the first paid placement. Add cookieless visit counts for the pitch.
+4. **Afoot:** switch the live site to read events from Supabase if it still uses the CSV (needed for
+   featured events).
+5. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` (no
+   longer valid) into a password manager and delete them; create a new Vercel token if deploys from
+   this machine are wanted.
+6. Read the [Company Design System](./Company-Design-System.md) and apply the shared tokens as you touch
+   each app.
