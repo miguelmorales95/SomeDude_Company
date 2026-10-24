@@ -154,7 +154,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [ ] AI clean-up job a few times a day: re-check uncertain events against their source pages with Haiku 5.5 (about 2–5¢ per run). Needs Vercel Pro, GitHub Actions, or a local machine to schedule more than once a day.
 - [x] Rename the app from "WhatsUp LA" to Afoot in the code, site title, and GitHub repository (2026-10-23). The contact email waits for a domain.
 - [ ] Run discovery + ingest to seed ~30–50 real LA venues; spot-check recurrence.
-- [ ] Sponsors: follow the [Afoot Sponsorship Playbook](./Afoot-Sponsorship-Playbook.md) (what to sell, finding and signing sponsors, ad design, privacy-safe counting, Stripe, sponsor reports). First build campaigns + view/click counting, then sign 3–5 founding sponsors (free first month).
+- [ ] Sponsors: follow the [Afoot Sponsorship Playbook](./Afoot-Sponsorship-Playbook.md) (what to sell, finding and signing sponsors, ad design, privacy-safe counting, Stripe, sponsor reports). Campaigns, privacy-safe view/click counting, the /admin Sponsors section and monthly reports are built (Afoot `112efeb`, 2026-10-23); next apply the sponsor migration, set `ADMIN_TOKEN` in Vercel, then sign 3–5 founding sponsors (free first month).
 - [ ] Soft-launch in 1–2 LA neighborhoods; gather usage + venue feedback.
 - **Milestone:** a live, public product with real local events and first sponsor conversations.
 

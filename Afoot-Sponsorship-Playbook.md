@@ -197,7 +197,16 @@ from a real browser.
 
 ## 9. What to build in Afoot (in order)
 
-Today sponsors are a hard-coded list (`SPONSORS` in `lib/ads.ts`), with no counting and no payments.
+**Status (2026-10-23, Afoot `112efeb`):** steps 1–4 are built and deployed in code. Before they work on
+the live site, two things are needed: apply `supabase/migrations/20261023120000_sponsor_campaigns.sql`
+(additive; reviewed but not yet applied), and set `ADMIN_TOKEN` in Vercel (admin routes now refuse
+everyone in production without it). Stripe (step 5) and the sponsor dashboard (step 6) are not built.
+Known limits:
+- Featured events only pin in list view, and only once the site reads events from Supabase
+  (CSV events have no stable ids).
+- A sponsor card loads a moment after the page.
+- Counts can be inflated by someone deliberately reloading or clicking. No tracking is added to
+  prevent that.
 
 1. **Campaigns in the database:**
    - `sponsors`: business name, contact email, Stripe customer id.
