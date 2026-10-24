@@ -177,7 +177,8 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] Supabase custom SMTP through Resend (sending-only key, sender `kinmap@somedude.app`), with the sign-in code in the Magic Link template (2026-10-23). Supabase allows 30 auth emails/hour with custom SMTP; Resend's free tier is 100/day, 3,000/month.
 - [x] Replies to `kinmap@somedude.app` forward to the founder (Cloudflare Email Routing rule), and sign-in emails show the code (2026-10-23).
 - [x] Speed (2026-10-23, Kinmap `a470dbb`): connections stay open instead of reconnecting (~0.8 s each), names are cached, and a tree loads in one query. Measured against the live database: role check ~95 ms, whole tree ~120 ms, applying the 17-step test change ~0.6 s (was ~5 s).
-- [ ] **Turn on Claude for voice updates (next):** add `ANTHROPIC_API_KEY` in Vercel (kinmap project, Sensitive) with a monthly spend limit in the Anthropic console, then redeploy. Online, the API can't reach the local model, so voice falls back to a simple parser that only understands sentences like "Rose Diaz is the mother of Ana Diaz" (seen 2026-10-24: an empty draft). The local model was also slow (51 s per story) and made mistakes (a husband proposed as a parent, a duplicate person); Claude Haiku 5.5 takes a few seconds for about $0.001. After that, discard the empty draft and the old failed change and record the story again.
+- [x] **Claude for voice updates (2026-10-24):** `ANTHROPIC_API_KEY` set in Vercel; `/health` reports `claude-haiku-5-5` ($0.10 / $0.50 per million tokens, about $0.001 per story). Re-record the family story in the app; discard the empty draft and the old failed change first.
+- [x] **AI spending guardrails (Kinmap `ecda0c6`):** every model call is logged in `ai_usage` with tokens and cost. Before each voice update the API checks each tree's monthly allowance (`AI_TREE_MONTHLY_USD`, default $1 ≈ 1,000 stories) and each person's daily calls (`AI_USER_DAILY_CALLS`, default 40), and refuses transcripts over 8,000 characters. Manual edits are never limited. The Anthropic console's spend limit is the backstop.
 - [x] **Hosting (2026-10-23):** the Kinmap API runs on Vercel (`kinmap-flax.vercel.app`, `iad1`), redeploying on every push to `main`. `/health` reports `db: true` through Supabase's IPv4 pooler, and photos upload straight to Storage. Live at **https://api.kinmap.somedude.app** (CNAME in Cloudflare, proxy off; verified `db: true`).
 - [x] The dev app points at the hosted API (`EXPO_PUBLIC_API_URL` in `mobile/.env`). A standalone **Kinmap (Preview)** Android build (`com.somedude.kinmap.preview`, EAS `d43e324d`, with native photo uploads) bundles its code and uses the hosted API, so it works on any network without the founder's PC.
 - [x] **Preview app tested (2026-10-24):** installed on the founder's phone; sign-in and a photo upload work through the hosted API. Photo uploads first failed with "Unsupported FormDataPart implementation" (this Expo version's fetch can't send React Native file parts); fixed by streaming the file natively with expo-file-system's `UploadTask` to the Storage signed-upload URL (Kinmap `9e0f7b2`). Voice waits on the Claude key above.
@@ -278,14 +279,13 @@ Afoot is on Vercel (`afoot.somedude.app`), and the Kinmap (Preview) app is stand
 were stopped on 2026-10-24; to develop again, run `npm run server` / `npm run app` in `kinmap/` and
 `npm run dev` in `Afoot/`. The Kinmap (Dev) app only works while `npm run app` is running.
 
-1. **Kinmap:** add `ANTHROPIC_API_KEY` in Vercel and redeploy; re-record the family story; test on
-   cellular data and invite a second account.
+1. **Kinmap:** re-record the family story with Claude (now on); test on cellular data and invite a second
+   account.
 2. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
 3. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
    for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before
-   the first paid placement. Add cookieless visit counts for the pitch.
-4. **Afoot:** switch the live site to read events from Supabase if it still uses the CSV (needed for
-   featured events).
+   the first paid placement. Turn on Vercel **Analytics** for the afoot project (the cookieless visit
+   counter is already in the code, Afoot `47d7e11`). Write a plain-language privacy page (none exists yet).
 5. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` (no
    longer valid) into a password manager and delete them; create a new Vercel token if deploys from
    this machine are wanted.

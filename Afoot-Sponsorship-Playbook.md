@@ -206,8 +206,10 @@ from a real browser.
 `ADMIN_TOKEN` is set in Vercel, so /admin on afoot.somedude.app needs the token. Stripe (step 5) and
 the sponsor dashboard (step 6) are not built.
 Known limits:
-- Featured events only pin in list view, and only once the site reads events from Supabase
-  (CSV events have no stable ids).
+- Featured events only pin in list view. The live site reads events from Supabase (checked 2026-10-24),
+  so they work there.
+- Visit counts: Vercel Web Analytics is in the code (Afoot `47d7e11`); turn it on in the Vercel project's
+  Analytics tab.
 - A sponsor card loads a moment after the page.
 - Counts can be inflated by someone deliberately reloading or clicking. No tracking is added to
   prevent that.

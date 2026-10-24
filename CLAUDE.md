@@ -63,7 +63,7 @@ without a reviewed migration, backup, and verification plan.
 - `public`: NoBucks' Prisma tables (`User`, `Event`, `Listing`, …; a handful of test rows). Prisma's
   migration tooling may offer to reset a schema with unknown tables, so no other app goes in `public`.
 - `afoot`: Afoot's tables, created from `Afoot/supabase/schema.sql` and exposed in Data API settings;
-  267 events as of 2026-10-23. Sponsor tables (`sponsors`, `campaigns`, `campaign_daily`, `bump_campaign`)
+  267 events as of 2026-10-23; the live site reads events from Supabase (not the CSV). Sponsor tables (`sponsors`, `campaigns`, `campaign_daily`, `bump_campaign`)
   were added 2026-10-23 after a backup (`npm run backup:db` in Afoot → `~/Backups/supabase-xpqzvmggzhsaggrebxxv/`).
   Afoot is public at https://afoot.somedude.app; /admin needs `ADMIN_TOKEN`.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
@@ -87,8 +87,9 @@ Android development build (EAS `0f85ab9a`), created a tree and recorded a family
 (Cloudflare Registrar, Email Routing for incoming mail) is verified in Resend, and Supabase sends auth
 email through Resend SMTP as `kinmap@somedude.app`. The Resend key is in the ignored `resend_key.txt`
 here; move it to a password manager. The API keeps database connections open and batches writes (Kinmap `a470dbb`): ~0.1 s per read, ~0.6 s to apply a 17-step change. It is hosted on Vercel at https://api.kinmap.somedude.app (auto-deploys from `main`, Root Directory `server`); `/health` shows database reachability. EAS profiles: `development` (code from the PC's dev server) and `preview` (standalone, hosted API; installed
-and tested 2026-10-24: sign-in and native photo uploads work). Voice online needs `ANTHROPIC_API_KEY` in
-Vercel; without it the API falls back to a simple offline parser. No local servers need to run. The free plan has no backups: no real family data before Pro
+and tested 2026-10-24: sign-in and native photo uploads work). Voice uses Claude Haiku 5.5 online (key set
+in Vercel 2026-10-24), with per-tree monthly and per-person daily AI limits logged in `ai_usage`. No local
+servers need to run. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
