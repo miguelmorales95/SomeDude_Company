@@ -80,11 +80,11 @@ The Kinmap server (commit `eb8c7df`) now reads and writes this database, verifie
 user's own token for Storage (no secret key on the server). The app signs in with an emailed one-time
 code; the `x-user-id` switcher and JSON store are gone. Verified: 16 server tests against the real
 migrations in PGlite, app typecheck and production bundle, live server refuses missing/forged tokens.
-**Not yet verified end to end on a phone:** that needs `{{ .Token }}` in the Magic Link and Confirm
-signup email templates, then a real sign-in with the new Android development build (EAS build
-`0f85ab9a`, 2026-10-23). Email: `somedude.app` is bought (Cloudflare Registrar, Email Routing for incoming
-mail) and added to Resend with DNS verified publicly; Supabase's SMTP settings still need a Resend
-sending key. Until then Supabase's built-in email reaches only team members (a few per hour). The free plan has no backups: no real family data before Pro
+**Verified end to end on a phone (2026-10-23):** the founder signed in with an emailed code on the new
+Android development build (EAS `0f85ab9a`), created a tree and recorded a family story. Email: `somedude.app`
+(Cloudflare Registrar, Email Routing for incoming mail) is verified in Resend, and Supabase sends auth
+email through Resend SMTP as `kinmap@somedude.app`. The Resend key is in the ignored `resend_key.txt`
+here; move it to a password manager. API calls are slow (0.5–5 s), mostly from database round trips. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
