@@ -41,7 +41,8 @@ promise is a warm, trustworthy family keepsake, not simply another genealogy dat
 
 Afoot discovers small local events that are hard to find on major event platforms. Its current
 revenue direction is privacy-respecting local sponsorships and paid venue/event placement, with
-possible newsletters or ticketing referrals later. Avoid behavioral tracking unless the founder
+possible newsletters or ticketing referrals later ([Afoot-Sponsorship-Playbook.md](./Afoot-Sponsorship-Playbook.md)
+has the sales, contract, ad-format, measurement and billing plan). Avoid behavioral tracking unless the founder
 explicitly revisits the product's privacy promise.
 
 ### NoBucks — mission and organization funding

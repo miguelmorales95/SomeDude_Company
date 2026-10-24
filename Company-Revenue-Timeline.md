@@ -130,6 +130,9 @@ relationships, photos, sometimes minors).
 Afoot earns from **businesses wanting to reach people**, never from users. As with Craigslist, users get
 everything free and a few listing types are paid.
 
+How to sell, sign, deliver, measure and bill these is in the
+[Afoot Sponsorship Playbook](./Afoot-Sponsorship-Playbook.md).
+
 ### Revenue lines, in order
 
 | Line | Price idea | What it needs |
