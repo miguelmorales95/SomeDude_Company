@@ -182,6 +182,29 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] **Hosting (2026-10-23):** the Kinmap API runs on Vercel (`kinmap-flax.vercel.app`, `iad1`), redeploying on every push to `main`. `/health` reports `db: true` through Supabase's IPv4 pooler, and photos upload straight to Storage. Live at **https://api.kinmap.somedude.app** (CNAME in Cloudflare, proxy off; verified `db: true`).
 - [x] The dev app points at the hosted API (`EXPO_PUBLIC_API_URL` in `mobile/.env`). A standalone **Kinmap (Preview)** Android build (`com.somedude.kinmap.preview`, EAS `d43e324d`, with native photo uploads) bundles its code and uses the hosted API, so it works on any network without the founder's PC.
 - [x] **Preview app tested (2026-10-24):** installed on the founder's phone; sign-in and a photo upload work through the hosted API. Photo uploads first failed with "Unsupported FormDataPart implementation" (this Expo version's fetch can't send React Native file parts); fixed by streaming the file natively with expo-file-system's `UploadTask` to the Storage signed-upload URL (Kinmap `9e0f7b2`). Voice waits on the Claude key above.
+- [x] **Answer the AI's questions by voice or typing (2026-10-25, Kinmap `d062bbd`)** and a **language switcher**
+  at the top right of every screen: English, Español, 普通话 (Simplified), 廣東話 (Traditional) (`0309f22`,
+  `65d9927`). Committed locally; not yet pushed or tried on a phone.
+- [ ] **Launch gaps found while building these (2026-10-25)**. Fix before beta families unless noted:
+  - [ ] Push Kinmap `main` (redeploys the API) and test answering questions and all four languages on a phone.
+  - [ ] **Server error messages are English only** (AI limits, permissions, "Tree not found"). Plan: answer
+        in the app's language, which every request already sends (`accept-language`); no need to ask.
+  - [ ] **Sign-in email is English only.** Plan: the app saves the chosen language to the account
+        (`user_metadata.lang`, when signing in and whenever it's switched), and the Supabase email template
+        picks its wording with `{{ if eq .Data.lang "es" }}…`. Fallback: one short email whose code is
+        readable in every language.
+  - [ ] **Invite language.** Plan: a language choice on the invite card (defaults to the inviter's) for the
+        shared invite message, so a grandparent who reads Cantonese gets the invite in Cantonese. The invitee's
+        app still starts in their phone's language, and the globe button is one tap away.
+  - [ ] Spanish, Mandarin and Cantonese text written by Claude; needs a read by native speakers (relatives).
+  - [ ] Cantonese dictation language codes (`yue-Hant-HK` on Android, `zh-HK` on iPhone) unverified on a device.
+  - [ ] Taiwan (Mandarin in Traditional characters) not covered; those phones get Simplified. Later.
+  - [ ] The transcript highlighter marks names, places and dates only in alphabetic scripts, not Chinese. Later.
+  - [ ] Stories and facts stay in the language they were told in, by design; relatives who read another
+        language see them untranslated. A "translate" button could come later (counts against AI budgets).
+  - [ ] Summaries of hand edits ("Edited Rosa") are saved in the editor's language at the time; others see
+        them in that language. Minor.
+  - [ ] The no-AI fallback parser doesn't recognize accented names ("Tomás"). Only matters without an AI key.
 - [ ] Full test on cellular data away from home Wi-Fi, including inviting a second account as an editor.
 - [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
 - [ ] **Next features** ([Kinmap Feature Specs](./Kinmap-Feature-Specs.md)): answer the AI's questions by voice, links & favorites on each person (songs, videos, articles), a personal board with pins and stickers, a slideshow mode with custom slides (reunion schedules), and prints ordered through Kinmap (wall poster, family book and binder pages, photo calendar) with privacy-safe defaults for living people. Physical keepsakes are an early revenue line beside the subscription. The founder's cellular test on 2026-10-24 worked (sign-in, voice with Claude, photos).
@@ -273,15 +296,15 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 
 ---
 
-## 10. Immediate next steps (as of 2026-10-24)
+## 10. Immediate next steps (as of 2026-10-25)
 
 Nothing has to run on the founder's computer: Kinmap's API is on Vercel (`api.kinmap.somedude.app`),
 Afoot is on Vercel (`afoot.somedude.app`), and the Kinmap (Preview) app is standalone. Local dev servers
 were stopped on 2026-10-24; to develop again, run `npm run server` / `npm run app` in `kinmap/` and
 `npm run dev` in `Afoot/`. The Kinmap (Dev) app only works while `npm run app` is running.
 
-1. **Kinmap:** re-record the family story with Claude (now on); test on cellular data and invite a second
-   account.
+1. **Kinmap:** push the new features and test them together on a phone (answering questions, languages,
+   links & favorites); fix the launch gaps listed in Phase 3. Test on cellular data and invite a second account.
 2. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
 3. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
    for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before

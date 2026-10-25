@@ -80,9 +80,17 @@ launch follows the phone's language.
   spoke**, so a story told in Spanish isn't translated into English.
 - No native modules, so it ships as a JS update without a new build.
 
-**Not done yet:**
-- Server error messages (budget limits, permission errors) are still English.
-- The sign-in email template is English.
+**Not done yet** (also listed under "Launch gaps" in the roadmap's Phase 3):
+- **Server error messages** (budget limits, permission errors) are still English. Use the app's language:
+  every request already says which one, and the person reading the error is the one who chose it.
+- **Sign-in email** is still English. Save the chosen language on the account (`user_metadata.lang`, at
+  sign-in and on every switch), and let the Supabase email template choose its wording with
+  `{{ if eq .Data.lang "es" }}`. The sign-in screen has the globe button too, so the language is known
+  before the first email goes out.
+- **Invites:** add a language choice to the invite card (defaults to the inviter's language) for the
+  shared invite message. Kinmap doesn't send invites itself; the inviter shares a code through their
+  phone. So this choice only changes the message's wording. The invitee's app starts in their phone's
+  language either way.
 - The Spanish, Mandarin and Cantonese wording needs a read by native speakers, ideally relatives.
 - Check on a phone that Cantonese dictation works with these language codes; the recognizer's codes vary
   by device.
