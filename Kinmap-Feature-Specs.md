@@ -1,7 +1,8 @@
 # Kinmap Feature Specs: questions, links, boards, slideshows and prints
 
-**Owner:** Miguel Morales · **As of:** 2026-10-24 · **Status:** drafts to build next. None of these exist
-in the code yet (checked 2026-10-24).
+**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** feature 1 (answering questions) and the
+language switcher (1b) are built and committed in Kinmap (`d062bbd`, `0309f22`), not yet pushed or tried on a
+phone. The rest are drafts.
 
 Kinmap is a warm family keepsake, so all three features follow the same rules as the rest of the app:
 - Family-tree changes go through change requests: owners and admins apply instantly; editors' changes
@@ -12,6 +13,10 @@ Kinmap is a warm family keepsake, so all three features follow the same rules as
 ---
 
 ## 1. Answer the AI's questions by voice
+
+**Status (2026-10-25): built** (Kinmap `d062bbd`), as specified below. "I don't know" (or "No sé") closes a
+question without an AI call. Answered questions show under "Questions answered" on the review screen, so
+approvers see them. Not yet tried on a phone.
 
 **Today:** after you talk, the review screen lists "Open questions" (e.g. "How are the siblings related to
 Miguel's parents?") as plain text. There's no way to answer, so the questions are a dead end.
@@ -47,6 +52,33 @@ it's answered.
 - "I don't know": the question is marked answered with no changes.
 
 **Effort:** about 1–2 days.
+
+---
+
+## 1b. Language switcher (English / Español)
+
+**Status (2026-10-25): built** (Kinmap `0309f22`). Not yet tried on a phone.
+
+**What it should feel like:** a globe button at the top right of every screen, labeled with the *other*
+language's own name ("Español" when the app is in English). Someone who can't read the current language
+still recognizes theirs. One tap switches every screen at once, with no reload. The choice is saved on the
+device; the first launch follows the phone's language.
+
+**How it works:**
+- All app text lives in `mobile/src/lib/strings/en.ts` and `es.ts`; TypeScript flags any string a
+  translation is missing. Adding a language means adding a dictionary and one row in `lib/i18n.tsx`. With
+  more than two languages, the button should open a short list instead of toggling.
+- Speech recognition (`es-US`), dates, client error messages and the transcript highlighter follow the
+  language.
+- The app sends `accept-language`. The server writes the short review lines ("Hijo o hija de Rosa") and
+  the AI's summary and questions in that language. **Tree content stays in the language the family member
+  spoke**, so a story told in Spanish isn't translated into English.
+- No native modules, so it ships as a JS update without a new build.
+
+**Not done yet:**
+- Server error messages (budget limits, permission errors) are still English.
+- The sign-in email template is English.
+- The Spanish wording needs a native speaker's read, ideally a relative.
 
 ---
 
@@ -265,7 +297,11 @@ Not offering: name placards or tags for reunions.
 
 ## Suggested order
 
-1. **Answering questions** (small, and it fixes a dead end in the core flow).
+Miguel's order (2026-10-25): answering questions, language switcher, links, boards, slideshow, downloadable
+PDFs, then ordering prints through Kinmap once a partner's privacy terms are confirmed in writing.
+
+1. **Answering questions** (small, and it fixes a dead end in the core flow). *Built.*
+   - **Language switcher** (English/Español, top right). *Built.*
 2. **Links & favorites** (small, and boards can pin them).
 3. **Personal boards**, starting with members' own boards and a basic layout, then drag/resize/rotate.
 
