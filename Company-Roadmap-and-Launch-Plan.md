@@ -190,53 +190,51 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
   option (`0bad6fe`). **Live since 2026-10-25:** database backed up, five migrations applied, API pushed and
   deployed on Vercel (`/health` ok), new Android preview build started on EAS. Not built: ordering prints
   (waits on a partner).
-- [ ] **Launch gaps found while building these (2026-10-25)**. Fix before beta families unless noted:
-  - [x] **Deploy (2026-10-25):** backed up (`npm run backup:db` in `kinmap/server` →
-        `~/Backups/supabase-puskxnikpiusgvtzhire/`), applied the five `20261025*` migrations with
-        `npm run migrate`, pushed Kinmap `main`; Vercel deployed it. New preview APK built on EAS.
-  - [ ] Install the new preview APK and test every new feature on a phone (the old preview build has the
-        old screens; the app has no over-the-air updates, so each change needs a new build or `expo-updates`).
-  - [ ] No in-app account deletion yet; the privacy policy offers deletion by email. Google Play requires an
-        in-app or web deletion path before listing.
-  - [ ] Privacy policy (`kinmap.somedude.app/privacy`) was drafted from the code; have it reviewed, and fill
-        in Supabase's data region.
-  - [ ] Boards: drag/pinch/rotate uses built-in touch handling (no new build); check it feels smooth. No
-        handwriting font yet.
-  - [ ] Slideshows: music only from another app; casting shows portrait (landscape needs an `app.json`
-        change and a new build); no hosted web player for a laptop yet.
-  - [ ] PDFs: only owners/admins export. Chinese fonts download from GitHub on first use (vendor them if
-        that's ever unreliable). Old exports are deleted when the next one is made, not on a schedule.
-        Very large trees with many photos could hit Vercel's 60 s limit. Calendar, branch and story pages,
-        fan/botanical poster layouts and the map inset aren't built. A "download PDF" subscription perk
-        needs billing first.
-  - [ ] Ordering prints through Kinmap: not built. Needs a partner (Prodigi, Printful, Gelato; Lulu or
-        Blurb for books) whose terms require deleting files and addresses after shipping, confirmed in
-        writing, plus Stripe.
-  - [ ] Link thumbnails load from YouTube's/Spotify's image servers, which see viewers' IP addresses (no
-        cookies). Copy them into private storage later. Sites that block bots show only their name.
-  - [ ] **Server error messages are English only** (AI limits, permissions, "Tree not found"). Plan: answer
-        in the app's language, which every request already sends (`accept-language`); no need to ask.
-  - [ ] **Sign-in email is English only.** Plan: the app saves the chosen language to the account
-        (`user_metadata.lang`, when signing in and whenever it's switched), and the Supabase email template
-        picks its wording with `{{ if eq .Data.lang "es" }}…`. Fallback: one short email whose code is
-        readable in every language.
-  - [ ] **Invite language.** Plan: a language choice on the invite card (defaults to the inviter's) for the
-        shared invite message, so a grandparent who reads Cantonese gets the invite in Cantonese. The invitee's
-        app still starts in their phone's language, and the globe button is one tap away.
-  - [ ] Spanish, Mandarin and Cantonese text written by Claude; needs a read by native speakers (relatives).
-  - [ ] Cantonese dictation language codes (`yue-Hant-HK` on Android, `zh-HK` on iPhone) unverified on a device.
-  - [ ] Taiwan (Mandarin in Traditional characters) not covered; those phones get Simplified. Later.
-  - [ ] The transcript highlighter marks names, places and dates only in alphabetic scripts, not Chinese. Later.
-  - [ ] Stories and facts stay in the language they were told in, by design; relatives who read another
-        language see them untranslated. A "translate" button could come later (counts against AI budgets).
-  - [ ] Summaries of hand edits ("Edited Rosa") are saved in the editor's language at the time; others see
-        them in that language. Minor.
-  - [ ] The no-AI fallback parser doesn't recognize accented names ("Tomás"). Only matters without an AI key.
-- [ ] Full test on cellular data away from home Wi-Fi, including inviting a second account as an editor.
-- [ ] Calendar: holidays are U.S. plus Lunar New Year, Mid-Autumn (2025–2035) and Día de Muertos;
-      wedding anniversaries aren't marked (no wedding dates are stored yet).
-- [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
-- [ ] **Next features** ([Kinmap Feature Specs](./Kinmap-Feature-Specs.md)): answer the AI's questions by voice, links & favorites on each person (songs, videos, articles), a personal board with pins and stickers, a slideshow mode with custom slides (reunion schedules), and prints ordered through Kinmap (wall poster, family book and binder pages, photo calendar) with privacy-safe defaults for living people. Physical keepsakes are an early revenue line beside the subscription. The founder's cellular test on 2026-10-24 worked (sign-in, voice with Claude, photos).
+- [x] **Deploy (2026-10-25):** backed up (`npm run backup:db` in `kinmap/server` →
+      `~/Backups/supabase-puskxnikpiusgvtzhire/`), applied the five `20261025*` migrations with
+      `npm run migrate`, pushed Kinmap `main`; Vercel deployed it. New preview APK built on EAS
+      (build `a5b4b608`).
+- [ ] **Launch-gap sprint (pulled forward 2026-10-25, now that the features are live).** Ordered; the
+      code items are about a day or two each.
+  - **A. Before relatives use it**
+    - [ ] Founder: install the new preview APK and test every new feature on a phone, including on cellular
+          data and with a second account invited as an editor. Check board/calendar dragging feels smooth,
+          Cantonese dictation (`yue-Hant-HK` on Android, `zh-HK` on iPhone) and the slideshow staying awake.
+    - [ ] **Over-the-air updates** (`expo-updates`): one more build, then fixes reach phones without a new
+          APK each time. Do this first so the rest of the sprint ships faster.
+    - [ ] **Delete account / delete tree in the app**, plus a web page to request deletion (Google Play
+          requires one). The privacy policy currently offers deletion by email.
+    - [ ] **"Get a copy" export** for owners (the tree as JSON plus its photos), which the privacy policy
+          promises; today it would be done by hand.
+    - [ ] **Server error messages in the app's language** (AI limits, permissions, "Tree not found"): every
+          request already says which language; no need to ask.
+    - [ ] **Sign-in email in the person's language:** the app saves the language to the account
+          (`user_metadata.lang`) at sign-in and on every switch; the Supabase email template picks its
+          wording with `{{ if eq .Data.lang "es" }}…`. The founder pastes the template into Supabase.
+    - [ ] **Invite language:** a language choice on the invite card (defaults to the inviter's) for the
+          shared message, so a grandparent who reads Cantonese gets it in Cantonese.
+    - [ ] Backups: Supabase Pro ($25/mo, daily) before real families' data, or run `npm run backup:db`
+          weekly until then. Photo files aren't in that backup.
+    - [ ] Relatives who are native speakers read the Spanish, Mandarin and Cantonese text.
+  - **B. Before a Google Play listing**
+    - [ ] Privacy policy (`kinmap.somedude.app/privacy`, drafted from the code): have it reviewed and add
+          Supabase's data region.
+    - [ ] Stripe billing, the family plan and AI credit caps (below).
+    - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
+  - **C. Later polish** (fine for a beta)
+    - Slideshows: landscape when casting (`app.json` change + build), a laptop web player, music inside
+      the app.
+    - Link thumbnails copied into private storage (they load from YouTube/Spotify, which see viewers'
+      IP addresses); sites that block bots show only their name.
+    - PDFs: vendor the Chinese fonts (now fetched from GitHub on first use), scheduled cleanup of exports,
+      very large trees may hit Vercel's 60 s limit, branch/story pages, fan/botanical posters, map inset,
+      calendar anniversaries.
+    - Boards: a handwriting font. Taiwan (Traditional Mandarin). Name/place highlighting in Chinese
+      transcripts. A "translate" button for stories told in another language. Hand-edit summaries saved
+      in the editor's language. Accented names in the no-AI fallback parser.
+    - Ordering prints through Kinmap: needs a partner whose terms require deleting files and addresses
+      after shipping, confirmed in writing, plus Stripe.
+- [x] **Features from the [Kinmap Feature Specs](./Kinmap-Feature-Specs.md)** (2026-10-25): answering the AI's questions by voice, the language switcher, links & favorites, boards, slideshows, and printable binder pages, wall poster and photo calendar. Ordering prints through Kinmap waits on a partner.
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
 - [ ] Ship EAS builds to the App Store + Google Play (Apple $99/yr, Google $25 once).
 - [ ] Launch with a paywall from day one; invite beta families.
@@ -251,17 +249,13 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - **Milestone:** a funded pilot or first org license — *not* a mass consumer launch.
 
 ### Phase 5 — Company layer (ongoing)
-- [ ] **Websites (built 2026-10-25, domains not yet connected):**
-  - [ ] `somedude.app`: company page in this repo's `site/` folder (static HTML). Import this repo in
-        Vercel with Root Directory `site`, add `somedude.app` + `www`, and point Cloudflare DNS at Vercel.
-        Add a Cloudflare Email Routing rule for `hello@somedude.app` (the page uses it).
-  - [ ] `kinmap.somedude.app`: landing page + privacy policy in Kinmap's `website/` folder (pushed). Import
-        the Kinmap repo in Vercel again as a second project with Root Directory `website`, add the domain,
-        CNAME in Cloudflare.
-  - [x] `afoot.somedude.app`: already live (the Afoot app is its site).
+- [x] **Websites live (2026-10-25):** `somedude.app` (company page, this repo's `site/`, Vercel project
+      `somedude-site`; the bare domain forwards to `www`), `kinmap.somedude.app` (landing + privacy policy,
+      Kinmap's `website/`, Vercel project `kinmap-website`), and `afoot.somedude.app` (the Afoot app).
+      DNS in Cloudflare, all "DNS only".
+  - [ ] Cloudflare Email Routing rule for `hello@somedude.app` (the company page's contact address).
   - [ ] Afoot privacy page: it has accounts, RSVPs, contact requests and messages, so write it from the
         schema. Keep `NEXT_PUBLIC_AD_PROVIDER` off `adsense`: the company site promises no tracking ads.
-  - [ ] "SomeDude" is now public on the site: finish the trademark check (classes 9, 35, 42; see §9).
 - [ ] Shared brand, shared analytics.
 - [ ] Decide app #4 only after one of the three is paying.
 
@@ -339,19 +333,20 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 ## 10. Immediate next steps (as of 2026-10-25)
 
 Nothing has to run on the founder's computer: Kinmap's API is on Vercel (`api.kinmap.somedude.app`),
-Afoot is on Vercel (`afoot.somedude.app`), and the Kinmap (Preview) app is standalone. Local dev servers
-were stopped on 2026-10-24; to develop again, run `npm run server` / `npm run app` in `kinmap/` and
-`npm run dev` in `Afoot/`. The Kinmap (Dev) app only works while `npm run app` is running.
+Afoot is on Vercel (`afoot.somedude.app`), the websites are on Vercel, and the Kinmap (Preview) app is
+standalone. To develop locally, run `npm run server` / `npm run app` in `kinmap/` and `npm run dev` in
+`Afoot/`.
 
-1. **Kinmap:** install the new preview APK and test the new features together on a phone (answering
-   questions, languages, links, boards, slideshows, PDFs, calendars); fix the launch gaps listed in Phase 3.
-   Test on cellular data and invite a second account. Run `npm run backup:db` in `kinmap/server` weekly.
-2. **Websites:** connect `somedude.app` and `kinmap.somedude.app` (Phase 5).
-3. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
-3. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
+1. **Kinmap, founder:** install the new preview APK, test everything (Phase 3, sprint A), and note what
+   breaks or feels wrong. Add the `hello@somedude.app` routing rule in Cloudflare.
+2. **Kinmap, build (sprint A, in order):** over-the-air updates, account/tree deletion, the "get a copy"
+   export, server errors in the app's language, sign-in email and invite language. Then fixes from the
+   phone test.
+3. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two
+   relatives, ideally ones who can check the Spanish or Chinese.
+4. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
    for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before
-   the first paid placement. Turn on Vercel **Analytics** for the afoot project (the cookieless visit
-   counter is already in the code, Afoot `47d7e11`). Write a plain-language privacy page (none exists yet).
+   the first paid placement. Turn on Vercel **Analytics** for the afoot project. Privacy page (Phase 5).
 5. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` (no
    longer valid) into a password manager and delete them; create a new Vercel token if deploys from
    this machine are wanted.
