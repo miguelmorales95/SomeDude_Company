@@ -1,7 +1,7 @@
 # Kinmap Feature Specs: questions, links, boards, slideshows and prints
 
 **Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** feature 1 (answering questions) and the
-language switcher (1b) are built and committed in Kinmap (`d062bbd`, `0309f22`), not yet pushed or tried on a
+language switcher (1b) are built and committed in Kinmap (`d062bbd`, `0309f22`, `65d9927`), not yet pushed or tried on a
 phone. The rest are drafts.
 
 Kinmap is a warm family keepsake, so all three features follow the same rules as the rest of the app:
@@ -55,19 +55,24 @@ it's answered.
 
 ---
 
-## 1b. Language switcher (English / Español)
+## 1b. Language switcher (English, Español, 普通话, 廣東話)
 
-**Status (2026-10-25): built** (Kinmap `0309f22`). Not yet tried on a phone.
+**Status (2026-10-25): built** (Kinmap `0309f22`, Chinese added in `65d9927`). Not yet tried on a phone.
 
-**What it should feel like:** a globe button at the top right of every screen, labeled with the *other*
-language's own name ("Español" when the app is in English). Someone who can't read the current language
-still recognizes theirs. One tap switches every screen at once, with no reload. The choice is saved on the
-device; the first launch follows the phone's language.
+**Languages:** English; Spanish; Mandarin, written in Simplified characters; and Cantonese, written in
+Traditional characters with Hong Kong wording. Each has matching speech recognition: `zh-CN` for Mandarin,
+and `yue-Hant-HK` on Android or `zh-HK` on iPhone for Cantonese. Phones set to `zh-HK` or `zh-MO` start in
+Cantonese, and other Chinese locales start in Mandarin.
+
+**What it should feel like:** a globe button at the top right of every screen, showing the current
+language. Tapping it opens a short list with each language in its own script, so anyone can find theirs.
+Choosing one switches every screen at once, with no reload. The choice is saved on the device; the first
+launch follows the phone's language.
 
 **How it works:**
-- All app text lives in `mobile/src/lib/strings/en.ts` and `es.ts`; TypeScript flags any string a
-  translation is missing. Adding a language means adding a dictionary and one row in `lib/i18n.tsx`. With
-  more than two languages, the button should open a short list instead of toggling.
+- All app text lives in `mobile/src/lib/strings/` (`en`, `es`, `zh`, `yue`); TypeScript flags any string a
+  translation is missing. Adding a language means adding a dictionary, one row in `lib/i18n.tsx`, and its
+  phrases in the server's `operations.js` and `ai.js`.
 - Speech recognition (`es-US`), dates, client error messages and the transcript highlighter follow the
   language.
 - The app sends `accept-language`. The server writes the short review lines ("Hijo o hija de Rosa") and
@@ -78,7 +83,11 @@ device; the first launch follows the phone's language.
 **Not done yet:**
 - Server error messages (budget limits, permission errors) are still English.
 - The sign-in email template is English.
-- The Spanish wording needs a native speaker's read, ideally a relative.
+- The Spanish, Mandarin and Cantonese wording needs a read by native speakers, ideally relatives.
+- Check on a phone that Cantonese dictation works with these language codes; the recognizer's codes vary
+  by device.
+- Taiwan (Mandarin read in Traditional characters) isn't covered; it currently gets Simplified.
+- The transcript highlighter only marks names and places in alphabetic scripts, not in Chinese.
 
 ---
 

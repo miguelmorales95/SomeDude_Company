@@ -90,7 +90,7 @@ here; move it to a password manager. The API keeps database connections open and
 and tested 2026-10-24: sign-in and native photo uploads work). Voice uses Claude Haiku 5.5 online (key set
 in Vercel 2026-10-24), with per-tree monthly and per-person daily AI limits logged in `ai_usage`. No local
 servers need to run. Planned features are specified in [Kinmap-Feature-Specs.md](./Kinmap-Feature-Specs.md);
-answering the AI's questions (`d062bbd`) and the English/Español switcher (`0309f22`) were committed locally
+answering the AI's questions (`d062bbd`) and the language switcher (English, Español, 普通话, 廣東話; `0309f22`, `65d9927`) were committed locally
 on 2026-10-25, not yet pushed (pushing `main` redeploys the API) or tried on a phone. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
