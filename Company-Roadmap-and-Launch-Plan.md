@@ -186,13 +186,20 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
   at the top right of every screen: English, Español, 普通话 (Simplified), 廣東話 (Traditional) (`0309f22`,
   `65d9927`). **Links & favorites** on each person (`6200b17`), **personal boards** with pins and 41
   stickers (`de8bf09`), **slideshows** for reunions (`d62926e`), and **printable PDFs**: binder pages and
-  a wall poster (`073b893`). Committed locally; not yet pushed or tried on a phone. None needs a new app
-  build. Not built: photo calendar; ordering prints (waits on a partner).
+  a wall poster (`073b893`), and **photo calendars** with a collage editor and a blank print-and-paste
+  option (`0bad6fe`). **Live since 2026-10-25:** database backed up, five migrations applied, API pushed and
+  deployed on Vercel (`/health` ok), new Android preview build started on EAS. Not built: ordering prints
+  (waits on a partner).
 - [ ] **Launch gaps found while building these (2026-10-25)**. Fix before beta families unless noted:
-  - [ ] **Deploy order:** apply the four new migrations to Kinmap's Supabase project *first*, in order:
-        `20261025000000_person_links.sql`, `20261025010000_boards.sql`, `20261025020000_slideshows.sql`,
-        `20261025030000_exports_bucket.sql` (tree loading reads `person_links`). Then push Kinmap `main`
-        (redeploys the API, now with `pdfkit` and `sharp`). Then reload the app and test everything on a phone.
+  - [x] **Deploy (2026-10-25):** backed up (`npm run backup:db` in `kinmap/server` →
+        `~/Backups/supabase-puskxnikpiusgvtzhire/`), applied the five `20261025*` migrations with
+        `npm run migrate`, pushed Kinmap `main`; Vercel deployed it. New preview APK built on EAS.
+  - [ ] Install the new preview APK and test every new feature on a phone (the old preview build has the
+        old screens; the app has no over-the-air updates, so each change needs a new build or `expo-updates`).
+  - [ ] No in-app account deletion yet; the privacy policy offers deletion by email. Google Play requires an
+        in-app or web deletion path before listing.
+  - [ ] Privacy policy (`kinmap.somedude.app/privacy`) was drafted from the code; have it reviewed, and fill
+        in Supabase's data region.
   - [ ] Boards: drag/pinch/rotate uses built-in touch handling (no new build); check it feels smooth. No
         handwriting font yet.
   - [ ] Slideshows: music only from another app; casting shows portrait (landscape needs an `app.json`
@@ -226,6 +233,8 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
         them in that language. Minor.
   - [ ] The no-AI fallback parser doesn't recognize accented names ("Tomás"). Only matters without an AI key.
 - [ ] Full test on cellular data away from home Wi-Fi, including inviting a second account as an editor.
+- [ ] Calendar: holidays are U.S. plus Lunar New Year, Mid-Autumn (2025–2035) and Día de Muertos;
+      wedding anniversaries aren't marked (no wedding dates are stored yet).
 - [ ] Supabase Pro ($25/mo) for daily backups before any real family's data goes in.
 - [ ] **Next features** ([Kinmap Feature Specs](./Kinmap-Feature-Specs.md)): answer the AI's questions by voice, links & favorites on each person (songs, videos, articles), a personal board with pins and stickers, a slideshow mode with custom slides (reunion schedules), and prints ordered through Kinmap (wall poster, family book and binder pages, photo calendar) with privacy-safe defaults for living people. Physical keepsakes are an early revenue line beside the subscription. The founder's cellular test on 2026-10-24 worked (sign-in, voice with Claude, photos).
 - [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
@@ -242,7 +251,18 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - **Milestone:** a funded pilot or first org license — *not* a mass consumer launch.
 
 ### Phase 5 — Company layer (ongoing)
-- [ ] Shared landing site ("one company, three apps"), shared brand, shared analytics.
+- [ ] **Websites (built 2026-10-25, domains not yet connected):**
+  - [ ] `somedude.app`: company page in the new local repo `~/SomeDude_Site` (static HTML). Create the
+        GitHub repo (private), import it in Vercel, add `somedude.app` + `www`, and point Cloudflare DNS at
+        Vercel. Add a Cloudflare Email Routing rule for `hello@somedude.app` (the page uses it).
+  - [ ] `kinmap.somedude.app`: landing page + privacy policy in Kinmap's `website/` folder (pushed). Import
+        the Kinmap repo in Vercel again as a second project with Root Directory `website`, add the domain,
+        CNAME in Cloudflare.
+  - [x] `afoot.somedude.app`: already live (the Afoot app is its site).
+  - [ ] Afoot privacy page: it has accounts, RSVPs, contact requests and messages, so write it from the
+        schema. Keep `NEXT_PUBLIC_AD_PROVIDER` off `adsense`: the company site promises no tracking ads.
+  - [ ] "SomeDude" is now public on the site: finish the trademark check (classes 9, 35, 42; see §9).
+- [ ] Shared brand, shared analytics.
 - [ ] Decide app #4 only after one of the three is paying.
 
 ---
@@ -323,10 +343,11 @@ Afoot is on Vercel (`afoot.somedude.app`), and the Kinmap (Preview) app is stand
 were stopped on 2026-10-24; to develop again, run `npm run server` / `npm run app` in `kinmap/` and
 `npm run dev` in `Afoot/`. The Kinmap (Dev) app only works while `npm run app` is running.
 
-1. **Kinmap:** apply the four migrations, push, and test the new features together on a phone (answering
-   questions, languages, links, boards, slideshows, PDFs); fix the launch gaps listed in Phase 3. Test on
-   cellular data and invite a second account.
-2. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
+1. **Kinmap:** install the new preview APK and test the new features together on a phone (answering
+   questions, languages, links, boards, slideshows, PDFs, calendars); fix the launch gaps listed in Phase 3.
+   Test on cellular data and invite a second account. Run `npm run backup:db` in `kinmap/server` weekly.
+2. **Websites:** connect `somedude.app` and `kinmap.somedude.app` (Phase 5).
+3. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
 3. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
    for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before
    the first paid placement. Turn on Vercel **Analytics** for the afoot project (the cookieless visit

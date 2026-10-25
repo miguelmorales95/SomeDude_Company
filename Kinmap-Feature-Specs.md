@@ -1,10 +1,10 @@
 # Kinmap Feature Specs: questions, links, boards, slideshows and prints
 
-**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** built and committed in Kinmap, not yet
-pushed or tried on a phone: answering questions (1), the language switcher (1b), links & favorites (2),
-boards (3), slideshows (6), and printable PDFs: binder pages (5) and the wall poster (4). Not built: the
-photo calendar (7), ordering prints through Kinmap (waits on a print partner), and other keepsakes (8).
-None of the built features needs a new app build.
+**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** built and live in Kinmap (not yet tried on a
+phone): answering questions (1), the language switcher (1b), links & favorites (2),
+boards (3), slideshows (6), and printable PDFs: binder pages (5), the wall poster (4) and the photo
+calendar (7). All went live on 2026-10-25. Not built: ordering prints through Kinmap (waits on a print
+partner) and other keepsakes (8).
 
 Kinmap is a warm family keepsake, so all three features follow the same rules as the rest of the app:
 - Family-tree changes go through change requests: owners and admins apply instantly; editors' changes
@@ -329,8 +329,12 @@ A full-screen show for a TV, a laptop at a reunion, or a phone.
 
 ## 7. Photo calendar
 
-**Status (2026-10-25): not built.** It would reuse the PDF renderer, fonts and print rules from the binder
-and poster.
+**Status (2026-10-25): built as a downloadable PDF** (Kinmap `0bad6fe`). Each month has a collage editor:
+pick tree photos or upload new ones, then drag, pinch, rotate and layer them (the same touch handling as
+boards). "Print blank photo spaces", or any empty month, leaves a frame for pasting real prints. The grid
+marks birthdays and "Remembering…" days for relatives who have passed, living relatives' birthdays only
+when switched on, and optional holidays (U.S., Lunar New Year, Mid-Autumn, Día de Muertos). Letter
+portrait, 13 pages. **Not built:** printed/folded calendars through a partner, cover photo, anniversaries.
 
 - The family picks a photo for each month (from tree photos, or "choose for me" from photos marked as
   favorites).
