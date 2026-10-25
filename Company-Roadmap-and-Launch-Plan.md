@@ -228,8 +228,10 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           service worker that never caches family data), tree and person side by side on wide screens,
           drag-and-drop photos, keyboard shortcuts, mouse/trackpad zoom, keepsakes in the browser.
     - [x] "Sign in" on kinmap.somedude.app → `https://app.kinmap.somedude.app`.
-    - [ ] Founder: Vercel project `kinmap-app` (repo Kinmap, Root Directory `mobile`, framework Other) with
-          domain `app.kinmap.somedude.app`, and its CNAME in Cloudflare (DNS only).
+    - [x] **Live (2026-10-25):** https://app.kinmap.somedude.app (Vercel project `kinmap-app`, Root
+          Directory `mobile`; `mobile/vercel.json` pins framework to none, since the project inherited the
+          API's Express preset). CNAME in Cloudflare, DNS only: Cloudflare's free certificate doesn't cover
+          two-level names like `app.kinmap`, so proxying breaks HTTPS.
     - [ ] Then: check it in Chrome/Edge (sign in, install), and package it for the Microsoft Store with
           PWABuilder (Microsoft developer account: one-time fee for individuals).
     - [ ] Phase 2 (only if families ask): "Use AI on this computer" with a user-installed Ollama.
