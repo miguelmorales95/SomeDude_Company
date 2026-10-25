@@ -252,9 +252,9 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 
 ### Phase 5 — Company layer (ongoing)
 - [ ] **Websites (built 2026-10-25, domains not yet connected):**
-  - [ ] `somedude.app`: company page in the new local repo `~/SomeDude_Site` (static HTML). Create the
-        GitHub repo (private), import it in Vercel, add `somedude.app` + `www`, and point Cloudflare DNS at
-        Vercel. Add a Cloudflare Email Routing rule for `hello@somedude.app` (the page uses it).
+  - [ ] `somedude.app`: company page in this repo's `site/` folder (static HTML). Import this repo in
+        Vercel with Root Directory `site`, add `somedude.app` + `www`, and point Cloudflare DNS at Vercel.
+        Add a Cloudflare Email Routing rule for `hello@somedude.app` (the page uses it).
   - [ ] `kinmap.somedude.app`: landing page + privacy policy in Kinmap's `website/` folder (pushed). Import
         the Kinmap repo in Vercel again as a second project with Root Directory `website`, add the domain,
         CNAME in Cloudflare.

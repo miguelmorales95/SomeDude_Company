@@ -94,7 +94,7 @@ answering the AI's questions (`d062bbd`) the language switcher (English, Españo
 printable PDFs and photo calendars went live on 2026-10-25: database backed up (`npm run backup:db` in
 `kinmap/server`), the five `20261025*` migrations applied (`npm run migrate -- <files>`), API pushed and
 deployed. A new Android preview build was made on EAS; the app has no over-the-air updates, so app changes
-need a new build. Websites: `kinmap/website/` (landing + privacy) and `~/SomeDude_Site` (company page) are
+need a new build. Websites: `kinmap/website/` (landing + privacy) and this repo's `site/` (company page) are
 built; their domains aren't connected yet (see the roadmap, Phase 5). The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
@@ -133,8 +133,8 @@ Run commands from each repository root (or use the corresponding package manager
 
 ## Working with this repository
 
-- Keep this repo focused on company context and decisions. App implementation belongs in its own
-  repository.
+- Keep this repo focused on company context and decisions, plus the static company site in `site/`
+  (somedude.app). App implementation belongs in its own repository.
 - Read the relevant app code and current Git state before acting; update documentation when decisions
   change. Call out assumptions and distinguish estimates from observed metrics.
 - Preserve each app's personality while following the shared design system: warm, human, clear,
