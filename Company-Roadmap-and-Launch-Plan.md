@@ -219,6 +219,20 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
     - [ ] Backups: Supabase Pro ($25/mo, daily) before real families' data, or run `npm run backup:db`
           weekly until then. Photo files aren't in that backup.
     - [ ] Relatives who are native speakers read the Spanish, Mandarin and Cantonese text.
+    - [x] **Phone feedback, round 1** (Kinmap `99a6d5d`, shipped as an over-the-air update 2026-10-25):
+          pinch to zoom on the tree (no +/- buttons), one-row bar (Talk, Updates, More), "how they're related
+          to you" on every page (English, Spanish, Mandarin and Cantonese kinship words), slideshow story
+          excerpts and fun facts, board scrolling fixed and cork only, nicknames on the tree and easy to add.
+  - **Kinmap on computers (Phase 1, started 2026-10-25)**
+    - [x] The web app builds from the same code (`kinmap/mobile/vercel.json`): installable (manifest, icons,
+          service worker that never caches family data), tree and person side by side on wide screens,
+          drag-and-drop photos, keyboard shortcuts, mouse/trackpad zoom, keepsakes in the browser.
+    - [x] "Sign in" on kinmap.somedude.app → `https://app.kinmap.somedude.app`.
+    - [ ] Founder: Vercel project `kinmap-app` (repo Kinmap, Root Directory `mobile`, framework Other) with
+          domain `app.kinmap.somedude.app`, and its CNAME in Cloudflare (DNS only).
+    - [ ] Then: check it in Chrome/Edge (sign in, install), and package it for the Microsoft Store with
+          PWABuilder (Microsoft developer account: one-time fee for individuals).
+    - [ ] Phase 2 (only if families ask): "Use AI on this computer" with a user-installed Ollama.
   - **B. Before a Google Play listing**
     - [ ] Privacy policy (`kinmap.somedude.app/privacy`, drafted from the code): have it reviewed and add
           Supabase's data region.
