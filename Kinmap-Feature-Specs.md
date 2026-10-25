@@ -1,8 +1,8 @@
 # Kinmap Feature Specs: questions, links, boards, slideshows and prints
 
-**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** feature 1 (answering questions) and the
-language switcher (1b) are built and committed in Kinmap (`d062bbd`, `0309f22`, `65d9927`), not yet pushed or tried on a
-phone. The rest are drafts.
+**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** feature 1 (answering questions), the
+language switcher (1b) and feature 2 (links & favorites) are built and committed in Kinmap (`d062bbd`,
+`0309f22`, `65d9927`, `6200b17`), not yet pushed or tried on a phone. The rest are drafts.
 
 Kinmap is a warm family keepsake, so all three features follow the same rules as the rest of the app:
 - Family-tree changes go through change requests: owners and admins apply instantly; editors' changes
@@ -100,6 +100,20 @@ launch follows the phone's language.
 ---
 
 ## 2. Links and favorites on each person
+
+**Status (2026-10-25): built** (Kinmap `6200b17`), as specified below. Needs migration
+`20261025000000_person_links.sql` applied **before** the API is pushed, because loading a tree reads the
+new table. Notes from building it:
+- Live-checked: YouTube, Spotify and SoundCloud give titles and pictures; Wikipedia gives a title. Sites
+  that block automated requests (Allrecipes answered 460) fall back to the site's name, and the note
+  carries the meaning. A reviewer can fix the title before approving, but an owner's own link applies at
+  once with the fallback title.
+- Thumbnails load from the service's image server (`i.ytimg.com`, Spotify's CDN), which sees the viewer's
+  IP address, though no cookies or account. Copying thumbnails into Kinmap's private storage would close
+  that; later.
+- The AI doesn't propose links (it can't know a real URL); a spoken favorite song becomes a fun fact.
+- Sharing a link from YouTube or Spotify straight into Kinmap needs a native share target and a new
+  build; later.
 
 Songs they loved, a YouTube clip of their band, a blog or obituary, a recipe page.
 
@@ -318,8 +332,8 @@ Miguel's order (2026-10-25): answering questions, language switcher, links, boar
 PDFs, then ordering prints through Kinmap once a partner's privacy terms are confirmed in writing.
 
 1. **Answering questions** (small, and it fixes a dead end in the core flow). *Built.*
-   - **Language switcher** (English/Español, top right). *Built.*
-2. **Links & favorites** (small, and boards can pin them).
+   - **Language switcher** (English, Español, 普通话, 廣東話; top right). *Built.*
+2. **Links & favorites** *Built.* (small, and boards can pin them).
 3. **Personal boards**, starting with members' own boards and a basic layout, then drag/resize/rotate.
 
 4. **Slideshow** (no printing partner needed, and it's great for reunions), about 3–4 days.

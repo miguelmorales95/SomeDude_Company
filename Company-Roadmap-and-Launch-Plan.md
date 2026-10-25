@@ -184,9 +184,14 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] **Preview app tested (2026-10-24):** installed on the founder's phone; sign-in and a photo upload work through the hosted API. Photo uploads first failed with "Unsupported FormDataPart implementation" (this Expo version's fetch can't send React Native file parts); fixed by streaming the file natively with expo-file-system's `UploadTask` to the Storage signed-upload URL (Kinmap `9e0f7b2`). Voice waits on the Claude key above.
 - [x] **Answer the AI's questions by voice or typing (2026-10-25, Kinmap `d062bbd`)** and a **language switcher**
   at the top right of every screen: English, Español, 普通话 (Simplified), 廣東話 (Traditional) (`0309f22`,
-  `65d9927`). Committed locally; not yet pushed or tried on a phone.
+  `65d9927`). **Links & favorites** on each person (`6200b17`). Committed locally; not yet pushed or tried
+  on a phone.
 - [ ] **Launch gaps found while building these (2026-10-25)**. Fix before beta families unless noted:
-  - [ ] Push Kinmap `main` (redeploys the API) and test answering questions and all four languages on a phone.
+  - [ ] **Deploy order:** apply `supabase/migrations/20261025000000_person_links.sql` to Kinmap's Supabase
+        project *first*, then push Kinmap `main` (redeploys the API; tree loading reads the new table), then
+        test answering questions, all four languages and links on a phone.
+  - [ ] Link thumbnails load from YouTube's/Spotify's image servers, which see viewers' IP addresses (no
+        cookies). Copy them into private storage later. Sites that block bots show only their name.
   - [ ] **Server error messages are English only** (AI limits, permissions, "Tree not found"). Plan: answer
         in the app's language, which every request already sends (`accept-language`); no need to ask.
   - [ ] **Sign-in email is English only.** Plan: the app saves the chosen language to the account
