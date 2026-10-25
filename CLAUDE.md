@@ -93,8 +93,10 @@ servers need to run. Planned features are specified in [Kinmap-Feature-Specs.md]
 answering the AI's questions (`d062bbd`) the language switcher (English, Español, 普通话, 廣東話), links & favorites, boards, slideshows,
 printable PDFs and photo calendars went live on 2026-10-25: database backed up (`npm run backup:db` in
 `kinmap/server`), the five `20261025*` migrations applied (`npm run migrate -- <files>`), API pushed and
-deployed. A new Android preview build was made on EAS; the app has no over-the-air updates, so app changes
-need a new build. Websites are live (2026-10-25): somedude.app (this repo's `site/`, Vercel project
+deployed. Since build `4ba46f83` the app takes over-the-air updates (`expo-updates`, fingerprint
+policy): JS-only changes ship with `npm run update:preview` in `kinmap/mobile`; changes that add native
+modules need a new EAS build. Before any migration: `npm run backup:db` then `npm run migrate -- <file>` in
+`kinmap/server`. Websites are live (2026-10-25): somedude.app (this repo's `site/`, Vercel project
 `somedude-site`), kinmap.somedude.app (`kinmap/website/`, Vercel project `kinmap-website`, with the privacy
 policy at /privacy) and afoot.somedude.app. Next is the launch-gap sprint in the roadmap's Phase 3. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.

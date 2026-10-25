@@ -200,19 +200,22 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
     - [ ] Founder: install the new preview APK and test every new feature on a phone, including on cellular
           data and with a second account invited as an editor. Check board/calendar dragging feels smooth,
           Cantonese dictation (`yue-Hant-HK` on Android, `zh-HK` on iPhone) and the slideshow staying awake.
-    - [ ] **Over-the-air updates** (`expo-updates`): one more build, then fixes reach phones without a new
-          APK each time. Do this first so the rest of the sprint ships faster.
-    - [ ] **Delete account / delete tree in the app**, plus a web page to request deletion (Google Play
-          requires one). The privacy policy currently offers deletion by email.
-    - [ ] **"Get a copy" export** for owners (the tree as JSON plus its photos), which the privacy policy
-          promises; today it would be done by hand.
-    - [ ] **Server error messages in the app's language** (AI limits, permissions, "Tree not found"): every
-          request already says which language; no need to ask.
-    - [ ] **Sign-in email in the person's language:** the app saves the language to the account
-          (`user_metadata.lang`) at sign-in and on every switch; the Supabase email template picks its
-          wording with `{{ if eq .Data.lang "es" }}…`. The founder pastes the template into Supabase.
-    - [ ] **Invite language:** a language choice on the invite card (defaults to the inviter's) for the
-          shared message, so a grandparent who reads Cantonese gets it in Cantonese.
+    - [x] **Over-the-air updates** (Kinmap `5954821`, 2026-10-25): `expo-updates`, fingerprint runtime
+          policy, channels per build profile. After this build, JS-only fixes ship with
+          `npm run update:preview` in `kinmap/mobile`; anything that adds a native module still needs a build.
+    - [x] **Keepsakes** (`5954821`): owners/admins save one unencrypted ZIP (whole tree as `kinmap.json`,
+          every photo and video, stories in people's own words, an `index.html` that opens in any
+          browser), built on the phone and shared with the share sheet. "Open a keepsake file" shows one in
+          the app, signed in or not.
+    - [x] **Delete account / tree** (`5954821`): Account & keepsakes → give each owned tree to a member or
+          delete it (with its photos and videos), then delete the account (typing your email). Web page:
+          kinmap.somedude.app/delete-account (for Google Play). Contributions to others' trees stay as
+          "Former member". Migration `20261025050000_owner_media_delete.sql` applied after a backup.
+    - [x] **Server error messages in the app's language** (`5954821`, `server/src/messages.js`).
+    - [ ] **Sign-in email in the person's language:** the app now saves the language on the account; the
+          founder pastes `kinmap/supabase/templates/sign-in-code.html` into Supabase → Authentication →
+          Email Templates ("Magic Link" and "Confirm signup") and sends a test code.
+    - [x] **Invite language** (`5954821`): a language choice on the invite card.
     - [ ] Backups: Supabase Pro ($25/mo, daily) before real families' data, or run `npm run backup:db`
           weekly until then. Photo files aren't in that backup.
     - [ ] Relatives who are native speakers read the Spanish, Mandarin and Cantonese text.
@@ -253,7 +256,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
       `somedude-site`; the bare domain forwards to `www`), `kinmap.somedude.app` (landing + privacy policy,
       Kinmap's `website/`, Vercel project `kinmap-website`), and `afoot.somedude.app` (the Afoot app).
       DNS in Cloudflare, all "DNS only".
-  - [ ] Cloudflare Email Routing rule for `hello@somedude.app` (the company page's contact address).
+  - [x] Cloudflare Email Routing rule for `hello@somedude.app` (the company page's contact address).
   - [ ] Afoot privacy page: it has accounts, RSVPs, contact requests and messages, so write it from the
         schema. Keep `NEXT_PUBLIC_AD_PROVIDER` off `adsense`: the company site promises no tracking ads.
 - [ ] Shared brand, shared analytics.
@@ -337,11 +340,11 @@ Afoot is on Vercel (`afoot.somedude.app`), the websites are on Vercel, and the K
 standalone. To develop locally, run `npm run server` / `npm run app` in `kinmap/` and `npm run dev` in
 `Afoot/`.
 
-1. **Kinmap, founder:** install the new preview APK, test everything (Phase 3, sprint A), and note what
-   breaks or feels wrong. Add the `hello@somedude.app` routing rule in Cloudflare.
-2. **Kinmap, build (sprint A, in order):** over-the-air updates, account/tree deletion, the "get a copy"
-   export, server errors in the app's language, sign-in email and invite language. Then fixes from the
-   phone test.
+1. **Kinmap, founder:** install the new preview APK (the one with updates built in), test everything
+   including a keepsake and opening it, and note what breaks. Paste the sign-in email template into
+   Supabase.
+2. **Kinmap, build:** fixes from the phone test, shipped as over-the-air updates. Then sprint B (privacy
+   review, Stripe billing).
 3. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two
    relatives, ideally ones who can check the Spanish or Chinese.
 4. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
