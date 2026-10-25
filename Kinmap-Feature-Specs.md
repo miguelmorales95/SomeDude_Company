@@ -1,8 +1,10 @@
 # Kinmap Feature Specs: questions, links, boards, slideshows and prints
 
-**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** feature 1 (answering questions), the
-language switcher (1b) and feature 2 (links & favorites) are built and committed in Kinmap (`d062bbd`,
-`0309f22`, `65d9927`, `6200b17`), not yet pushed or tried on a phone. The rest are drafts.
+**Owner:** Miguel Morales · **As of:** 2026-10-25 · **Status:** built and committed in Kinmap, not yet
+pushed or tried on a phone: answering questions (1), the language switcher (1b), links & favorites (2),
+boards (3), slideshows (6), and printable PDFs: binder pages (5) and the wall poster (4). Not built: the
+photo calendar (7), ordering prints through Kinmap (waits on a print partner), and other keepsakes (8).
+None of the built features needs a new app build.
 
 Kinmap is a warm family keepsake, so all three features follow the same rules as the rest of the app:
 - Family-tree changes go through change requests: owners and admins apply instantly; editors' changes
@@ -147,6 +149,20 @@ Tapping it opens the link in the phone's app or browser.
 
 ## 3. A personal board with pins and stickers
 
+**Status (2026-10-25): built** (Kinmap `de8bf09`). Decisions made while building:
+- **Whose board:** every person has one, and permissions cover both options below. The member linked to a
+  person ("This is me") and owners/admins edit it directly; editors suggest pins, stickers and notes
+  through approval. So members get "my corner", and owners/admins can decorate relatives who aren't on the
+  app. The `owner_user_id` column wasn't needed.
+- **Gestures** use React Native's built-in touch handling instead of `react-native-gesture-handler` and
+  `react-native-reanimated`, so no new build is needed. Check smoothness on a phone; switch libraries at
+  the next build if it feels slow.
+- **41 stickers** (hearts, flowers, washi tape, papel picado, food incl. concha and dumpling, music, pets,
+  milestone badges in the app's language). Notes use the serif italic face; a handwriting font would need
+  bundling.
+- Saving the whole layout uses a version number: a stale save gets "Show their version / Keep mine".
+- Needs migration `20261025010000_boards.sql`.
+
 A corner of the app that shows each person's personality, like a corkboard or scrapbook page.
 
 **Open question for Miguel:** whose board is it?
@@ -238,6 +254,11 @@ or exported item follows these rules:
 
 ## 4. Wall poster of the family tree
 
+**Status (2026-10-25): built as a downloadable PDF** (Kinmap `073b893`): classic top-down layout (the
+app's own), 18×24 / 24×36 / 36×48 in with 1/8 in bleed, photo or initial medallions, title, dedication,
+whole tree or one branch, warnings for small names and low-resolution photos. **Not built:** fan/radial
+and botanical layouts, the map inset, framed/canvas ordering.
+
 A big, decorative tree that fits on a wall.
 
 - **Sizes:**
@@ -260,6 +281,10 @@ A big, decorative tree that fits on a wall.
 
 ## 5. Family book and binder pages
 
+**Status (2026-10-25): binder pages built as a downloadable PDF** (Kinmap `073b893`): cover, one page per
+person (portrait, name, years, story, favorites, timeline, places) and photo sheets of 2/4/6/9 with
+captions. **Not built:** branch pages, story pages, reordering pages, and the bound book (needs a partner).
+
 - **Binder pages:** printable 8.5×11 pages, each a printable PDF on its own. The page types are:
   - a person page (photo, a short bio, their facts and timeline, their "favorites");
   - a branch page (a small tree for one household);
@@ -274,6 +299,15 @@ A big, decorative tree that fits on a wall.
 - **Updates:** the book can be re-ordered later with new people and stories ("2027 edition").
 
 ## 6. Slideshow mode
+
+**Status (2026-10-25): built** (Kinmap `d62926e`) as specified, with these limits:
+- **Music:** plays from any music app on the phone at the same time; picking a song inside Kinmap needs a
+  native audio module and a new build.
+- **TV:** cast the phone's screen. The app is locked to portrait, so the cast picture is portrait;
+  allowing landscape is an `app.json` change plus a new build. There's no hosted web player for laptops
+  yet.
+- Your own slides can show at the start, the end, or every 3/5/10 people (for schedules).
+- Needs migration `20261025020000_slideshows.sql`.
 
 A full-screen show for a TV, a laptop at a reunion, or a phone.
 
@@ -294,6 +328,9 @@ A full-screen show for a TV, a laptop at a reunion, or a phone.
   places like parks and halls.
 
 ## 7. Photo calendar
+
+**Status (2026-10-25): not built.** It would reuse the PDF renderer, fonts and print rules from the binder
+and poster.
 
 - The family picks a photo for each month (from tree photos, or "choose for me" from photos marked as
   favorites).
@@ -333,12 +370,13 @@ PDFs, then ordering prints through Kinmap once a partner's privacy terms are con
 
 1. **Answering questions** (small, and it fixes a dead end in the core flow). *Built.*
    - **Language switcher** (English, Español, 普通话, 廣東話; top right). *Built.*
-2. **Links & favorites** *Built.* (small, and boards can pin them).
-3. **Personal boards**, starting with members' own boards and a basic layout, then drag/resize/rotate.
+2. **Links & favorites** (small, and boards can pin them). *Built.*
+3. **Personal boards**, starting with members' own boards and a basic layout, then drag/resize/rotate. *Built.*
 
-4. **Slideshow** (no printing partner needed, and it's great for reunions), about 3–4 days.
+4. **Slideshow** (no printing partner needed, and it's great for reunions), about 3–4 days. *Built.*
 5. **Printable PDFs** first (binder pages, photo sheets, poster, calendar, as downloads), with the shared
-   print rules. About 1–2 weeks for a shared renderer plus the first two products.
+   print rules. About 1–2 weeks for a shared renderer plus the first two products. *Binder pages and
+   poster built; calendar not yet.*
 6. **Ordering prints through Kinmap** once a partner is chosen and its privacy terms are confirmed:
    checkout, proofs, fulfilment and file deletion.
 7. Test interest in the section 8 keepsakes with a simple "notify me" list before building any.

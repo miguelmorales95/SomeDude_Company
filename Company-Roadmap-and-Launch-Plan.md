@@ -184,12 +184,27 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [x] **Preview app tested (2026-10-24):** installed on the founder's phone; sign-in and a photo upload work through the hosted API. Photo uploads first failed with "Unsupported FormDataPart implementation" (this Expo version's fetch can't send React Native file parts); fixed by streaming the file natively with expo-file-system's `UploadTask` to the Storage signed-upload URL (Kinmap `9e0f7b2`). Voice waits on the Claude key above.
 - [x] **Answer the AI's questions by voice or typing (2026-10-25, Kinmap `d062bbd`)** and a **language switcher**
   at the top right of every screen: English, Español, 普通话 (Simplified), 廣東話 (Traditional) (`0309f22`,
-  `65d9927`). **Links & favorites** on each person (`6200b17`). Committed locally; not yet pushed or tried
-  on a phone.
+  `65d9927`). **Links & favorites** on each person (`6200b17`), **personal boards** with pins and 41
+  stickers (`de8bf09`), **slideshows** for reunions (`d62926e`), and **printable PDFs**: binder pages and
+  a wall poster (`073b893`). Committed locally; not yet pushed or tried on a phone. None needs a new app
+  build. Not built: photo calendar; ordering prints (waits on a partner).
 - [ ] **Launch gaps found while building these (2026-10-25)**. Fix before beta families unless noted:
-  - [ ] **Deploy order:** apply `supabase/migrations/20261025000000_person_links.sql` to Kinmap's Supabase
-        project *first*, then push Kinmap `main` (redeploys the API; tree loading reads the new table), then
-        test answering questions, all four languages and links on a phone.
+  - [ ] **Deploy order:** apply the four new migrations to Kinmap's Supabase project *first*, in order:
+        `20261025000000_person_links.sql`, `20261025010000_boards.sql`, `20261025020000_slideshows.sql`,
+        `20261025030000_exports_bucket.sql` (tree loading reads `person_links`). Then push Kinmap `main`
+        (redeploys the API, now with `pdfkit` and `sharp`). Then reload the app and test everything on a phone.
+  - [ ] Boards: drag/pinch/rotate uses built-in touch handling (no new build); check it feels smooth. No
+        handwriting font yet.
+  - [ ] Slideshows: music only from another app; casting shows portrait (landscape needs an `app.json`
+        change and a new build); no hosted web player for a laptop yet.
+  - [ ] PDFs: only owners/admins export. Chinese fonts download from GitHub on first use (vendor them if
+        that's ever unreliable). Old exports are deleted when the next one is made, not on a schedule.
+        Very large trees with many photos could hit Vercel's 60 s limit. Calendar, branch and story pages,
+        fan/botanical poster layouts and the map inset aren't built. A "download PDF" subscription perk
+        needs billing first.
+  - [ ] Ordering prints through Kinmap: not built. Needs a partner (Prodigi, Printful, Gelato; Lulu or
+        Blurb for books) whose terms require deleting files and addresses after shipping, confirmed in
+        writing, plus Stripe.
   - [ ] Link thumbnails load from YouTube's/Spotify's image servers, which see viewers' IP addresses (no
         cookies). Copy them into private storage later. Sites that block bots show only their name.
   - [ ] **Server error messages are English only** (AI limits, permissions, "Tree not found"). Plan: answer
@@ -308,8 +323,9 @@ Afoot is on Vercel (`afoot.somedude.app`), and the Kinmap (Preview) app is stand
 were stopped on 2026-10-24; to develop again, run `npm run server` / `npm run app` in `kinmap/` and
 `npm run dev` in `Afoot/`. The Kinmap (Dev) app only works while `npm run app` is running.
 
-1. **Kinmap:** push the new features and test them together on a phone (answering questions, languages,
-   links & favorites); fix the launch gaps listed in Phase 3. Test on cellular data and invite a second account.
+1. **Kinmap:** apply the four migrations, push, and test the new features together on a phone (answering
+   questions, languages, links, boards, slideshows, PDFs); fix the launch gaps listed in Phase 3. Test on
+   cellular data and invite a second account.
 2. **Kinmap:** Supabase Pro ($25/mo) for backups, then invite one or two relatives to the Preview app.
 3. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
    for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before
