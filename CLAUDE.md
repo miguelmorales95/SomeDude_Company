@@ -102,7 +102,10 @@ them blocks updates to installed builds, so check with `APP_VARIANT=preview npx 
 inspect <deployment> --logs` reads build logs). Before any migration: `npm run backup:db` then `npm run migrate -- <file>` in
 `kinmap/server`. Websites are live (2026-10-25): somedude.app (this repo's `site/`, Vercel project
 `somedude-site`), kinmap.somedude.app (`kinmap/website/`, Vercel project `kinmap-website`, with the privacy
-policy at /privacy) and afoot.somedude.app. Next is the launch-gap sprint in the roadmap's Phase 3. The free plan has no backups: no real family data before Pro
+policy at /privacy) and afoot.somedude.app. Next is the launch-gap sprint in the roadmap's Phase 3. Plans and Stripe billing are built and switched off
+(Kinmap `5853e19`, `tree_plans` applied 2026-10-27; `BILLING_ENABLED=true` plus Stripe keys in Vercel turn them on); plan
+limits, the photo manager and sign-in plans are in [Kinmap-Monetization.md](./Kinmap-Monetization.md). somedude.app/privacy
+covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in

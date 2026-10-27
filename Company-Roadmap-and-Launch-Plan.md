@@ -223,6 +223,14 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           pinch to zoom on the tree (no +/- buttons), one-row bar (Talk, Updates, More), "how they're related
           to you" on every page (English, Spanish, Mandarin and Cantonese kinship words), slideshow story
           excerpts and fun facts, board scrolling fixed and cork only, nicknames on the tree and easy to add.
+    - [x] **Phone feedback, round 2** (Kinmap `8df86cb`, `0505be5`, over the air 2026-10-27): boards open
+          again on the web, slideshows show a few photos of each person with their facts (plus full screen on
+          the web), long-press a person then tap another to link them (long-press a link to change it),
+          invites by phone number (pick someone on the tree or a new name, a role, many numbers at once).
+    - [x] **Duplicate people** (2026-10-27): a re-approved failed change had re-added 9 people. Cleaned the
+          founder's tree after a backup (`server/scripts/merge-duplicates.js`: 8 merges, 20 → 12 people).
+          New changes now reuse a same-name person instead of adding a copy; Updates lists likely duplicates
+          with a one-tap Merge and "Check my tree with AI".
   - **Kinmap on computers (Phase 1, started 2026-10-25)**
     - [x] The web app builds from the same code (`kinmap/mobile/vercel.json`): installable (manifest, icons,
           service worker that never caches family data), tree and person side by side on wide screens,
@@ -238,7 +246,11 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
   - **B. Before a Google Play listing**
     - [ ] Privacy policy (`kinmap.somedude.app/privacy`, drafted from the code): have it reviewed and add
           Supabase's data region.
-    - [ ] Stripe billing, the family plan and AI credit caps (below).
+    - [ ] Stripe billing, the family plan and AI credit caps. **Code done (Kinmap `5853e19`, 2026-10-27),
+          switched off:** `tree_plans` table applied after a backup; plan limits for storage, AI and members
+          (enforced only with `BILLING_ENABLED=true`); Stripe Checkout, Customer Portal and a signed webhook;
+          a "Plan & storage" screen under More (upgrade buttons on the web only). Founder steps and the plan
+          details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
   - **C. Later polish** (fine for a beta)
     - Slideshows: landscape when casting (`app.json` change + build), a laptop web player, music inside
@@ -254,7 +266,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
     - Ordering prints through Kinmap: needs a partner whose terms require deleting files and addresses
       after shipping, confirmed in writing, plus Stripe.
 - [x] **Features from the [Kinmap Feature Specs](./Kinmap-Feature-Specs.md)** (2026-10-25): answering the AI's questions by voice, the language switcher, links & favorites, boards, slideshows, and printable binder pages, wall poster and photo calendar. Ordering prints through Kinmap waits on a partner.
-- [ ] Add **Stripe billing** + the freemium tiers + AI credit caps.
+- [ ] Add **Stripe billing** + the freemium tiers + AI credit caps (code done and off; see sprint B and [Kinmap-Monetization.md](./Kinmap-Monetization.md)).
 - [ ] Ship EAS builds to the App Store + Google Play (Apple $99/yr, Google $25 once).
 - [ ] Launch with a paywall from day one; invite beta families.
 - **Milestone:** first paying customers. This is your first real revenue line.
