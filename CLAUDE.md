@@ -65,7 +65,10 @@ without a reviewed migration, backup, and verification plan.
 - `afoot`: Afoot's tables, created from `Afoot/supabase/schema.sql` and exposed in Data API settings;
   267 events as of 2026-10-23; the live site reads events from Supabase (not the CSV). Sponsor tables (`sponsors`, `campaigns`, `campaign_daily`, `bump_campaign`)
   were added 2026-10-23 after a backup (`npm run backup:db` in Afoot → `~/Backups/supabase-xpqzvmggzhsaggrebxxv/`).
-  Afoot is public at https://afoot.somedude.app; /admin needs `ADMIN_TOKEN`.
+  Afoot is public at https://afoot.somedude.app; /admin needs `ADMIN_TOKEN`. 2026-10-27 (after a backup): 32
+  seeded LA venues promoted and geocoded (205 venues). Ingest no longer deletes dates with RSVPs or chat
+  (marks them cancelled), and the daily cron needs `CRON_SECRET` (it refuses without one) and rotates
+  venues in 4-minute runs. Local Ollama ingest is too slow on this GPU-less machine for bulk runs.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
   project. NoBucks moves to its own project when its pilot starts. No Supabase Auth users yet.
 

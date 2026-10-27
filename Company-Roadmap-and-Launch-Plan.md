@@ -153,7 +153,17 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 - [ ] Refresh events weekly until automatic ingestion covers the best sources (Arts Council for Long Beach, Downtown Long Beach, Harvelle's, torranceca.gov, Palos Verdes Magazine, LAPL, indie bookstores).
 - [ ] AI clean-up job a few times a day: re-check uncertain events against their source pages with Haiku 5.5 (about 2–5¢ per run). Needs Vercel Pro, GitHub Actions, or a local machine to schedule more than once a day.
 - [x] Rename the app from "WhatsUp LA" to Afoot in the code, site title, and GitHub repository (2026-10-23). The contact email waits for a domain.
-- [ ] Run discovery + ingest to seed ~30–50 real LA venues; spot-check recurrence.
+- [ ] Run discovery + ingest to seed ~30–50 real LA venues; spot-check recurrence. **Venues done
+      (2026-10-27, after a backup):** 32 new venues from `data/la-venues.csv` (Afoot `f4eff2e`) promoted and
+      geocoded; 205 venues in all. **Events not yet:** the local model (Ollama, no GPU) takes over 5 minutes
+      a page, so ingest runs on Vercel with Haiku once `CRON_SECRET` is set: daily, longest-waiting venues
+      first, 4 minutes a run (Afoot `60ad0a3`), so all 32 take about 2–3 days. Many venue pages load their
+      calendar with scripts (The Baked Potato, The World Stage): those need the headless fallback or a
+      different events URL; check `/admin` and the cron results after the first runs. The 173 older
+      venues are `source = 'manual'` and are never re-ingested.
+- [x] **Ingest keeps RSVPs and chat** (Afoot `9059030`): a date the venue drops is deleted only if nobody
+      RSVP'd or wrote in its chat; otherwise it's marked cancelled. Dates still listed keep their id. The
+      cron route now refuses to run without `CRON_SECRET` (it used to run for anyone).
 - [ ] Sponsors: follow the [Afoot Sponsorship Playbook](./Afoot-Sponsorship-Playbook.md) (what to sell, finding and signing sponsors, ad design, privacy-safe counting, Stripe, sponsor reports). Campaigns, privacy-safe view/click counting, the /admin Sponsors section and monthly reports are built (Afoot `112efeb`, 2026-10-23); sponsor tables applied and tested end to end on the live database, `ADMIN_TOKEN` set in Vercel. Next: sign 3–5 founding sponsors (free first month).
 - [ ] Soft-launch in 1–2 LA neighborhoods; gather usage + venue feedback.
 - **Milestone:** a live, public product with real local events and first sponsor conversations.
@@ -273,6 +283,11 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 
 ### Phase 4 — NoBucks pilot & funding (parallel, Weeks 2–30) · cost low, grant-funded
 - [x] Rename to **NoBucks** (2026-10-23): code, docs, and GitHub repository.
+- [ ] **Fix before any pilot** (found 2026-10-27 while writing its privacy policy): anyone can make
+      themselves admin (`POST /admin/claim`); admin tools aren't scoped to a community; `JWT_SECRET` falls
+      back to a default; no account deletion, export, sign-out or password reset; no age check; photo URLs
+      may be public and EXIF (location) isn't stripped; distances could reveal homes; a mock ID check is
+      presented as real; push notifications include message text; events show service-wide.
 - [ ] Scope a single-neighborhood or single-org **pilot** (a neighborhood council, library branch, faith community, or local nonprofit willing to host it).
 - [ ] Find a fiscal sponsor or nonprofit partner for grant applications.
 - [ ] Write 2–3 grant applications (mutual-aid / civic-tech / mental-health).
@@ -285,8 +300,10 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
       Kinmap's `website/`, Vercel project `kinmap-website`), and `afoot.somedude.app` (the Afoot app).
       DNS in Cloudflare, all "DNS only".
   - [x] Cloudflare Email Routing rule for `hello@somedude.app` (the company page's contact address).
-  - [ ] Afoot privacy page: it has accounts, RSVPs, contact requests and messages, so write it from the
-        schema. Keep `NEXT_PUBLIC_AD_PROVIDER` off `adsense`: the company site promises no tracking ads.
+  - [x] Privacy pages (2026-10-27): somedude.app/privacy (company site, links to each app's),
+        afoot.somedude.app/privacy (Afoot `8c65e89`, written from the schema), kinmap.somedude.app/privacy,
+        and a draft in the NoBucks app (`87d551c`, for pilot review). Keep `NEXT_PUBLIC_AD_PROVIDER` off
+        `adsense`: the company site promises no tracking ads. Have them reviewed before wide launch.
 - [ ] Shared brand, shared analytics.
 - [ ] Decide app #4 only after one of the three is paying.
 
@@ -361,25 +378,27 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 
 ---
 
-## 10. Immediate next steps (as of 2026-10-25)
+## 10. Immediate next steps (as of 2026-10-27)
 
 Nothing has to run on the founder's computer: Kinmap's API is on Vercel (`api.kinmap.somedude.app`),
 Afoot is on Vercel (`afoot.somedude.app`), the websites are on Vercel, and the Kinmap (Preview) app is
 standalone. To develop locally, run `npm run server` / `npm run app` in `kinmap/` and `npm run dev` in
 `Afoot/`.
 
-1. **Kinmap, founder:** install the new preview APK (the one with updates built in), test everything
-   including a keepsake and opening it, and note what breaks. Paste the sign-in email template into
+1. **Founder, this week:** trademark check for "SomeDude" (§9). Set `CRON_SECRET` in Vercel for Afoot
+   (then check the first cron results). Test the latest Kinmap update on the phone: Plan & storage under
+   More, long-press linking, the new invite flow, the slideshow. Paste the sign-in email template into
    Supabase.
-2. **Kinmap, build:** fixes from the phone test, shipped as over-the-air updates. Then sprint B (privacy
-   review, Stripe billing).
+2. **Kinmap, code next:** photo manager (needed before storage limits matter), push notifications (a native
+   build; enables muting by voice), Google sign-in on the web then in the next native build, member
+   limits. Then switch billing on in Stripe test mode ([Kinmap-Monetization.md](./Kinmap-Monetization.md)).
 3. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two
    relatives, ideally ones who can check the Spanish or Chinese.
-4. **Afoot:** accountant check, Stripe account and advertising terms, then visit 10–15 venues in one area
-   for founding sponsors ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before
-   the first paid placement. Turn on Vercel **Analytics** for the afoot project. Privacy page (Phase 5).
-5. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` (no
-   longer valid) into a password manager and delete them; create a new Vercel token if deploys from
-   this machine are wanted.
-6. Read the [Company Design System](./Company-Design-System.md) and apply the shared tokens as you touch
+4. **Afoot:** after the first ingests, fix venues whose calendars don't come through; accountant check,
+   Stripe account and advertising terms, then visit 10–15 venues in one area for founding sponsors
+   ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before the first paid placement.
+5. **NoBucks:** the security fixes in Phase 4 before showing it to any pilot partner.
+6. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` (no
+   longer valid) into a password manager and delete them.
+7. Read the [Company Design System](./Company-Design-System.md) and apply the shared tokens as you touch
    each app.
