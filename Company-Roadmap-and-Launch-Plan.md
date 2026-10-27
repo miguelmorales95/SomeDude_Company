@@ -262,6 +262,10 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           a "Plan & storage" screen under More (upgrade buttons on the web only). Founder steps and the plan
           details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
+    - [x] **Photo manager** (Kinmap `2d2546f`, live 2026-10-28), **Google sign-in** on the web (`3d3cfd5`,
+          appears once Google is switched on in Supabase) and **push notifications** plus Google sign-in
+          on phones (`13d7922`, deployed; reaches phones with the next native build after Firebase is set
+          up). Steps: [Kinmap-Monetization.md](./Kinmap-Monetization.md) sections 6 and 7.
   - **C. Later polish** (fine for a beta)
     - Slideshows: landscape when casting (`app.json` change + build), a laptop web player, music inside
       the app.
@@ -389,9 +393,10 @@ standalone. To develop locally, run `npm run server` / `npm run app` in `kinmap/
    (then check the first cron results). Test the latest Kinmap update on the phone: Plan & storage under
    More, long-press linking, the new invite flow, the slideshow. Paste the sign-in email template into
    Supabase.
-2. **Kinmap, code next:** photo manager (needed before storage limits matter), push notifications (a native
-   build; enables muting by voice), Google sign-in on the web then in the next native build, member
-   limits. Then switch billing on in Stripe test mode ([Kinmap-Monetization.md](./Kinmap-Monetization.md)).
+2. **Kinmap, founder:** Google OAuth client + Supabase provider, and Firebase for Android notifications
+   ([Kinmap-Monetization.md](./Kinmap-Monetization.md) sections 6–7); then a new preview build.
+   **Code next:** muting and grouping of repeated requests (by voice), member limits, editors suggesting
+   photo removals; then billing in Stripe test mode.
 3. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two
    relatives, ideally ones who can check the Spanish or Chinese.
 4. **Afoot:** after the first ingests, fix venues whose calendars don't come through; accountant check,

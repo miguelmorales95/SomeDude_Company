@@ -107,7 +107,10 @@ inspect <deployment> --logs` reads build logs). Before any migration: `npm run b
 `somedude-site`), kinmap.somedude.app (`kinmap/website/`, Vercel project `kinmap-website`, with the privacy
 policy at /privacy) and afoot.somedude.app. Next is the launch-gap sprint in the roadmap's Phase 3. Plans and Stripe billing are built and switched off
 (Kinmap `5853e19`, `tree_plans` applied 2026-10-27; `BILLING_ENABLED=true` plus Stripe keys in Vercel turn them on); plan
-limits, the photo manager and sign-in plans are in [Kinmap-Monetization.md](./Kinmap-Monetization.md). somedude.app/privacy
+limits, the photo manager and sign-in plans are in [Kinmap-Monetization.md](./Kinmap-Monetization.md). 2026-10-28: the photo
+manager is live (`2d2546f`); Google sign-in works on the web once enabled in Supabase (`3d3cfd5`); push notifications and
+phone Google sign-in (`13d7922`, expo-notifications + expo-web-browser) changed the native fingerprint, so they reach phones
+only with a new EAS build, and build `4ba46f83` no longer receives OTA updates. Migrations through `20261028020000` applied. somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 

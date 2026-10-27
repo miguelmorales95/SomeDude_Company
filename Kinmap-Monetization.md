@@ -115,24 +115,31 @@ of filters, **use the app's own strength: talk to it.**
 
 ## 6. Easy sign-in (Google, Facebook, Apple)
 
-Wanted for launch. Kinmap uses Supabase Auth, which supports all three.
+**Built (2026-10-28):** Google sign-in on the web (Kinmap `3d3cfd5`) and on phones (`13d7922`, in the
+next native build). The button appears by itself once a provider is switched on in Supabase (the app
+reads Supabase's public settings), so nothing breaks before then. Sign-in uses PKCE and returns people
+to where they were, such as an invite link. Someone who signed in by email before and then uses Google
+with the same address gets the same account (Supabase links verified emails). Email codes stay as the
+fallback.
 
-1. **Google:** create an OAuth client in Google Cloud Console (web, plus Android with the app's signing
-   fingerprint), add it under Supabase → Authentication → Providers → Google, and add
-   `https://app.kinmap.somedude.app` and the app's `kinmap://` scheme to Supabase's redirect URLs.
-2. **Facebook:** create an app at developers.facebook.com with "Facebook Login", a privacy policy URL
-   (kinmap.somedude.app/privacy) and a data-deletion URL (kinmap.somedude.app/delete-account), then add it
-   under Supabase → Providers → Facebook. Facebook reviews the app before the public can use it.
-3. **Apple:** required by Apple for any iPhone app that offers Google or Facebook sign-in. Needs the Apple
-   Developer account ($99/yr).
-4. **Code:** the web app can use Supabase's redirect sign-in directly. The phone app needs a sign-in
-   browser module (`expo-web-browser`), so it ships with the next native build. Email codes stay as the
-   fallback that always works.
+Founder steps for Google:
+1. Google Cloud Console → APIs & Services → OAuth consent screen: app name Kinmap, support email,
+   `somedude.app` as the authorized domain, privacy policy `https://kinmap.somedude.app/privacy`.
+   Scopes: email, profile, openid only. Publish it ("In production"); these basic scopes need no review.
+2. Credentials → Create OAuth client ID → **Web application**. Authorized redirect URI:
+   `https://puskxnikpiusgvtzhire.supabase.co/auth/v1/callback`. (Phones sign in through the same web
+   client, in a sign-in browser, so no Android client is needed.)
+3. Supabase → Authentication → Sign In / Providers → Google: turn on, paste the client ID and secret.
+4. Supabase → Authentication → URL Configuration → Redirect URLs: add
+   `https://app.kinmap.somedude.app/**` and `kinmap://**`.
+5. Open app.kinmap.somedude.app signed out: "Continue with Google" appears. Try it.
 
-Afoot already has Google and Facebook sign-in through its own Supabase project, so the same steps apply
-there.
+Facebook later: an app at developers.facebook.com with Facebook Login, the privacy policy URL and the
+data-deletion URL (kinmap.somedude.app/delete-account), then Supabase → Providers → Facebook. Facebook
+reviews the app before the public can use it. Apple: required by Apple for any iPhone app that offers
+Google or Facebook sign-in; needs the Apple Developer account ($99/yr). The code already handles both.
 
----
+Afoot already has Google and Facebook sign-in through its own Supabase project.
 
 ## 7. What's built, and what's next
 
@@ -145,12 +152,37 @@ there.
       (`/stripe/webhook`) on the API; deleting a tree cancels its subscription. "Plan & storage" under More
       shows usage bars; upgrade buttons appear only on the web, for the owner. Until `BILLING_ENABLED=true`,
       nothing is limited by plan and the screen says plans aren't available yet. 8 tests.
-- [ ] Photo manager (section 3).
+- [x] **Photo manager (section 3; Kinmap `2d2546f`, live 2026-10-28):** More → Photos & videos. Tabs for
+      All, each person, "Not on anyone" and "Maybe repeats" (same kind and exact size), sort by newest or
+      largest, select many (or press and hold) and delete for good after a confirmation. Deleting removes
+      the file itself, so it frees space; pins to a deleted photo go too. Owners and admins delete (Storage
+      policy `20261028000000` lets admins delete files); editors and viewers can look. Editors suggesting
+      removals through approval is not built yet. Also linked from Plan & storage.
 - [ ] Member limits (section 4).
-- [ ] Similar-request grouping and muting by voice (section 5), after push notifications.
-- [ ] Google, Facebook and Apple sign-in (section 6), with the next native build.
+- [x] **Push notifications (Kinmap `13d7922`, in the next native build):** owners and admins hear when an
+      update waits for review; authors hear when theirs is approved or declined; in each phone's language,
+      with only who and which tree on the lock screen; tapping opens the update. Tokens in `push_tokens`
+      (migration applied), removed on sign-out or when Expo reports the phone gone. Android needs
+      Firebase (below) before notices arrive.
+- [ ] Similar-request grouping and muting by voice (section 5): next, now that notifications exist.
+- [x] Google sign-in (section 6): web live, phones in the next native build. Facebook and Apple: founder
+      setup only.
 - [ ] Founder: switch billing on (below); an accountant's check on sales tax for digital subscriptions
       (Stripe Tax can collect it).
+
+### Turning on Android notifications (founder, before the next build)
+
+1. console.firebase.google.com → Add project ("Kinmap"; Analytics off).
+2. Add an Android app with package `com.somedude.kinmap.preview` (and later the store package), download
+   `google-services.json`. It holds public identifiers, but keep it out of the repo anyway.
+3. In `kinmap/mobile`: `npx eas-cli env:create --name GOOGLE_SERVICES_JSON --type file --value
+   <path to google-services.json> --environment preview --visibility secret`.
+4. Firebase → Project settings → Service accounts → Generate new private key (a JSON file). This one is a
+   real secret: upload it to EAS with `npx eas-cli credentials` → Android → preview → Google Service
+   Account → "Push Notifications (FCM V1)", then delete the downloaded file.
+5. Then a new preview build (`npx eas-cli build --profile preview --platform android`), which also
+   brings Google sign-in to the phone. Installed builds keep working, but stop getting over-the-air
+   updates until the new build is installed.
 
 ### Switching billing on (founder)
 
