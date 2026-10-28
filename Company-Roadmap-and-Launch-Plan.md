@@ -161,6 +161,15 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
       calendar with scripts (The Baked Potato, The World Stage): those need the headless fallback or a
       different events URL; check `/admin` and the cron results after the first runs. The 173 older
       venues are `source = 'manual'` and are never re-ingested.
+- [x] **Venue check (2026-10-29, after a backup):** of the 32 seeded venues, 9 read fine, 4 need the headless
+      browser (`render` on: Catalina, Flappers, The Mint, The Virgil), McCabe's and the Townhouse got their
+      real calendar links (`/concerts-landing/`, the Townhouse's DICE venue page), Saint Rocke closed (Dec
+      2025), and 15 whose pages show no dates are paused (`active = false`; see the list in Afoot's
+      venues). Those need a newsletter source, a different page, or a venue to send events.
+- [x] **Daily ingest moved to GitHub Actions** (Afoot `7e77646`): `.github/workflows/ingest.yml`, 9:00 UTC, with a
+      real browser and up to an hour (Vercel can't run the browser and stops at 5 minutes). Needs three
+      repository secrets (see Afoot README). The Vercel cron is removed; `CRON_SECRET` is only needed for a
+      manual run on Vercel.
 - [x] **Ingest keeps RSVPs and chat** (Afoot `9059030`): a date the venue drops is deleted only if nobody
       RSVP'd or wrote in its chat; otherwise it's marked cancelled. Dates still listed keep their id. The
       cron route now refuses to run without `CRON_SECRET` (it used to run for anyone).
@@ -262,6 +271,7 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           a "Plan & storage" screen under More (upgrade buttons on the web only). Founder steps and the plan
           details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
+    - [x] **Per-member limits** (Kinmap `09c7615`, live on the web 2026-10-29; phones with the next build).
     - [x] **Photo manager** (Kinmap `2d2546f`, live 2026-10-28), **Google sign-in** on the web (`3d3cfd5`,
           appears once Google is switched on in Supabase) and **push notifications** plus Google sign-in
           on phones (`13d7922`, deployed; reaches phones with the next native build after Firebase is set
@@ -287,7 +297,13 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
 
 ### Phase 4 — NoBucks pilot & funding (parallel, Weeks 2–30) · cost low, grant-funded
 - [x] Rename to **NoBucks** (2026-10-23): code, docs, and GitHub repository.
-- [ ] **Fix before any pilot** (found 2026-10-27 while writing its privacy policy): anyone can make
+- [x] **Security fixes done (NoBucks `5c7d077`, 2026-10-29; schema not applied anywhere yet):** appointed,
+      neighborhood-scoped leaders; in-person verification by a leader; required `JWT_SECRET`; revocable
+      sessions; deletion, export, sign-out, password reset (needs Resend); 18+ check; private photos with EXIF
+      stripped; rough locations; title-only phone notices; events per neighborhood. Smoke-tested against a
+      throwaway database. Still open: neighborhood assignment beyond leader verification, the pilot's own
+      database (Prisma migrations from scratch there), and a review by the host organization.
+- [ ] ~~Fix before any pilot~~ (list kept for reference; done above) (found 2026-10-27 while writing its privacy policy): anyone can make
       themselves admin (`POST /admin/claim`); admin tools aren't scoped to a community; `JWT_SECRET` falls
       back to a default; no account deletion, export, sign-out or password reset; no age check; photo URLs
       may be public and EXIF (location) isn't stripped; distances could reveal homes; a mock ID check is

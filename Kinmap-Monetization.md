@@ -158,7 +158,12 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
       the file itself, so it frees space; pins to a deleted photo go too. Owners and admins delete (Storage
       policy `20261028000000` lets admins delete files); editors and viewers can look. Editors suggesting
       removals through approval is not built yet. Also linked from Plan & storage.
-- [ ] Member limits (section 4).
+- [x] **Member limits (section 4; Kinmap `09c7615`, live on the web 2026-10-29):** on the Members screen the
+      owner (or an admin, for editors and viewers) sets uploads a month, AI requests a day, and "changes
+      always need approval" (an admin set this way can't approve their own). Everyone sees the limits and
+      this month's use on the member's card. The owner can't be limited; a new owner's limits are cleared.
+      Limits here are per member and come on top of the plan's; "can't raise past the plan" applies to AI
+      (the general daily cap still holds).
 - [x] **Push notifications (Kinmap `13d7922`, in the next native build):** owners and admins hear when an
       update waits for review; authors hear when theirs is approved or declined; in each phone's language,
       with only who and which tree on the lock screen; tapping opens the update. Tokens in `push_tokens`
