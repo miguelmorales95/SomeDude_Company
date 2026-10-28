@@ -117,7 +117,10 @@ limits, the photo manager and sign-in plans are in [Kinmap-Monetization.md](./Ki
 manager is live (`2d2546f`); Google sign-in works on the web once enabled in Supabase (`3d3cfd5`); push notifications and
 phone Google sign-in (`13d7922`, expo-notifications + expo-web-browser) changed the native fingerprint, so they reach phones
 only with a new EAS build, and build `4ba46f83` no longer receives OTA updates. Migrations through `20261029020000_member_notifications` applied (Kinmap `dff0d19`: Apple sign-in, per-tree
-notification settings; new native modules expo-apple-authentication and expo-crypto). somedude.app/privacy
+notification settings; new native modules expo-apple-authentication and expo-crypto). **Current preview build
+(2026-10-28): EAS `979ccd6b-9469-44ae-8389-93b8a241f355`** with Firebase (EAS secret file `GOOGLE_SERVICES_JSON`; FCM V1
+key uploaded by the founder); `mobile/fingerprint.config.js` ignores EAS secret files so local and EAS fingerprints match.
+Check OTA compatibility against this build id from now on. somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
