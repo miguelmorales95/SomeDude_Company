@@ -134,6 +134,25 @@ Founder steps for Google:
    `https://app.kinmap.somedude.app/**` and `kinmap://**`.
 5. Open app.kinmap.somedude.app signed out: "Continue with Google" appears. Try it.
 
+**Apple (built 2026-10-29, Kinmap `dff0d19`):** on iPhone, Apple's own sign-in sheet
+(`expo-apple-authentication`, with a nonce); on Android and the web, Supabase's browser sign-in. The
+name Apple shares the first time becomes the Kinmap name. It appears once Apple is switched on in Supabase.
+Founder steps (needs the Apple Developer Program, $99/yr; enrollment can take a day or two):
+1. developer.apple.com → Certificates, Identifiers & Profiles → **Identifiers → App IDs**: register
+   `com.somedude.kinmap` (and `com.somedude.kinmap.preview`) with **Sign In with Apple** ticked.
+2. **Identifiers → Services IDs**: add one, e.g. `app.somedude.kinmap.web`, tick Sign In with Apple →
+   Configure: primary App ID `com.somedude.kinmap`, domain `puskxnikpiusgvtzhire.supabase.co`, return URL
+   `https://puskxnikpiusgvtzhire.supabase.co/auth/v1/callback`.
+3. **Keys**: create one with Sign In with Apple; download the `.p8` file (once only) and note the Key ID and
+   your Team ID (top right of the developer site). Keep the `.p8` in a password manager.
+4. Supabase → Authentication → Sign In / Providers → **Apple**: turn on; Client IDs
+   `app.somedude.kinmap.web,com.somedude.kinmap,com.somedude.kinmap.preview`; Secret Key: the client secret
+   made from the `.p8` (Supabase's Apple page links a generator). **It expires every 6 months**: put a
+   reminder in the calendar to make a new one.
+5. People who choose "Hide my email" get an `@privaterelay.appleid.com` address. For Kinmap's emails to reach
+   them, register `somedude.app` (and `kinmap@somedude.app`) under **Services → Sign in with Apple for Email
+   Communication**.
+
 Facebook later: an app at developers.facebook.com with Facebook Login, the privacy policy URL and the
 data-deletion URL (kinmap.somedude.app/delete-account), then Supabase → Providers → Facebook. Facebook
 reviews the app before the public can use it. Apple: required by Apple for any iPhone app that offers
@@ -176,8 +195,10 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
       the author sees a kind note. Owners and admins type or say what to quiet on Updates ("Mute photo requests
       from Javier for a week"); the AI (or a keyword parser) makes a rule shown as a removable chip; muted
       updates sit under "Muted" and send no notifications.
-- [x] Google sign-in (section 6): web live, phones in the next native build. Facebook and Apple: founder
-      setup only.
+- [x] Google sign-in (section 6): web live, phones in the next native build. Apple: built (`dff0d19`), founder
+      setup in section 6. Facebook: founder setup only.
+- [x] **Per-tree notification settings** (`dff0d19`): More → Notifications: "updates waiting for my review"
+      (owners and admins) and "when my updates are approved or declined", per tree. Quiet rules stay on Updates.
 - [ ] Founder: switch billing on (below); an accountant's check on sales tax for digital subscriptions
       (Stripe Tax can collect it).
 

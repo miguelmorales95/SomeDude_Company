@@ -175,6 +175,13 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
       in the GitHub job. Tables `event_links`, `event_feeds` applied after a backup (`npm run migrate`, new).
       Tested end to end with a real Eventbrite event (then deleted). Ticketmaster and Eventbrite APIs need keys
       and are untested until then.
+- [x] **SC_2_Afoot: events from screenshots** (2026-10-29): `Afoot/SC_2_Afoot/` reads screenshots of events
+      (for example Facebook events the founder scrolls past) with a local vision model (Ollama
+      `gemma3:4b`, free; about 10–30 seconds a screenshot on this computer) and puts them in /admin → Event links
+      (`npm run screenshots`, or `-- --publish`). Screenshots never leave the computer or enter git.
+- [x] **GitHub secrets checked (2026-10-29):** all five are set; the first run reached the database, but
+      `ANTHROPIC_API_KEY` was rejected ("invalid x-api-key"), so no events came in. Re-paste it. The job now
+      fails (and emails) when every venue errors.
 - [x] **Daily ingest moved to GitHub Actions** (Afoot `7e77646`): `.github/workflows/ingest.yml`, 9:00 UTC, with a
       real browser and up to an hour (Vercel can't run the browser and stops at 5 minutes). Needs three
       repository secrets (see Afoot README). The Vercel cron is removed; `CRON_SECRET` is only needed for a
@@ -281,6 +288,8 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
     - [x] **Per-member limits** (Kinmap `09c7615`, live on the web 2026-10-29; phones with the next build).
+    - [x] **Sign in with Apple and per-tree notification settings** (`dff0d19`): web live; phones with the next
+          build. Apple needs the founder's Apple Developer setup (Kinmap-Monetization.md §6).
     - [x] **Quiet rules and similar requests** (`ff1f112`) and **editors suggesting photo deletions** (`2f403de`),
           live on the web; phones with the next build.
     - [x] **Photo manager** (Kinmap `2d2546f`, live 2026-10-28), **Google sign-in** on the web (`3d3cfd5`,
@@ -423,8 +432,7 @@ else needs the founder.
 3. **Afoot, founder:** GitHub repository secrets `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
    `ANTHROPIC_API_KEY` (and optionally `TICKETMASTER_API_KEY`, `EVENTBRITE_TOKEN`, also in Vercel so links use
    the APIs), then run the "Ingest events" workflow once. Add Ticketmaster/Eventbrite feeds in /admin.
-4. **Code next:** Kinmap: sign-in with Apple (needed before an iPhone release), push-notification settings per
-   tree, printing partner. Afoot: newsletter sources for the 15 paused venues, sponsor billing with Stripe.
+4. **Code next:** Kinmap: an iPhone build (after the Apple Developer account), printing partner. Afoot: newsletter sources for the 15 paused venues, sponsor billing with Stripe.
    NoBucks: the pilot database and a guided first-run for leaders.
 5. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two relatives.
 6. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` into a
