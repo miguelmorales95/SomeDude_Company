@@ -166,6 +166,15 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
       real calendar links (`/concerts-landing/`, the Townhouse's DICE venue page), Saint Rocke closed (Dec
       2025), and 15 whose pages show no dates are paused (`active = false`; see the list in Afoot's
       venues). Those need a newsletter source, a different page, or a venue to send events.
+- [x] **Events from links and other apps (Afoot `3e887bc`, live 2026-10-29):** "Add an event" on /submit takes any
+      event link (Facebook, Eventbrite, Ticketmaster, Meetup, a venue page). The server reads it (official API with a
+      key; otherwise the page's schema.org event data, which Eventbrite pages carry, so they work without a key;
+      the AI last) and it waits, editable, in /admin → Event links. Facebook hides most events from logged-out
+      visitors, so the form also asks for name, date and place; Afoot never uses accounts to scrape Facebook.
+      Feeds (/admin → Event feeds): Eventbrite organizers and Ticketmaster venues, pulled daily by `npm run feeds`
+      in the GitHub job. Tables `event_links`, `event_feeds` applied after a backup (`npm run migrate`, new).
+      Tested end to end with a real Eventbrite event (then deleted). Ticketmaster and Eventbrite APIs need keys
+      and are untested until then.
 - [x] **Daily ingest moved to GitHub Actions** (Afoot `7e77646`): `.github/workflows/ingest.yml`, 9:00 UTC, with a
       real browser and up to an hour (Vercel can't run the browser and stops at 5 minutes). Needs three
       repository secrets (see Afoot README). The Vercel cron is removed; `CRON_SECRET` is only needed for a
@@ -272,6 +281,8 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
     - [x] **Per-member limits** (Kinmap `09c7615`, live on the web 2026-10-29; phones with the next build).
+    - [x] **Quiet rules and similar requests** (`ff1f112`) and **editors suggesting photo deletions** (`2f403de`),
+          live on the web; phones with the next build.
     - [x] **Photo manager** (Kinmap `2d2546f`, live 2026-10-28), **Google sign-in** on the web (`3d3cfd5`,
           appears once Google is switched on in Supabase) and **push notifications** plus Google sign-in
           on phones (`13d7922`, deployed; reaches phones with the next native build after Firebase is set
@@ -301,8 +312,9 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
       neighborhood-scoped leaders; in-person verification by a leader; required `JWT_SECRET`; revocable
       sessions; deletion, export, sign-out, password reset (needs Resend); 18+ check; private photos with EXIF
       stripped; rough locations; title-only phone notices; events per neighborhood. Smoke-tested against a
-      throwaway database. Still open: neighborhood assignment beyond leader verification, the pilot's own
-      database (Prisma migrations from scratch there), and a review by the host organization.
+      throwaway database. **Join codes** (`7a46a80`): a leader makes a code, neighbors type it at sign-up or
+      later to join that neighborhood (verification is still in person). Still open: the pilot's own database
+      (Prisma migrations from scratch there) and a review by the host organization.
 - [ ] ~~Fix before any pilot~~ (list kept for reference; done above) (found 2026-10-27 while writing its privacy policy): anyone can make
       themselves admin (`POST /admin/claim`); admin tools aren't scoped to a community; `JWT_SECRET` falls
       back to a default; no account deletion, export, sign-out or password reset; no age check; photo URLs
@@ -398,28 +410,24 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 
 ---
 
-## 10. Immediate next steps (as of 2026-10-27)
+## 10. Immediate next steps (as of 2026-10-29)
 
-Nothing has to run on the founder's computer: Kinmap's API is on Vercel (`api.kinmap.somedude.app`),
-Afoot is on Vercel (`afoot.somedude.app`), the websites are on Vercel, and the Kinmap (Preview) app is
-standalone. To develop locally, run `npm run server` / `npm run app` in `kinmap/` and `npm run dev` in
-`Afoot/`.
+Nothing has to run on the founder's computer. Everything below "code" is ready to build next; everything
+else needs the founder.
 
-1. **Founder, this week:** trademark check for "SomeDude" (§9). Set `CRON_SECRET` in Vercel for Afoot
-   (then check the first cron results). Test the latest Kinmap update on the phone: Plan & storage under
-   More, long-press linking, the new invite flow, the slideshow. Paste the sign-in email template into
-   Supabase.
-2. **Kinmap, founder:** Google OAuth client + Supabase provider, and Firebase for Android notifications
-   ([Kinmap-Monetization.md](./Kinmap-Monetization.md) sections 6–7); then a new preview build.
-   **Code next:** muting and grouping of repeated requests (by voice), member limits, editors suggesting
-   photo removals; then billing in Stripe test mode.
-3. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two
-   relatives, ideally ones who can check the Spanish or Chinese.
-4. **Afoot:** after the first ingests, fix venues whose calendars don't come through; accountant check,
-   Stripe account and advertising terms, then visit 10–15 venues in one area for founding sponsors
-   ([playbook](./Afoot-Sponsorship-Playbook.md) sections 3–4). Vercel Pro before the first paid placement.
-5. **NoBucks:** the security fixes in Phase 4 before showing it to any pilot partner.
-6. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` (no
-   longer valid) into a password manager and delete them.
+1. **Founder:** trademark search for "SomeDude" (§9). Store names, package ids (`com.somedude.kinmap`) and
+   listings wait for it; code doesn't.
+2. **Kinmap, founder:** connect Firebase to EAS (Kinmap-Monetization.md §7: `GOOGLE_SERVICES_JSON` file
+   variable and the FCM V1 key), then a new preview build brings notifications, phone Google sign-in, member
+   limits, quiet rules and photo suggestions to phones. Publish the Google sign-in screen. Stripe test mode.
+3. **Afoot, founder:** GitHub repository secrets `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+   `ANTHROPIC_API_KEY` (and optionally `TICKETMASTER_API_KEY`, `EVENTBRITE_TOKEN`, also in Vercel so links use
+   the APIs), then run the "Ingest events" workflow once. Add Ticketmaster/Eventbrite feeds in /admin.
+4. **Code next:** Kinmap: sign-in with Apple (needed before an iPhone release), push-notification settings per
+   tree, printing partner. Afoot: newsletter sources for the 15 paused venues, sponsor billing with Stripe.
+   NoBucks: the pilot database and a guided first-run for leaders.
+5. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two relatives.
+6. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt` and `vercel_ADMIN_TOKEN.txt` into a
+   password manager and delete them.
 7. Read the [Company Design System](./Company-Design-System.md) and apply the shared tokens as you touch
    each app.

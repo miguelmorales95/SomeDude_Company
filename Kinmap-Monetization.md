@@ -157,7 +157,8 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
       largest, select many (or press and hold) and delete for good after a confirmation. Deleting removes
       the file itself, so it frees space; pins to a deleted photo go too. Owners and admins delete (Storage
       policy `20261028000000` lets admins delete files); editors and viewers can look. Editors suggesting
-      removals through approval is not built yet. Also linked from Plan & storage.
+      removals through approval: built (`2f403de`): editors select photos and "Suggest deleting"; approving
+      deletes the files. Also linked from Plan & storage.
 - [x] **Member limits (section 4; Kinmap `09c7615`, live on the web 2026-10-29):** on the Members screen the
       owner (or an admin, for editors and viewers) sets uploads a month, AI requests a day, and "changes
       always need approval" (an admin set this way can't approve their own). Everyone sees the limits and
@@ -169,7 +170,12 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
       with only who and which tree on the lock screen; tapping opens the update. Tokens in `push_tokens`
       (migration applied), removed on sign-out or when Expo reports the phone gone. Android needs
       Firebase (below) before notices arrive.
-- [ ] Similar-request grouping and muting by voice (section 5): next, now that notifications exist.
+- [x] **Similar requests and quiet rules (section 5; Kinmap `ff1f112`, web live 2026-10-29):** a waiting update
+      that repeats one declined in the last 90 days (same author, mostly the same kinds of change about the same
+      people) is marked "Similar to one declined", approvers can "Decline all like this", and after two declines
+      the author sees a kind note. Owners and admins type or say what to quiet on Updates ("Mute photo requests
+      from Javier for a week"); the AI (or a keyword parser) makes a rule shown as a removable chip; muted
+      updates sit under "Muted" and send no notifications.
 - [x] Google sign-in (section 6): web live, phones in the next native build. Facebook and Apple: founder
       setup only.
 - [ ] Founder: switch billing on (below); an accountant's check on sales tax for digital subscriptions

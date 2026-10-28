@@ -71,7 +71,9 @@ without a reviewed migration, backup, and verification plan.
   venues in 4-minute runs. Local Ollama ingest is too slow on this GPU-less machine for bulk runs. Since 2026-10-29 the
   daily ingest runs on GitHub Actions (`Afoot/.github/workflows/ingest.yml`, needs repo secrets), not Vercel cron; 15
   seeded venues with unreadable calendars are paused (`active = false`) and Saint Rocke (closed) too. Don't scrape
-  Facebook or aggregators whose terms forbid it (Songkick, etc.).
+  Facebook or aggregators whose terms forbid it (Songkick, etc.). Event links (any site, via /submit, reviewed in
+  /admin) and Eventbrite/Ticketmaster feeds (official APIs, `npm run feeds`) arrived 2026-10-29 (Afoot `3e887bc`);
+  Afoot now has `npm run migrate -- <file>` (after `npm run backup:db`).
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
   project. NoBucks moves to its own project when its pilot starts. No Supabase Auth users yet.
 
@@ -113,7 +115,7 @@ policy at /privacy) and afoot.somedude.app. Next is the launch-gap sprint in the
 limits, the photo manager and sign-in plans are in [Kinmap-Monetization.md](./Kinmap-Monetization.md). 2026-10-28: the photo
 manager is live (`2d2546f`); Google sign-in works on the web once enabled in Supabase (`3d3cfd5`); push notifications and
 phone Google sign-in (`13d7922`, expo-notifications + expo-web-browser) changed the native fingerprint, so they reach phones
-only with a new EAS build, and build `4ba46f83` no longer receives OTA updates. Migrations through `20261029000000` (member limits) applied. somedude.app/privacy
+only with a new EAS build, and build `4ba46f83` no longer receives OTA updates. Migrations through `20261029010000_notification_mutes` applied (quiet rules, Kinmap `ff1f112`). somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
