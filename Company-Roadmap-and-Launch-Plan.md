@@ -288,6 +288,15 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
     - [x] **Per-member limits** (Kinmap `09c7615`, live on the web 2026-10-29; phones with the next build).
+    - [x] **Tree centered on you** (Kinmap `c688050`, web and over the air 2026-10-28): with "This is me" set, the
+          tree opens on you, with chips to show or hide each parent's side, brothers and sisters, children and
+          grandchildren, each partner's family and everyone else (remembered per device). New trees start with
+          you. **Sample families:** `npm run seed:samples` in `kinmap/server` adds "The Reyes family (sample)"
+          (27 people, you are Daniel) and "The Chan family (sample)" (17), fictional, with public-domain stand-in
+          photos from Wikimedia Commons, through the API as a demo account, then handed to the founder. The first
+          run used 5 ethnographic photos (a Māori man in a cloak, a colonial-era group, etc.); the script now
+          skips those, but the two trees made today still have them: delete them in Account & keepsakes and
+          re-run, or delete those photos in the photo manager.
     - [x] **Sign in with Apple and per-tree notification settings** (`dff0d19`): web live; phones with the next
           build. Apple needs the founder's Apple Developer setup (Kinmap-Monetization.md §6).
     - [x] **Quiet rules and similar requests** (`ff1f112`) and **editors suggesting photo deletions** (`2f403de`),

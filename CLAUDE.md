@@ -120,7 +120,9 @@ only with a new EAS build, and build `4ba46f83` no longer receives OTA updates. 
 notification settings; new native modules expo-apple-authentication and expo-crypto). **Current preview build
 (2026-10-28): EAS `979ccd6b-9469-44ae-8389-93b8a241f355`** with Firebase (EAS secret file `GOOGLE_SERVICES_JSON`; FCM V1
 key uploaded by the founder); `mobile/fingerprint.config.js` ignores EAS secret files so local and EAS fingerprints match.
-Check OTA compatibility against this build id from now on. somedude.app/privacy
+Check OTA compatibility against this build id from now on. Sample families: `npm run seed:samples` in `kinmap/server`
+(fictional, public-domain stand-in photos; demo account `kinmap-samples@somedude.app`, password only in the ignored
+`server/.env`); sample trees end in "(sample)". somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
