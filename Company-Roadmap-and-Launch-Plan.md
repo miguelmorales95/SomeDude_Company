@@ -288,10 +288,17 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           details are in [Kinmap-Monetization.md](./Kinmap-Monetization.md).
     - [ ] "SomeDude" is public on somedude.app: finish the trademark check (§9).
     - [x] **Per-member limits** (Kinmap `09c7615`, live on the web 2026-10-29; phones with the next build).
-    - [x] **Tree centered on you** (Kinmap `c688050`, web and over the air 2026-10-28): with "This is me" set, the
-          tree opens on you, with chips to show or hide each parent's side, brothers and sisters, children and
-          grandchildren, each partner's family and everyone else (remembered per device). New trees start with
-          you. **Sample families:** `npm run seed:samples` in `kinmap/server` adds "The Reyes family (sample)"
+    - [x] **Tree centered on you** (Kinmap `c688050`, changed in `fafe48e` 2026-10-29): everyone sees the same full
+          tree; with "This is me" set it opens on you, with a gold "You" tag. (The show/hide switches per branch
+          were removed at the founder's request.) New trees start with you.
+    - [x] **2026-10-29 round (Kinmap `fafe48e`, `f20760d`; web and over the air):** a + button on the tree (N on
+          a computer) adds someone with their parents and children, confirming first if they'd be unconnected;
+          family-written text (stories, fun facts, timeline, place and link notes, board words, slideshows) shows
+          in the reader's language, translated once per tree and language by Claude Haiku and cached
+          (`content_translations`, ~1.5 s the first time, ~0.1 s after; "Show original"; originals are what get
+          edited); Esc closes the desktop side panel and ? reopens it; binder pages offer Everyone / No one /
+          Only those alive; calendars always run January to December. Not translated yet: names and places (on
+          purpose), slideshow text slides, PDFs and keepsakes. **Sample families:** `npm run seed:samples` in `kinmap/server` adds "The Reyes family (sample)"
           (27 people, you are Daniel) and "The Chan family (sample)" (17), fictional, with public-domain stand-in
           photos from Wikimedia Commons, through the API as a demo account, then handed to the founder. The first
           run used 5 ethnographic photos (a Māori man in a cloak, a colonial-era group, etc.); the script now

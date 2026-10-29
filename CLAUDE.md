@@ -122,7 +122,8 @@ notification settings; new native modules expo-apple-authentication and expo-cry
 key uploaded by the founder); `mobile/fingerprint.config.js` ignores EAS secret files so local and EAS fingerprints match.
 Check OTA compatibility against this build id from now on. Sample families: `npm run seed:samples` in `kinmap/server`
 (fictional, public-domain stand-in photos; demo account `kinmap-samples@somedude.app`, password only in the ignored
-`server/.env`); sample trees end in "(sample)". somedude.app/privacy
+`server/.env`); sample trees end in "(sample)". Family-written text is translated for readers by the API (`server/src/translate.js`,
+`GET /trees/:id/translations`, cached in `content_translations`); the app overlays it (`mobile/src/lib/translations.ts`). somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
