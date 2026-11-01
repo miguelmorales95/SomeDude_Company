@@ -79,7 +79,10 @@ without a reviewed migration, backup, and verification plan.
   and read by the daily job (`afoot-news@somedude.app` via a Cloudflare Email Worker; /admin → Newsletters), Stripe
   sponsor billing (payment links, invoices, webhook), and official calendar feeds (iCal/Localist, `lib/calendarFeeds.ts`)
   with the coverage checklist in `Afoot/data/sources/README.md`. The ANTHROPIC key in GitHub works again (2026-10-30). 2026-11-01: 34 calendar feeds (27 colleges, 7 public places)
-  imported and pulled from this PC, so upcoming dates went from 141 to 2,323; 100 more calendar pages wait in /admin.
+  imported and pulled from this PC, so upcoming dates went from 141 to 2,323. Later on 2026-11-01: all 82 coverage-list calendar pages approved and
+  geocoded; CivicPlus city RSS and Communico library feeds added (Afoot `f8136ca`, migration `20261101000000` after a
+  backup; 10 cities + Glendale libraries, ~400 dates); the extractor keeps busy calendars (16k tokens, cut-off salvage,
+  `6cc054c`: Lodge Room 69, Permanent Records 51). Flappers blocks bots (Cloudflare challenge): newsletter or screenshots only.
   `INBOUND_EMAIL_SECRET` is set in Vercel and in `Afoot/.env.local`. The Cloudflare worker needs the same value as its
   `INBOUND_SECRET` variable.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
@@ -132,7 +135,8 @@ Check OTA compatibility against this build id from now on. Sample families: `npm
 `server/.env`); sample trees end in "(sample)". Family-written text is translated for readers by the API (`server/src/translate.js`,
 `GET /trees/:id/translations`, cached in `content_translations`); the app overlays it (`mobile/src/lib/translations.ts`). somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
-or a backup script. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+or a backup script. `npm run backup:media` in `kinmap/server` (Kinmap `d5e954d`) mirrors photos/videos and needs
+`SUPABASE_SECRET_KEY` in the local `server/.env` only. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.

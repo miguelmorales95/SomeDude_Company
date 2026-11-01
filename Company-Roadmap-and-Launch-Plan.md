@@ -252,7 +252,9 @@ Timeboxes assume solo, part-time-to-full-time effort. Adjust to your real hours.
           Email Templates ("Magic Link" and "Confirm signup") and sends a test code.
     - [x] **Invite language** (`5954821`): a language choice on the invite card.
     - [ ] Backups: Supabase Pro ($25/mo, daily) before real families' data, or run `npm run backup:db`
-          weekly until then. Photo files aren't in that backup.
+          weekly until then. Photos and videos: `npm run backup:media` (Kinmap `d5e954d`) once
+          `SUPABASE_SECRET_KEY` is in the local `server/.env`; signed-out access to media verified refused
+          2026-11-01.
     - [ ] Relatives who are native speakers read the Spanish, Mandarin and Cantonese text.
     - [x] **Phone feedback, round 1** (Kinmap `99a6d5d`, shipped as an over-the-air update 2026-10-25):
           pinch to zoom on the tree (no +/- buttons), one-row bar (Talk, Updates, More), "how they're related
