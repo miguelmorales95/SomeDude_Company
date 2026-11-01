@@ -1,6 +1,6 @@
 # Revenue Timeline & Path to Self-Sustainability
 
-**Owner:** Miguel Morales · **As of:** 2026-10-24 · **Status:** planning model (v1.1), not a forecast
+**Owner:** Miguel Morales · **As of:** 2026-11-01 · **Status:** planning model (v1.2), not a forecast
 
 > Every number here is an **assumption to be replaced by measured data**. No app is earning money yet
 > (Kinmap has one reported early sale). Use this to choose what to measure and which levers to pull,
@@ -8,6 +8,14 @@
 > [Company Roadmap](./Company-Roadmap-and-Launch-Plan.md).
 
 ---
+
+## What changed in v1.2 (2026-11-01)
+
+- **Kinmap is side income for now:** the founder has a regular job, so the milestones that matter first
+  are **$500 and $1,000 a month extra**, and **how much has been made so far** at each point (§3b).
+- **New revenue lines modeled:** prints made in house or by a partner, a $149 **Family History Project**
+  bundle, and a one-time **Keep forever** fee when a family stops building
+  ([Kinmap-Monetization.md §8](./Kinmap-Monetization.md)). The model now prints cumulative cash.
 
 ## What changed in v1.1 (2026-10-23)
 
@@ -98,6 +106,38 @@ the infrastructure bill.**
 At 150 new a month and 5% churn, that's ~3,000 families. To grow past the ceiling, cut churn or raise the
 monthly inflow.
 
+### 3b. What you'd have made by each point (side income)
+
+From the same model, after running costs, before taxes. "So far" is the cumulative total since paid
+launch (about March 2027, so month 9 ≈ Christmas 2027 and month 21 ≈ Christmas 2028). "With extras" adds
+print orders (10% of paying families a month at $15 profit, 3× in Nov–Dec), the Family History Project
+(30% of new families, +$25 each over a plain year) and Keep forever (30% of families who stop, $40 net).
+
+| Months after launch | Conservative | Base | Base **with extras** | Strong **with extras** |
+|---|---|---|---|---|
+| 3 | ~$0/mo · **$0** so far | $120/mo · **$90** | $350/mo · **$630** | $520/mo · **$200** |
+| 6 | $140/mo · **$90** | $450/mo · **$1,100** | $830/mo · **$2,600** | $2,000/mo · **$4,800** |
+| 12 | $490/mo · **$2,100** | $1,340/mo · **$6,700** | $2,190/mo · **$13,000** | $6,200/mo · **$33,700** |
+| 18 | $990/mo · **$6,700** | $2,820/mo · **$19,600** | $4,440/mo · **$33,500** | $13,200/mo · **$93,300** |
+| 24 | $1,740/mo · **$15,200** | $5,350/mo · **$44,600** | $8,310/mo · **$76,600** | $23,800/mo · **$222,600** |
+| 36 | $4,380/mo · **$52,200** | $10,700/mo · **$147,100** | $15,800/mo · **$240,100** | $39,200/mo · **$642,700** |
+
+| Milestone (profit per month) | Conservative | Base | Base with extras |
+|---|---|---|---|
+| Covers its own costs | month 4 | month 2 | month 1 |
+| **$500/mo extra** | month 13 | month 7 | month 5 |
+| **$1,000/mo extra** | month 19 | month 11 | month 7 |
+| ~$4,000 take-home (could replace a job) | month 41 | month 24 | month 20 |
+
+How to read it:
+- **Extras about double what's been made by month 12–24**, but they lean on one guess: 1 in 10 paying
+  families ordering a print each month. Measure it with a pre-order before trusting it (Monetization §8.6).
+- **Your hours cap the extras:** the base case reaches ~100 print orders a month around month 24 (~300 in
+  December). That's only possible with a print partner shipping for you, or with help.
+- Not included: in-house printing equipment ($1,500–4,000, only once orders justify it), taxes on side
+  income (set aside ~25–30%), and a founding pre-sale this winter, which would add cash before month 0.
+- Run `node models/kinmap-model.mjs` to update these after changing any input.
+
 ### Revenue lines, in order
 
 1. **Family subscription:** a free tier (one tree, capped AI "talk" uses, limited storage) and a paid
@@ -107,7 +147,8 @@ monthly inflow.
    high-margin. Each $40-margin book adds the profit of about 7 family-months.
 3. **Gift subscriptions:** "give Grandma a year of Kinmap". Buyers are often not the end users.
 4. **Extra storage tiers** for video-heavy families.
-5. **Lifetime / "preserve forever" plan:** good for cash flow, but only after you know storage costs.
+5. **Keep forever (one-time, read-only) and the Family History Project bundle:** see
+   [Kinmap-Monetization.md §8](./Kinmap-Monetization.md). Price only after measuring storage per family.
 
 ### Data rules
 

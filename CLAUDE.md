@@ -82,7 +82,12 @@ without a reviewed migration, backup, and verification plan.
   imported and pulled from this PC, so upcoming dates went from 141 to 2,323. Later on 2026-11-01: all 82 coverage-list calendar pages approved and
   geocoded; CivicPlus city RSS and Communico library feeds added (Afoot `f8136ca`, migration `20261101000000` after a
   backup; 10 cities + Glendale libraries, ~400 dates); the extractor keeps busy calendars (16k tokens, cut-off salvage,
-  `6cc054c`: Lodge Room 69, Permanent Records 51). Flappers blocks bots (Cloudflare challenge): newsletter or screenshots only.
+  `6cc054c`: Lodge Room 69, Permanent Records 51). Flappers blocks bots (Cloudflare challenge): newsletter or screenshots only. Same day (Afoot `e5b9320`): 20 college
+  athletics feeds (home games only, `feed_options`), 58 cinema/theater pages, 37 neighborhood-council feeds (meetings
+  filtered, shared items listed once), and `recurring.csv` + `npm run recurring` (nightly) for 35 farmers/flea markets:
+  3,445 upcoming dates. The Cloudflare Email Worker (named `inbound-secret`; variables `INBOUND_SECRET`, `WEBHOOK_URL`,
+  `FORWARD_TO`) delivers to the webhook: verified 2026-11-01 with a test email. ANTHROPIC, Ticketmaster and Eventbrite keys
+  are now also in Vercel.
   `INBOUND_EMAIL_SECRET` is set in Vercel and in `Afoot/.env.local`. The Cloudflare worker needs the same value as its
   `INBOUND_SECRET` variable.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
@@ -136,7 +141,11 @@ Check OTA compatibility against this build id from now on. Sample families: `npm
 `GET /trees/:id/translations`, cached in `content_translations`); the app overlays it (`mobile/src/lib/translations.ts`). somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. `npm run backup:media` in `kinmap/server` (Kinmap `d5e954d`) mirrors photos/videos and needs
-`SUPABASE_SECRET_KEY` in the local `server/.env` only. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+`SUPABASE_SECRET_KEY` in the local `server/.env` only. **Places in the timeline (2026-11-01):** Kinmap branch `places-in-timeline`
+(`95c8acd`, 86 tests pass) folds Places into timeline entries (optional place per entry). Not on `main` yet: back up,
+apply `20261101010000_places_in_timeline.sql`, then merge to `main` (the API needs the new column) and run
+`npm run update:preview` (JS-only). Printing, Keep forever and the Family History Project bundle are explored in
+[Kinmap-Monetization.md §8](./Kinmap-Monetization.md). The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.

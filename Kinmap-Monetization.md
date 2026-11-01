@@ -1,6 +1,6 @@
 # Kinmap monetization
 
-**Owner:** Miguel Morales · **As of:** 2026-10-27 · **Status:** working plan. Prices and limits are
+**Owner:** Miguel Morales · **As of:** 2026-11-01 · **Status:** working plan. Prices and limits are
 hypotheses to test with families, not decisions. Billing code is built and switched off (see "What's built").
 
 Kinmap is a family keepsake that families pay for. It never shows ads, never sells or shares family
@@ -234,3 +234,123 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
    keys.
 7. Before turning it on for real families: tell existing testers, since Free limits start applying
    (1 GB, about 30 AI stories a month, 10 members).
+
+---
+
+## 8. Ideas being explored (2026-11-01, not decided)
+
+The founder's idea: lead with **things we make and mail to you** (books, posters, binders,
+calendars) as the reason to pay, and turn the subscription into a **project you finish**: pay while the
+family is building the tree, then keep it readable for good for a one-time fee, and reopen editing later
+when someone (a grown grandchild) picks it up again. This section tests how realistic that is.
+
+### 8.1 Printing as the headline, not as a replacement for export
+
+**Keep the keepsake export.** Printing should be the thing families are proud to buy; export stays free
+and always on (§1). Three reasons:
+- "We care about your data" only holds if families can take it with them. Removing export would be the
+  opposite: data that can only leave as something we sell.
+- Privacy laws give people a right to a copy of their data (California's applies once a business is big
+  enough; Europe's applies to any EU user). Building around it now is cheaper than adding it back later.
+- Export costs almost nothing (the app builds the file on the phone). Removing it saves no money.
+
+The message can still be: *"Your family's story belongs to you. Download it any time, free. Or let us
+make it into a book and mail it to you."*
+
+### 8.2 Making prints in house: what's realistic
+
+| Product | In house? | Equipment (one-time) | Cost per piece | Time per order | Verdict |
+|---|---|---|---|---|---|
+| **Wall poster** (18×24 in, the tree) | **Yes** | 24-in photo inkjet $1,500–3,500 (13-in desktop $900 covers 13×19 only) | ink + paper $3–6, tube + postage $8–12 | 15–20 min | Good first in-house product: easy, high perceived value, already built (`/prints` poster PDF). |
+| **Family binder** (coil-bound, 20–60 pages) | **Yes** | color laser $500–900 + coil binder $150–300 | $5–10 (paper, toner, covers, coil), Media Mail $4–6 | 20–30 min | Realistic. The binder PDF already exists. Feels homemade in a good way. |
+| **Wall calendar** | **Yes** | same as the binder | $6–10 + postage $4–6 | 20–30 min | Realistic; very strong in Nov–Dec. Already built. |
+| **Hardcover photo book** | **No** | case binding, laminating, trimming: thousands of dollars and real skill | — | 1–2 h | Use a print-on-demand partner (Lulu, Peecho, Prodigi, Gelato and similar print and ship under your name). Typical 8×8 hardcover, 40 pages: $18–30 + $6–9 shipping. |
+
+**The real limit is your time, not equipment.** With a regular job, 20–30 minutes an order is ~10–15
+orders a week before evenings and weekends are gone. The base case reaches ~100 print orders a month
+around month 24 (~300 in December). So:
+1. **Start with a print-on-demand partner for everything** (no equipment, no inventory, it ships for you).
+   Price so each order earns $12–20.
+2. **Bring posters, binders and calendars in house** once there are ~30–50 orders a month and you've seen
+   which sell. The equipment pays for itself after ~100–200 orders.
+3. **Keep hardcover books with a partner** indefinitely.
+
+In-house saves roughly $5–15 per poster or binder compared with a partner. That's real at volume, but not
+worth the time before then.
+
+**Pricing to reach everyone:** a **$19 binder** and **$25 poster** (shipped) stay affordable and still
+earn $8–15 in house. A **$49–59 hardcover book** through a partner earns $15–25. A free-tier family can buy
+prints too: prints are the friendliest way to convert people who'll never pay monthly.
+
+### 8.3 "Keep forever" (read-only for good, one-time)
+
+The idea: the subscription pays for **building** (AI, uploads, editing). When the family is done, they pay
+once to keep the tree **readable** for the long term. AI and editing are off; viewing, slideshows,
+keepsakes and ordering prints stay on.
+
+| | Estimate |
+|---|---|
+| Storage for a typical finished tree (2–5 GB) | $0.04–0.10 a month today (Supabase Storage ~$0.021/GB) plus a little bandwidth |
+| 30 years of that, at today's prices | ~$15–35 (storage prices have fallen over time; don't count on it) |
+| **Price idea** | **$59–79 one-time**, with ~$15–20 per family set aside in a reserve |
+
+**What can honestly be promised** ("for your grandkids" is decades, longer than most companies last):
+- *"Your tree stays online, read-only, for as long as Kinmap runs, with no more payments."*
+- *"If Kinmap ever shuts down, every Keep-forever family gets at least 6 months' notice, their full keepsake
+  file, and a printed index of their tree."* That is the real guarantee, and another reason export stays.
+- Don't use "guaranteed forever" or "lifetime" without that wording; have the terms reviewed.
+
+**Reopening editing later:** a grandchild (or anyone) pays to switch building back on: **$9.99 a month**
+or **$29 for 3 months**, with AI limits as usual. The tree, its history and its members are all still there.
+
+**Passing the tree on:** owners name **future admins** ("heirs"). An heir gets owner rights when the owner
+hands over the tree, or after the owner has been inactive for, say, 12 months and doesn't answer
+reminders. Children can be named by email for later; accounts for under-13s stay off (COPPA). The app
+already lets an owner give a tree to a member (Account & keepsakes), so this builds on existing code.
+
+**Effect on money:** it turns "cancel" into "graduate": a family that would have churned to $0 pays
+$59–79 once and can come back. Recurring revenue stops sooner for some families, but they never fully
+leave, and the "it's safe for decades" promise should help families commit in the first place.
+
+### 8.4 The Family History Project (a bundle with a start and an end)
+
+Sell Kinmap as a **months-long project with a finished product**, not an open-ended subscription:
+
+| | **Family History Project** |
+|---|---|
+| Price idea | **$149** (one-time) |
+| Includes | 12 months of building (AI, uploads, editing), **Keep forever** afterwards, a **hardcover book** of the tree and stories, and a **wall poster** |
+| Product cost | book $25–35 shipped (partner) + poster $10–15 in house, or $18–25 via partner, + card fees ~$5 + a year of AI and storage ~$5–10 |
+| Profit | **~$75–90** up front, vs ~$60–70 for a plain $79.99 year |
+| Story | Month 1: record the elders. Months 2–6: everyone adds photos and memories. Month 9 or so: we make the book and mail it. Then it's kept for good. |
+
+Also possible: a **$79 starter** (6 months + Keep forever + a binder). Bundles are also natural **gifts**
+("give Grandma her story").
+
+### 8.5 Other ways to earn sooner
+
+Roughly fastest first:
+1. **Founding-family pre-sale (this holiday season):** sell the Family History Project at a founder price
+   ($99–119) now with a clear delivery date for the book (say, by Mother's Day 2027). A Stripe payment link
+   is enough; billing in the app can wait. Gives cash and real demand data before the March launch. The
+   FTC's mail-order rule requires shipping by the promised date (or offering a refund), so give a date you
+   can keep.
+2. **Gift cards and gift bundles** for Christmas, Mother's and Father's Day, and Grandparents Day (Sept).
+3. **Holiday calendars:** the photo calendar is built; sell it in November and December, even to free
+   families.
+4. **"We'll interview Grandma" add-on ($99–199):** a 60-minute guided call recorded into the tree. High
+   price, but it uses your hours, so cap it at a few a month or train a helper.
+5. **Reunion and memorial packages:** slideshow + posters + binders for an event, ordered by one organizer.
+6. **A custom family-tree poster on Etsy:** buyers come for the poster and discover the app. Etsy takes
+   ~10%, but it's free traffic.
+7. **Referral credit:** "invite a family, both get $10 off a print".
+8. **Group plans** for genealogy societies, churches and family associations (one invoice, many trees).
+
+### 8.6 What to test first
+
+1. Put the binder and poster prices on the "Plan & storage" screen as a **pre-order** and count clicks
+   before buying anything.
+2. Run the founding pre-sale with 20–50 families; see what share choose the bundle over a plain year.
+3. Ask early families whether "Keep forever" would make them more likely to start.
+4. Track print orders per paying family per month: the revenue model (Company-Revenue-Timeline.md §3b)
+   assumes 10%, which is the least certain number in it.

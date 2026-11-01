@@ -270,7 +270,7 @@ A big, decorative tree that fits on a wall.
   - fan or "radial" chart, which fits many generations in a circle;
   - a botanical tree whose branches carry the names.
 - **Extras:**
-  - an optional "Where we're from" map inset (from places, country or region only by default);
+  - an optional "Where we're from" map inset (from timeline places, country or region only by default);
   - a dedication line.
 - **Auto-fit:** the layout scales to the number of people. The app warns when names would print smaller
   than readable and suggests a bigger size or fewer generations.
@@ -282,7 +282,7 @@ A big, decorative tree that fits on a wall.
 ## 5. Family book and binder pages
 
 **Status (2026-10-25): binder pages built as a downloadable PDF** (Kinmap `073b893`): cover, one page per
-person (portrait, name, years, story, favorites, timeline, places) and photo sheets of 2/4/6/9 with
+person (portrait, name, years, story, favorites, timeline with places) and photo sheets of 2/4/6/9 with
 captions. **Not built:** branch pages, story pages, reordering pages, and the bound book (needs a partner).
 
 - **Binder pages:** printable 8.5×11 pages, each a printable PDF on its own. The page types are:
