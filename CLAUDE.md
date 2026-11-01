@@ -151,7 +151,11 @@ calendar $35, binder $29, poster $39) through partners (RPI books, Lulu calendar
 posters and binders in house only once profit pays for the machines and volume is steady). Founding pre-sale for the
 first 100 families at kinmap.somedude.app/founding (buttons email until Stripe links go in `kinmap/website/links.js`).
 Timeline edits and future admins (heirs) shipped 2026-11-01 (Kinmap `08cfa5b`). Decisions and monthly numbers go in
-[Kinmap-Decisions-Journal.md](./Kinmap-Decisions-Journal.md). The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+[Kinmap-Decisions-Journal.md](./Kinmap-Decisions-Journal.md). **Waiting to ship (2026-11-01):** Kinmap branch `release-projects-demo-site`
+(Family Projects billing, live demo, four-language site, draft terms/privacy; 106 tests pass). Ship: backup, apply
+`20261102000000_family_projects.sql` and `20261102010000_demo.sql`, merge to `main`, `npm run update:preview`, then
+`npm run demo:publish` in `server/` (needs `SUPABASE_SECRET_KEY` in the local `.env` only). Billing env vars renamed
+`FAMILY_*` → `PROJECT_*`. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.

@@ -191,6 +191,15 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
 
 ## 7. What's built, and what's next
 
+- [ ] **Family Projects billing, live demo, four-language site, updated terms and privacy (2026-11-01,
+      Kinmap branch `release-projects-demo-site`, 106 tests pass, not on `main` yet):** fixed 12- and
+      6-payment projects with `cancel_at`, pay once, gifts (`KIN-XXXX-XXXX-XXXX`), print-credit ledger,
+      read-only Keep forever (`requireEditing`), reopen at $9.99/month, founding prices for the first 100
+      (`FOUNDING_FAMILIES`); `app.kinmap.somedude.app/demo` (read-only sample families via a `kinmap_demo`
+      database role and a public `samples` bucket); the site in English, Español, 普通话 and 廣東話, a /demo
+      page, and draft terms and privacy for review. Migrations `20261102000000_family_projects` and
+      `20261102010000_demo`. Not built yet: print ordering, the founding-price lock on reopening, and a
+      3-month reopen option. Billing stays off until `BILLING_ENABLED=true`.
 - [x] AI spending caps per tree and per person (`ai_usage`, `budget.js`).
 - [x] Keepsake export and account deletion (free, always).
 - [x] **Plans and Stripe (Kinmap `5853e19`, live but off, 2026-10-27):** `tree_plans` table (applied after a
