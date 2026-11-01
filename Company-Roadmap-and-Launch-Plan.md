@@ -448,7 +448,7 @@ else needs the founder.
 3. **Afoot, founder:** the new `ANTHROPIC_API_KEY` works: a manual "Ingest events" run on 2026-10-30 saved 142 dates
    from 16 venues (3 venues' pages couldn't be parsed: Flappers, Lodge Room, Permanent Records). Then, for the
    newsletter, billing and calendar-feed code (written 2026-10-30, not yet pushed; migrations applied and
-   `INBOUND_EMAIL_SECRET` set in Vercel on 2026-11-01): push the code; set up the Cloudflare Email Worker for `afoot-news@somedude.app` (`Afoot/docs/cloudflare-email-worker.js`); subscribe that
+   `INBOUND_EMAIL_SECRET` set in Vercel on 2026-11-01; code deployed 2026-11-01): set up the Cloudflare Email Worker for `afoot-news@somedude.app` (`Afoot/docs/cloudflare-email-worker.js`); subscribe that
    address to the 9 venue newsletters listed in /admin → Newsletters; Stripe test keys and webhook for sponsor
    billing. Vercel has no Ticketmaster/Eventbrite/Anthropic keys, so /submit link reading uses fallbacks there.
 4. **Code next:** Kinmap: an iPhone build (after the Apple Developer account), printing partner. Afoot: import the
