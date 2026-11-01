@@ -52,6 +52,36 @@ for (const [name, s] of Object.entries(scenarios)) for (const extras of [false, 
   const ceiling = Math.round((s.cap + (s.adsCAC ? s.adsPerMonth / s.adsCAC : 0)) / s.churn);
   console.log(`${name}${extras ? " + prints, bundle, keep-forever" : ""}: covers costs m${r.hitCost}, $500/mo m${r.hit500}, $1k/mo m${r.hit1k}, $4k take-home m${r.hitGoal ?? ">48"}, worst cumulative cash $${Math.round(r.minCash)}${extras ? "" : `, plateau ~${ceiling} fam`}\n   ${r.rows.join(" | ")}`);
 }
+// Project pricing (Kinmap-Monetization.md §9): families pay once for a building period plus Keep forever,
+// instead of a subscription. Same inflow as each scenario; nobody "churns" to $0, they finish.
+const PROJECT = {
+  profitPerNew: 95,       // mix of Summer $99 and Year $149 after card fees, building-period AI/storage and the $15–20 reserve
+  reopenPerYear: 0.15,    // share of finished families who reopen editing each year ($29 for 3 months → ~$24 net)
+  reopenNet: 24,
+  printShare: 0.04,       // share of all project families ordering a print in a normal month (lower: many are finished)
+  printMargin: 15,
+  holidayBoost: 3,
+  storagePerFamily: 0.08, // read-only storage per family per month, paid from the reserve (shown, not subtracted)
+};
+for (const [name, s] of Object.entries(scenarios)) {
+  let families = 0, organic = s.start, cash = 0, minCash = 0, hit500 = null, hit1k = null, hitGoal = null;
+  const rows = [];
+  for (let m = 1; m <= 48; m++) {
+    const adds = organic + (s.adsCAC ? s.adsPerMonth / s.adsCAC : 0);
+    organic = Math.min(s.cap, organic * (1 + s.growth));
+    const holiday = [8, 9].includes(m % 12) ? PROJECT.holidayBoost : 1;
+    const profit = adds * PROJECT.profitPerNew + families * (PROJECT.reopenPerYear / 12) * PROJECT.reopenNet
+      + families * PROJECT.printShare * holiday * PROJECT.printMargin - FIXED - s.adsPerMonth;
+    families += adds;
+    cash += profit; minCash = Math.min(minCash, cash);
+    if (hit500 === null && profit >= 500) hit500 = m;
+    if (hit1k === null && profit >= 1000) hit1k = m;
+    if (hitGoal === null && profit >= GOAL_INCOME) hitGoal = m;
+    if ([3, 6, 12, 18, 24, 36].includes(m)) rows.push(`m${m}: ${Math.round(families)} fam, $${Math.round(profit)}/mo, $${Math.round(cash)} so far`);
+  }
+  console.log(`${name} as projects: $500/mo m${hit500}, $1k/mo m${hit1k}, $4k take-home m${hitGoal ?? ">48"}, worst cumulative cash $${Math.round(minCash)}\n   ${rows.join(" | ")}`);
+}
+
 // Ads break-even: LTV vs CAC
 const ltv = (NET - VAR) / 0.05;
 console.log(`LTV at 5% churn: $${ltv.toFixed(0)}; at 3%: $${((NET-VAR)/0.03).toFixed(0)}`);

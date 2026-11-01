@@ -354,3 +354,116 @@ Roughly fastest first:
 3. Ask early families whether "Keep forever" would make them more likely to start.
 4. Track print orders per paying family per month: the revenue model (Company-Revenue-Timeline.md §3b)
    assumes 10%, which is the least certain number in it.
+
+---
+
+## 9. Project pricing: pay for a building season, keep it forever (proposal, 2026-11-01)
+
+Instead of an open-ended subscription, families buy a **project**: a building season (AI, uploads,
+editing, inviting) followed by **Keep forever** (read-only for good, §8.3). Editing can be reopened any
+time. Prints are always extra, ordered in the app.
+
+| | **Free** | **Summer Project** | **Year Project** | **Reopen editing** | **Keep forever only** |
+|---|---|---|---|---|---|
+| Price idea | $0 | **$99** once | **$149** once | **$29** for 3 months (or $9.99/mo) | **$59** once |
+| Building | small tree, ~30 AI uses a month, 1 GB | 3 months (e.g. Memorial Day → Labor Day) | 12 months | 3 months at a time | — |
+| After building | stays as is (Free limits) | Keep forever | Keep forever | back to Keep forever | Keep forever |
+| AI | ~30 a month | ~500 a month while building | ~500 a month while building | ~500 a month | none |
+| Storage | 1 GB | 50 GB | 50 GB | 50 GB | what's there, read-only |
+| Good for | trying it | a summer family-reunion push | a year of gathering, ending with a book | a grandchild picking it up later | free families who finished |
+
+Rough profit per sale (estimates): Summer ~$75 and Year ~$115 after card fees (~3%), AI and storage
+while building (~$1–10) and a **$15–20 reserve** per family for long-term read-only storage. A plain
+$79.99 year earns ~$70 and then usually lapses.
+
+**Why it may sell better than a subscription:**
+- It matches how families actually work: an intense season of gathering, then years of looking.
+- "Pay once, it's kept for your grandkids" is easier to say yes to than "$8.99 a month forever," and it's a
+  natural **gift** (Mother's Day, Christmas, a grandparent's birthday).
+- Nobody "cancels": finished families stay in the app, can order prints any time, and can reopen.
+
+**Risks and how to handle them:**
+- **Fewer people pay $99–149 up front than $8.99 a month.** The model (Company-Revenue-Timeline.md §3c)
+  is still ahead of the subscription with half as many buyers, but test both: offer the Year Project and a
+  monthly plan side by side to the first 50–100 families.
+- **No recurring base:** income depends on steady new sales; it flattens when growth does. Prints,
+  reopenings and gifts are the repeat revenue.
+- **Storage piles up:** every finished family costs ~$0.04–0.10 a month forever. The reserve covers
+  decades at today's prices; keep reserves in a separate account and re-check yearly.
+- **App stores:** a one-time digital purchase inside the Android or iPhone app goes through the stores
+  (15% at the small-business rate). Selling on the web avoids it; check each store's current rules first.
+
+### 9.1 Should printable PDFs go away?
+
+First, a correction to the premise: **Kinmap doesn't keep the family's data on the phone.** The app stores
+only the sign-in; the tree, stories and photos live on Kinmap's servers. If Kinmap disappeared, a phone
+would have nothing. So two different things need separating:
+
+| | What it is | Recommendation |
+|---|---|---|
+| **Keepsake file** (ZIP: the whole tree as data, every photo and video, a page that opens in any browser) | The family's own data | **Keep, free, always.** It's the real backup and the honest version of "we care about your data". It isn't a print file, so it doesn't give away print sales. |
+| **Print-ready PDFs** (poster, binder, calendar) | A product made from the data | **Can stop being free downloads.** Families order the print instead; Kinmap sends the file straight to the printer (in house or a partner's API), so the family never needs a PDF. |
+
+Suggested change:
+- **Poster, calendar, book:** order only, with an on-screen preview. No downloadable print file.
+- **Binder:** keep a **print-at-home** version for families who can't pay for shipped prints (plain letter
+  paper, smaller photos), included with a Project (or $5 for Free families). It keeps "everyone can have
+  access" true and hardly competes with a bound book.
+- The founder's point stands: a downloaded PDF tends to be kept and printed elsewhere. Moving print files
+  behind an order is reasonable because they're a **product**; the **data** stays free to take.
+
+Nothing has changed in the app yet; this needs the founder's decision (and the print partner chosen in
+§10) first.
+
+---
+
+## 10. Print partners and the in-house split (2026-11-01)
+
+Full research: [research/kinmap-print-partners-la.md](./research/kinmap-print-partners-la.md) (12 LA-area
+shops, 7 online print APIs, equipment and shipping costs). **No LA shop publishes book or poster prices:
+every LA figure needs a quote.**
+
+### Who to meet first (LA)
+
+1. **Harman Press / A&I** (North Hollywood): HP Indigo presses, a bindery for hard- and soft-cover digital
+   books, and wide-format fine-art printing. Could do books and posters in one place. The source is
+   older: call to confirm.
+2. **Axiom Designs & Printing** (Glendale): case-bound hardcover with no stated minimum, ~10–12 days.
+3. **Kater-Crafts Bookbinders** (Pico Rivera): a bindery since 1948, for binding small lots of
+   digitally printed pages.
+4. **Typecraft** (Pasadena): a fourth option.
+
+**What to ask each:** price for 1, 10 and 50 copies of an 8×8 hardcover (20 and 40 pages) and an 18×24
+poster; whether they'll **drop-ship to families under Kinmap's name** (blind shipping); file specs (PDF/X,
+bleed); how orders arrive (email, FTP, an API); turnaround; and a test copy.
+
+**Online baseline, to compare quotes against and to start with:** **RPI Print** (the network behind Blurb)
+publishes wholesale prices with a free self-service API: 5×8 hardcover from **$9.70**, extra pages
+$0.02–0.34, shipping from **$6.99**. **Lulu** covers hardcover, coil and calendars (prices not published,
+no API fee). **Prodigi** does books and posters (wholesale prices not published). An API partner prints and
+ships every order without the founder touching it.
+
+### What to do in house, what to hand off (at 5–50 orders a month)
+
+| Product | Who | Why |
+|---|---|---|
+| **Hardcover book** | **Partner, always** | Case binding isn't a home job. |
+| **Poster** | **Partner at first; in house past ~25–30 a month** | A 24-in printer is ~$3,000–3,800 plus ink. Shipping a tube costs ~$14 (18×24) to ~$20 (24×36) by USPS, so price posters at **~$35–45 shipped**, not $25. Local pickup (South Bay) saves the shipping. |
+| **Coil binder** | **In house possible** (binder $900–2,000 with a color laser) **or partner** (Lulu coil) | Flat Media Mail (~$5 for 2 lb) keeps it cheap: a **$19–25 binder** still earns ~$8–12. |
+| **Calendar** | **Partner** | Seasonal; a partner absorbs the December spike. |
+
+Corrections to §8.2: poster shipping is higher than first estimated ($14–20, not $8–12), and a
+professional 24-in printer costs more ($3,000–3,800). The plan is the same: start with partners, bring in
+house only what sells steadily, and never books.
+
+### Effect on the plan
+
+- **Prices** (to confirm with real quotes): binder $19–25, calendar $29–35, poster $35–45, hardcover book
+  $49–69. Each should earn $12–25.
+- **The Year Project ($149, §9)** can include a print credit (say $25) instead of a specific product, so
+  it doesn't depend on one partner's pricing.
+- **Order flow:** the app sends the print file straight to the partner's API (or to the founder's queue
+  for in-house items); the family pays with Stripe in the app or on the web (physical goods aren't bound by
+  the app stores' billing rules). No print file is ever downloaded (§9.1).
+- **Next step:** call the top three LA shops for quotes and a sample, and open a free RPI or Lulu account
+  to order one test book of a sample family.

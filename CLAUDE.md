@@ -141,11 +141,10 @@ Check OTA compatibility against this build id from now on. Sample families: `npm
 `GET /trees/:id/translations`, cached in `content_translations`); the app overlays it (`mobile/src/lib/translations.ts`). somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. `npm run backup:media` in `kinmap/server` (Kinmap `d5e954d`) mirrors photos/videos and needs
-`SUPABASE_SECRET_KEY` in the local `server/.env` only. **Places in the timeline (2026-11-01):** Kinmap branch `places-in-timeline`
-(`95c8acd`, 86 tests pass) folds Places into timeline entries (optional place per entry). Not on `main` yet: back up,
-apply `20261101010000_places_in_timeline.sql`, then merge to `main` (the API needs the new column) and run
-`npm run update:preview` (JS-only). Printing, Keep forever and the Family History Project bundle are explored in
-[Kinmap-Monetization.md §8](./Kinmap-Monetization.md). The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+`SUPABASE_SECRET_KEY` in the local `server/.env` only. **Places in the timeline (2026-11-01, live):** Kinmap `95c8acd` folds Places into timeline
+entries (optional place per entry); migration `20261101010000` applied after a backup, API deployed, OTA update
+published. Printing, Keep forever, project pricing ($99 Summer / $149 Year) and LA print partners are in
+[Kinmap-Monetization.md §8–10](./Kinmap-Monetization.md). The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.

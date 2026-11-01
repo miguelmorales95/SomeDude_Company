@@ -138,6 +138,24 @@ How to read it:
   income (set aside ~25–30%), and a founding pre-sale this winter, which would add cash before month 0.
 - Run `node models/kinmap-model.mjs` to update these after changing any input.
 
+### 3c. Project pricing instead of a subscription (proposal)
+
+[Kinmap-Monetization.md §9](./Kinmap-Monetization.md): a $99 Summer or $149 Year Project, then Keep
+forever, with $29 reopenings and prints. Model inputs: ~$95 profit per sale, 15% of finished families
+reopen each year, 4% of all families order a print in a normal month (3× in Nov–Dec).
+
+| Months after launch | Base subscription + extras (§3b) | Base **as projects**, same buyers | Base as projects, **half the buyers** |
+|---|---|---|---|
+| 3 | $350/mo · **$630** so far | $1,600/mo · **$4,300** | $730/mo · **$1,900** |
+| 6 | $830/mo · **$2,600** | $2,230/mo · **$10,300** | $1,040/mo · **$4,700** |
+| 12 | $2,190/mo · **$13,000** | $4,170/mo · **$30,300** | $2,010/mo · **$14,300** |
+| 24 | $8,310/mo · **$76,600** | $13,700/mo · **$133,500** | $6,770/mo · **$65,000** |
+| 36 | $15,800/mo · **$240,100** | $16,800/mo · **$331,600** | $8,300/mo · **$163,100** |
+
+Projects bring cash in much sooner (each sale is paid up front), and even with half as many buyers they
+keep pace for the first year. Later, monthly income levels off with new sales, while the subscription
+keeps compounding. **Test both with the first 50–100 families.**
+
 ### Revenue lines, in order
 
 1. **Family subscription:** a free tier (one tree, capped AI "talk" uses, limited storage) and a paid
