@@ -172,6 +172,11 @@ from a real browser.
 
 ## 7. Getting paid
 
+**Built (Afoot, 2026-10-30, not yet deployed):** each campaign in /admin has a *Payment link* button
+(a Stripe page, monthly until the campaign's end date or one payment) and *Send invoice (net 15)*. A
+Stripe webhook marks the campaign paid, turns an approved campaign live, and pauses it when payments
+stop. Needs the sponsor-billing migration and Stripe keys (Afoot README, "Getting paid").
+
 | Stage | How | Cost |
 |---|---|---|
 | **First 1–10 sponsors** | **Stripe Payment Links:** create a "South Bay sponsor, $150/month" subscription link and a "Featured event, $15" one-time link in the Stripe dashboard. Send the link with the IO. Stripe charges monthly and emails receipts. | Card processing ~2.9% + 30¢ per payment; no code |

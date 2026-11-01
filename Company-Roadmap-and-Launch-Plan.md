@@ -435,7 +435,7 @@ See the companion **[Company Design System](./Company-Design-System.md)** for th
 
 ---
 
-## 10. Immediate next steps (as of 2026-10-28)
+## 10. Immediate next steps (as of 2026-11-01)
 
 Nothing has to run on the founder's computer. Everything below "code" is ready to build next; everything
 else needs the founder.
@@ -445,11 +445,16 @@ else needs the founder.
 2. **Kinmap, founder:** install the new preview build (EAS `979ccd6b`, 2026-10-28: Firebase connected) and test
    notifications (a second account sends an update), Google sign-in and More → Notifications. Publish the Google
    sign-in screen. Apple Developer account for Sign in with Apple and an iPhone build. Stripe test mode.
-3. **Afoot, founder:** all five GitHub secrets are set, but `ANTHROPIC_API_KEY` was rejected ("invalid x-api-key"):
-   re-paste a fresh key, then run "Ingest events" once. Add Ticketmaster/Eventbrite keys in Vercel too, and feeds
-   in /admin. Try `npm run screenshots` with a few Facebook screenshots.
-4. **Code next:** Kinmap: an iPhone build (after the Apple Developer account), printing partner. Afoot: newsletter sources for the 15 paused venues, sponsor billing with Stripe.
-   NoBucks: the pilot database and a guided first-run for leaders.
+3. **Afoot, founder:** the new `ANTHROPIC_API_KEY` works: a manual "Ingest events" run on 2026-10-30 saved 142 dates
+   from 16 venues (3 venues' pages couldn't be parsed: Flappers, Lodge Room, Permanent Records). Then, for the
+   newsletter, billing and calendar-feed code (written 2026-10-30, not yet pushed; migrations applied and
+   `INBOUND_EMAIL_SECRET` set in Vercel on 2026-11-01): push the code; set up the Cloudflare Email Worker for `afoot-news@somedude.app` (`Afoot/docs/cloudflare-email-worker.js`); subscribe that
+   address to the 9 venue newsletters listed in /admin → Newsletters; Stripe test keys and webhook for sponsor
+   billing. Vercel has no Ticketmaster/Eventbrite/Anthropic keys, so /submit link reading uses fallbacks there.
+4. **Code next:** Kinmap: an iPhone build (after the Apple Developer account), printing partner. Afoot: import the
+   coverage lists in `Afoot/data/sources/` (colleges, libraries, parks, museums, malls) and work through its "to do"
+   rows; screenshots or ticketing feeds for the 6 paused venues without newsletters. NoBucks: the pilot database
+   and a guided first-run for leaders.
 5. **Kinmap:** Supabase Pro ($25/mo) for backups (or weekly `npm run backup:db`), then invite one or two relatives.
 6. **Housekeeping:** move `resend_key.txt`, `supabase_kinmap_key.txt`, `vercel_ADMIN_TOKEN.txt`, and in Downloads
    `kinmap-528d2-firebase-adminsdk-…json` and `kinmap-GC-secret.json` into a password manager and delete them. The

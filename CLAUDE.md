@@ -75,6 +75,13 @@ without a reviewed migration, backup, and verification plan.
   /admin) and Eventbrite/Ticketmaster feeds (official APIs, `npm run feeds`) arrived 2026-10-29 (Afoot `3e887bc`);
   Afoot now has `npm run migrate -- <file>` (after `npm run backup:db`). `Afoot/SC_2_Afoot/` turns screenshots into
   queued events with a local Ollama vision model (`npm run screenshots`); screenshots are git-ignored.
+  2026-10-30 (code local, not pushed; the three `20261030*` migrations applied 2026-11-01 after a backup): newsletters are queued by the webhook
+  and read by the daily job (`afoot-news@somedude.app` via a Cloudflare Email Worker; /admin → Newsletters), Stripe
+  sponsor billing (payment links, invoices, webhook), and official calendar feeds (iCal/Localist, `lib/calendarFeeds.ts`)
+  with the coverage checklist in `Afoot/data/sources/README.md`. The ANTHROPIC key in GitHub works again (2026-10-30). 2026-11-01: 34 calendar feeds (27 colleges, 7 public places)
+  imported and pulled from this PC, so upcoming dates went from 141 to 2,323; 100 more calendar pages wait in /admin.
+  `INBOUND_EMAIL_SECRET` is set in Vercel and in `Afoot/.env.local`. Until the code is pushed, the nightly job's old
+  feeds step can't read iCal/Localist feeds.
 - No `core` or `kinmap` schema exists yet, and none should be added here: Kinmap gets its own Supabase
   project. NoBucks moves to its own project when its pilot starts. No Supabase Auth users yet.
 
