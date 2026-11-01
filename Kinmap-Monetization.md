@@ -1,51 +1,80 @@
 # Kinmap monetization
 
-**Owner:** Miguel Morales · **As of:** 2026-11-01 · **Status:** working plan. Prices and limits are
-hypotheses to test with families, not decisions. Billing code is built and switched off (see "What's built").
+**Owner:** Miguel Morales · **As of:** 2026-11-01 · **Status:** working plan. Prices are hypotheses to
+test with families. Decisions and results are logged in [Kinmap-Decisions-Journal.md](./Kinmap-Decisions-Journal.md).
 
 Kinmap is a family keepsake that families pay for. It never shows ads, never sells or shares family
 data, and never promises "unlimited" anything it can't afford. Limits exist so the service stays
 sustainable and honest, and they're enforced in code, not just in the terms.
 
+**The offer (decided 2026-11-01), two ways to buy:**
+1. **A Family Project** (also sold as a gift): a building period paid monthly, then the tree is kept
+   for good, read-only, with a credit toward something printed.
+2. **Printed keepsakes**, which anyone can order at any time, including Free families.
+
 ---
 
-## 1. Plans (hypotheses to test)
+## 1. Plans and products
 
-| | **Free** | **Family** |
-|---|---|---|
-| Price | $0 | **$8.99 / month or $79.99 / year** per tree (paid by the tree's owner) |
-| People in the tree | No limit | No limit |
-| Members (relatives invited) | Up to 10 | No set limit (fair use) |
-| Photo and video storage | 1 GB | 50 GB |
-| AI (talking to the tree, answers, "Check my tree") | About 30 a month | About 500 a month |
-| Boards, slideshows, links | Yes | Yes |
-| Printable PDFs (binder, poster, calendar) | 1 a month | No set limit |
-| Keepsake file (full export) | Yes, always | Yes, always |
+### Family Projects
 
-Notes:
-- **Export is never a paid feature.** The keepsake file is how a family takes its data anywhere; holding
-  it hostage would break the promise.
-- **People in the tree aren't limited.** Limits fall on what costs money (storage and AI), not on the
-  family's history.
-- AI limits are counted in dollars behind the scenes (`ai_usage.cost_usd`), so a Family tree's cap is
-  about **$0.50 a month** at Haiku 5.5 prices (~$0.001 per story). The per-person daily limit stays as a
-  second guard.
-- **Prints** (posters, books, calendars ordered through Kinmap) are priced per order with their own
-  margin, available on both plans once a print partner is confirmed (see Kinmap-Feature-Specs.md).
+| | **Free** | **6-Month Family Project** | **Year Family Project** |
+|---|---|---|---|
+| Price | $0 | **$14.99 a month for 6 months** ($89.94), or $84 paid once | **$12.99 a month for 12 months** ($155.88), or $139 paid once |
+| Building (AI, uploads, editing, invites) | Free limits (§11) | 6 months | 12 months |
+| Afterwards | stays on Free | **Keep forever** (read-only for good, §8.3) | **Keep forever** |
+| Print credit | — | **$15** | **$30** |
+| AI while building | ~30 uses a month | ~500 a month | ~500 a month |
+| Photo and video storage | 1 GB | 50 GB | 50 GB |
+| People in the tree | No limit | No limit | No limit |
+| Keepsake file (full export) | Yes, always | Yes, always | Yes, always |
 
-### Rough unit economics per Family tree (estimates, recheck with real usage)
+- **Advertised as the monthly price** ("$12.99 a month for a year"). It's a fixed plan, not an open-ended
+  subscription: Stripe charges 6 or 12 times and then stops (the same `cancel_at` pattern as Afoot's
+  sponsor billing). **Keep forever starts once the plan is paid in full.** If payments stop, building
+  pauses and the tree stays on Free limits; nothing is deleted.
+- **Gifts are paid once** ($84 or $139): the giver buys, the recipient gets a code.
+- **Reopen editing** any time after: **$9.99 a month**, stop whenever. **Keep forever alone** (for Free
+  families who are done building): **$59** once.
+- **Founding families** (the pre-sale, §12): **$9.99 a month** for the Year Project ($119.88, or $109 once)
+  and **$11.99 a month** for 6 months ($71.94, or $69 once), for the first 100 families.
 
-| | Monthly plan | Yearly plan (per month) |
-|---|---|---|
-| Revenue | $8.99 | $6.67 |
-| Card fees (Stripe, 2.9% + $0.30) | −$0.56 | −$0.22 |
-| Storage, worst case 50 GB (Supabase Storage ~$0.021/GB) | −$1.05 | −$1.05 |
-| AI, at the cap | −$0.50 | −$0.50 |
-| Email, hosting share | −$0.10 | −$0.10 |
-| **Left, at the limits** | **~$6.78** | **~$4.80** |
+Rough profit per sale (estimates; replace with real numbers):
 
-Most families will use far less than the caps, so real margins should be higher. Measure before changing
-prices: conversion from free, monthly vs. yearly mix, storage per family, AI per family, support time.
+| | Year | 6-Month | Year, founding |
+|---|---|---|---|
+| Paid | $155.88 | $89.94 | $119.88 |
+| Card fees (2.9% + $0.30 on each payment) | −$8.12 | −$4.41 | −$7.08 |
+| AI and storage while building | −$6 | −$3 | −$6 |
+| Keep-forever reserve (decades of read-only storage) | −$20 | −$20 | −$20 |
+| Print credit, at our cost (~half its face value) | −$14 | −$7 | −$14 |
+| **Left** | **~$108** | **~$55** | **~$73** |
+
+### Printed keepsakes (anyone, any time; shipping included in the US)
+
+| Product | Price | Made by (for now) | Our cost (estimate) | Profit (estimate) |
+|---|---|---|---|---|
+| **Hardcover family book**, up to 40 pages | **$59** | **RPI Print** (published wholesale prices, free API) | $23–29 (print ~$16–22 + shipping $6.99) | ~$28–34 |
+| **Wall calendar** | **$35** | Lulu (wire-o calendars) | $18–24 (quote needed) | ~$10–15 |
+| **Family binder** (coil-bound) | **$29** | Lulu (coil) → in house later | $16–20 (quote needed) | ~$8–12 |
+| **Tree poster** 18×24 | **$39** | Printful or Prodigi → in house later | $20–26 (quote needed) | ~$12–18 |
+
+Only RPI publishes wholesale prices; the other costs are estimates until the free partner accounts are
+opened (§10). **In house later:** posters and coil binders move in house only when **both** are true:
+(1) the business can pay for the machines out of its own profit (~$4,700: a 24-in printer ~$3,400 and a
+coil binder ~$1,300, plus supplies), and (2) there's steady volume (about 25–30 posters or binders a
+month). Books always stay with a partner.
+
+**The earlier subscription plan** ($8.99/month or $79.99/year) is replaced by the Family Projects. The
+billing code built for it (Kinmap `5853e19`, switched off) needs changing to fixed 6- and 12-payment
+plans, Keep forever, gift codes and print credits before launch.
+
+### Rough unit economics while building (per family, estimates)
+
+AI is about $0.001 per story on Haiku 5.5 and is capped (about $0.50 a month at the limit); storage is
+~$0.021/GB a month. A family that builds hard for a year costs ~$6–12 in AI and storage, well inside
+either project's price. Measure: conversion from Free, Year vs 6-Month mix, gifts, storage per family,
+AI per family, print orders per family, support time.
 
 ---
 
@@ -237,7 +266,7 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
 
 ---
 
-## 8. Ideas being explored (2026-11-01, not decided)
+## 8. Ideas explored (2026-11-01; the decisions are in §1)
 
 The founder's idea: lead with **things we make and mail to you** (books, posters, binders,
 calendars) as the reason to pay, and turn the subscription into a **project you finish**: pay while the
@@ -357,7 +386,10 @@ Roughly fastest first:
 
 ---
 
-## 9. Project pricing: pay for a building season, keep it forever (proposal, 2026-11-01)
+## 9. Project pricing: pay for a building season, keep it forever (2026-11-01)
+
+> **Superseded on prices by §1:** the Summer/Year figures below ($99/$149 up front) became the 6-Month and
+> Year Family Projects paid monthly ($14.99 × 6, $12.99 × 12). The reasoning still holds.
 
 Instead of an open-ended subscription, families buy a **project**: a building season (AI, uploads,
 editing, inviting) followed by **Keep forever** (read-only for good, §8.3). Editing can be reopened any
@@ -458,8 +490,8 @@ house only what sells steadily, and never books.
 
 ### Effect on the plan
 
-- **Prices** (to confirm with real quotes): binder $19–25, calendar $29–35, poster $35–45, hardcover book
-  $49–69. Each should earn $12–25.
+- **Prices** (set in §1, to confirm with real quotes): binder $29, calendar $35, poster $39, hardcover
+  book $59, shipping included. Each should earn ~$10–34.
 - **The Year Project ($149, §9)** can include a print credit (say $25) instead of a specific product, so
   it doesn't depend on one partner's pricing.
 - **Order flow:** the app sends the print file straight to the partner's API (or to the founder's queue
@@ -467,3 +499,92 @@ house only what sells steadily, and never books.
   the app stores' billing rules). No print file is ever downloaded (§9.1).
 - **Next step:** call the top three LA shops for quotes and a sample, and open a free RPI or Lulu account
   to order one test book of a sample family.
+
+
+---
+
+## 11. The Free tier
+
+**Purpose:** let a family try Kinmap for real, invite relatives, and fall in love with it, so they buy a
+Family Project or a printed keepsake. Free should be generous where it's cheap and limited where it costs
+money.
+
+| | Free | Why |
+|---|---|---|
+| People in the tree | **No limit** | A person is a few hundred bytes of text: 10,000 people cost less than one photo. Limiting the family history itself would feel petty and saves nothing. |
+| Members (relatives invited) | Up to 10 | Keeps support and notifications manageable; a Project removes it. |
+| Photo and video storage | **1 GB** (~300–500 photos) | Storage is the main ongoing cost (~$0.02 a GB a month, plus bandwidth). |
+| AI (talking, answers, "Check my tree") | **~30 uses a month** | ~$0.03 a month at Haiku prices; the cap protects against abuse. |
+| Typing and editing by hand | No limit | Free to run. |
+| Boards, slideshows, links | Yes | Cheap, and they make the tree worth sharing. |
+| Keepsake file | Yes, always | The family's own data (§9.1). |
+| Printed keepsakes | Can buy any time | Prints are the friendliest first purchase. |
+| How long it stays | **As long as the family uses it** | A Free tree costs about $0.02–0.05 a month. If one sits untouched for 2+ years, email the owner first; never delete without warning and a keepsake file. |
+
+**Cost of Free at scale (estimate):** 1,000 Free trees at ~0.5 GB each and light AI ≈ **$15–30 a month**.
+That's affordable as marketing, as long as conversion to Projects or prints is measured (journal).
+
+**Should people be unlimited "because the data is on the phone"?** People should be unlimited either
+way; see §13 on whether to move the tree onto phones.
+
+---
+
+## 12. Founding-family pre-sale (holiday 2026)
+
+**What:** the first 100 families can reserve a Family Project at the founding price (§1): $9.99 a month
+for the Year Project, $11.99 for 6 months, or a one-time payment for gifts.
+
+**Timing, without promising a date we can't keep:** building starts **the day the family joins** (the app
+works today, in beta); the print credit can be used **whenever their tree is ready**, any time during
+their project or within a year after. No book is promised for a fixed holiday, so no family is rushed and
+the mail-order rule's shipping promise only starts when they actually order a print.
+
+**How it sells:**
+- A page at **kinmap.somedude.app/founding** with both packages and the products; until Stripe payment
+  links exist, "Reserve" sends an email and the founder replies with the link.
+- **Gift angle for December:** "Give your family a year of gathering their story": the giver pays once,
+  the recipient gets a printable gift card with a code.
+- Founding families get the founding price locked for any later reopening, and their name in the app's
+  credits if they want it.
+
+**What it needs before taking money:** Stripe payment links (or the fixed-plan checkout), a refund rule
+(full refund within 30 days, no questions), the terms updated for projects, Keep forever and prints
+(what "forever" means: §8.3), and a simple way to record who bought what (the journal, then the app).
+
+---
+
+## 13. Keeping the family's data on their phones (question, 2026-11-01)
+
+**The idea:** the tree lives in an encrypted file on each member's phone; the app is a reader of that
+file. Kinmap's server keeps no family data, or only an encrypted copy it can't read, with the key held on
+admins' phones. When someone joins, the file is copied to their phone.
+
+**Can we? Yes.** This is called *local-first, end-to-end encrypted* sync. Signal, 1Password and
+Standard Notes work this way: each tree has a key; the key is shared with each member's device
+(encrypted with that device's own key); the server stores and relays only encrypted data it can't read.
+The founder's "the server holds a key and a copy, but not matching ones" is exactly this: the server
+holds the encrypted copy, the devices hold the keys.
+
+**Should we, now? Not before launch.** Reasons, in order of weight:
+1. **The server copy can't simply be deleted.** Phones are rarely online at the same time, so edits have
+   to wait somewhere until each member's phone picks them up. In practice the server keeps an encrypted
+   copy permanently. That's fine (it can't read it), but the cost saving disappears.
+2. **There's almost no cost to save.** The family's text (people, dates, stories) is tiny: a 500-person
+   tree is about 1 MB. The costs are **photos, video and AI**, and moving text to phones changes neither.
+3. **Lost phones lose families' history.** If every admin loses their phone or forgets a recovery code,
+   an end-to-end encrypted tree is gone for good, the opposite of "for your grandkids". Recovery needs
+   printed recovery codes, several admin devices, and careful design.
+4. **Features that read the data would need rebuilding:** the AI (it reads the tree to understand "my
+   grandma"), translations, print files, the web app, slideshows on other screens, duplicate checks, and
+   the role rules (editors propose, owners approve) that the server enforces today.
+5. **It's months of work for one person,** and every bug risks data loss. Security reviews of homemade
+   encryption are expensive.
+
+**What to do instead (cheaper, most of the benefit):**
+- **Now:** keep data encrypted at rest (Supabase does this), private by default, never sold, and always
+  exportable (keepsake file). Say this plainly on the site.
+- **Next:** an **encrypted copy of the tree on each phone** for offline viewing and speed, plus an
+  **automatic keepsake backup** to the family's own device or cloud drive each month. Families then
+  literally hold a copy, which is most of what this idea is for.
+- **Later, if families ask:** end-to-end encryption for the most private parts (stories, private notes)
+  first, with a printed recovery code, as a Keep-forever option ("our server can't read your stories").

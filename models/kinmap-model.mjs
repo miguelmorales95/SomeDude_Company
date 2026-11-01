@@ -52,14 +52,16 @@ for (const [name, s] of Object.entries(scenarios)) for (const extras of [false, 
   const ceiling = Math.round((s.cap + (s.adsCAC ? s.adsPerMonth / s.adsCAC : 0)) / s.churn);
   console.log(`${name}${extras ? " + prints, bundle, keep-forever" : ""}: covers costs m${r.hitCost}, $500/mo m${r.hit500}, $1k/mo m${r.hit1k}, $4k take-home m${r.hitGoal ?? ">48"}, worst cumulative cash $${Math.round(r.minCash)}${extras ? "" : `, plateau ~${ceiling} fam`}\n   ${r.rows.join(" | ")}`);
 }
-// Project pricing (Kinmap-Monetization.md §9): families pay once for a building period plus Keep forever,
-// instead of a subscription. Same inflow as each scenario; nobody "churns" to $0, they finish.
+// Family Project pricing (Kinmap-Monetization.md §1): a 12- or 6-month building period paid monthly
+// ($12.99 × 12 or $14.99 × 6), then Keep forever, with a print credit. Same inflow as each scenario;
+// nobody "churns" to $0, they finish. Profit is counted when the project is sold (a simplification:
+// in reality it arrives over 6–12 months, and a few families stop paying partway).
 const PROJECT = {
-  profitPerNew: 95,       // mix of Summer $99 and Year $149 after card fees, building-period AI/storage and the $15–20 reserve
-  reopenPerYear: 0.15,    // share of finished families who reopen editing each year ($29 for 3 months → ~$24 net)
-  reopenNet: 24,
-  printShare: 0.04,       // share of all project families ordering a print in a normal month (lower: many are finished)
-  printMargin: 15,
+  profitPerNew: 87,       // 60% Year (~$108 after fees, AI/storage, $20 reserve, credit cost) + 40% 6-Month (~$55)
+  reopenPerYear: 0.15,    // share of finished families who reopen editing each year
+  reopenNet: 24,          // $9.99 a month for ~3 months, after fees and AI
+  printShare: 0.04,       // share of all families ordering a print in a normal month (beyond their credit)
+  printMargin: 18,        // average profit per order through partners (book ~$30, binder/calendar/poster ~$10–15)
   holidayBoost: 3,
   storagePerFamily: 0.08, // read-only storage per family per month, paid from the reserve (shown, not subtracted)
 };

@@ -144,7 +144,14 @@ or a backup script. `npm run backup:media` in `kinmap/server` (Kinmap `d5e954d`)
 `SUPABASE_SECRET_KEY` in the local `server/.env` only. **Places in the timeline (2026-11-01, live):** Kinmap `95c8acd` folds Places into timeline
 entries (optional place per entry); migration `20261101010000` applied after a backup, API deployed, OTA update
 published. Printing, Keep forever, project pricing ($99 Summer / $149 Year) and LA print partners are in
-[Kinmap-Monetization.md §8–10](./Kinmap-Monetization.md). The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+[Kinmap-Monetization.md §8–10](./Kinmap-Monetization.md).
+**Offer decided 2026-11-01** ([Kinmap-Monetization.md §1](./Kinmap-Monetization.md)): Year Family Project $12.99/mo × 12
+and 6-Month $14.99/mo × 6, each then Keep forever with a $30/$15 print credit; printed keepsakes for anyone (book $59,
+calendar $35, binder $29, poster $39) through partners (RPI books, Lulu calendars/binders, Printful/Prodigi posters;
+posters and binders in house only once profit pays for the machines and volume is steady). Founding pre-sale for the
+first 100 families at kinmap.somedude.app/founding (buttons email until Stripe links go in `kinmap/website/links.js`).
+Timeline edits and future admins (heirs) shipped 2026-11-01 (Kinmap `08cfa5b`). Decisions and monthly numbers go in
+[Kinmap-Decisions-Journal.md](./Kinmap-Decisions-Journal.md). The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.

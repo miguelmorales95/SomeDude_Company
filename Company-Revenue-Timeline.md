@@ -138,23 +138,33 @@ How to read it:
   income (set aside ~25–30%), and a founding pre-sale this winter, which would add cash before month 0.
 - Run `node models/kinmap-model.mjs` to update these after changing any input.
 
-### 3c. Project pricing instead of a subscription (proposal)
+### 3c. Family Projects (the plan from 2026-11-01)
 
-[Kinmap-Monetization.md §9](./Kinmap-Monetization.md): a $99 Summer or $149 Year Project, then Keep
-forever, with $29 reopenings and prints. Model inputs: ~$95 profit per sale, 15% of finished families
-reopen each year, 4% of all families order a print in a normal month (3× in Nov–Dec).
+[Kinmap-Monetization.md §1](./Kinmap-Monetization.md): a **Year Family Project at $12.99 a month for 12
+months** or a **6-Month one at $14.99 a month for 6**, then Keep forever, with a print credit; printed
+keepsakes for anyone; reopening at $9.99 a month. Model inputs: ~$87 profit per project sold (60% Year at
+~$108, 40% 6-Month at ~$55), 15% of finished families reopen each year, 4% of all families order a print
+in a normal month at ~$18 profit (3× in Nov–Dec). Profit is counted when a project is sold; in reality it
+arrives over its 6–12 payments, so early months are smoother and a little lower than shown.
 
-| Months after launch | Base subscription + extras (§3b) | Base **as projects**, same buyers | Base as projects, **half the buyers** |
+| Months after launch | Subscription + extras (§3b, replaced) | **Family Projects**, same buyers | Family Projects, **half the buyers** |
 |---|---|---|---|
-| 3 | $350/mo · **$630** so far | $1,600/mo · **$4,300** | $730/mo · **$1,900** |
-| 6 | $830/mo · **$2,600** | $2,230/mo · **$10,300** | $1,040/mo · **$4,700** |
-| 12 | $2,190/mo · **$13,000** | $4,170/mo · **$30,300** | $2,010/mo · **$14,300** |
-| 24 | $8,310/mo · **$76,600** | $13,700/mo · **$133,500** | $6,770/mo · **$65,000** |
-| 36 | $15,800/mo · **$240,100** | $16,800/mo · **$331,600** | $8,300/mo · **$163,100** |
+| 3 | $350/mo · **$630** so far | $1,460/mo · **$3,900** | $660/mo · **$1,700** |
+| 6 | $830/mo · **$2,600** | $2,050/mo · **$9,400** | $950/mo · **$4,300** |
+| 12 | $2,190/mo · **$13,000** | $3,860/mo · **$28,000** | $1,850/mo · **$13,100** |
+| 18 | $4,440/mo · **$33,500** | $7,070/mo · **$61,500** | $3,460/mo · **$29,400** |
+| 24 | $8,310/mo · **$76,600** | $12,750/mo · **$124,600** | $6,300/mo · **$60,500** |
+| 36 | $15,800/mo · **$240,100** | $15,900/mo · **$312,500** | $7,890/mo · **$153,600** |
 
-Projects bring cash in much sooner (each sale is paid up front), and even with half as many buyers they
-keep pace for the first year. Later, monthly income levels off with new sales, while the subscription
-keeps compounding. **Test both with the first 50–100 families.**
+Side-income milestones with Family Projects (base, same buyers): **$1,000 a month extra from about month
+1–2**, ~$4,000 take-home around month 15; with half the buyers, $1,000 a month around month 7 and $4,000
+take-home around month 21. **Before launch:** the founding pre-sale (Monetization §12) adds cash from
+November 2026 on (e.g. 30 founding families ≈ $300 a month for a year).
+
+Projects bring cash in sooner, and even at half the buyers they match the old plan for about 18 months.
+Income levels off when new sales do, because there's no monthly base beyond reopenings and prints.
+**Watch two numbers from day one:** how many visitors buy a project (vs the subscription's assumed rate),
+and how many families stop paying partway. The decisions journal tracks both.
 
 ### Revenue lines, in order
 
