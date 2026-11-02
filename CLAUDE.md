@@ -156,7 +156,10 @@ live demo (app.kinmap.somedude.app/demo), the four-language site and draft terms
 earlier run hadn't applied them, which broke opening trees until then. The demo shows no families until
 `npm run demo:publish` runs with `SUPABASE_SECRET_KEY` filled in `server/.env` (the line is empty). Billing env vars
 renamed `FAMILY_*` → `PROJECT_*`. **After every migration, check it took effect** (query the new table or column)
-before relying on it. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+before relying on it. Same day (Kinmap `6d40986`): the AI can correct existing timeline entries; Free = 5 members and
+kept 1 year after the last activity (`npm run free:retention`, dry run by default; migration
+`20261102020000_free_tree_activity.sql` to apply); encrypted saved copies of trees on phones (AES-GCM via expo-crypto,
+cache folder) and monthly keepsake backups. Demo published (Reyes and Chan samples). Kinmap keeps its own sign-in. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.
