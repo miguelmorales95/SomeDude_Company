@@ -271,7 +271,7 @@ Afoot already has Google and Facebook sign-in through its own Supabase project.
    test card `4242 4242 4242 4242`, and check the screen shows Family. Then repeat in live mode with live
    keys.
 7. Before turning it on for real families: tell existing testers, since Free limits start applying
-   (1 GB, about 30 AI stories a month, 10 members).
+   (1 GB, about 30 AI stories a month, 5 members).
 
 ---
 
@@ -521,14 +521,14 @@ money.
 | | Free | Why |
 |---|---|---|
 | People in the tree | **No limit** | A person is a few hundred bytes of text: 10,000 people cost less than one photo. Limiting the family history itself would feel petty and saves nothing. |
-| Members (relatives invited) | Up to 10 | Keeps support and notifications manageable; a Project removes it. |
+| Members (relatives invited) | **Up to 5** (decided 2026-11-01) | Enough to try it with close family; a Project removes the limit. |
 | Photo and video storage | **1 GB** (~300–500 photos) | Storage is the main ongoing cost (~$0.02 a GB a month, plus bandwidth). |
 | AI (talking, answers, "Check my tree") | **~30 uses a month** | ~$0.03 a month at Haiku prices; the cap protects against abuse. |
 | Typing and editing by hand | No limit | Free to run. |
 | Boards, slideshows, links | Yes | Cheap, and they make the tree worth sharing. |
 | Keepsake file | Yes, always | The family's own data (§9.1). |
 | Printed keepsakes | Can buy any time | Prints are the friendliest first purchase. |
-| How long it stays | **As long as the family uses it** | A Free tree costs about $0.02–0.05 a month. If one sits untouched for 2+ years, email the owner first; never delete without warning and a keepsake file. |
+| How long it stays | **1 year after the last activity** (decided 2026-11-01) | A Free tree that nobody opens or changes for 12 months is deleted, after the owner and admins are warned at least 30 days ahead (opening it once keeps it). Projects and kept-forever trees are never deleted for inactivity. Shown in bold on the pricing page. |
 
 **Cost of Free at scale (estimate):** 1,000 Free trees at ~0.5 GB each and light AI ≈ **$15–30 a month**.
 That's affordable as marketing, as long as conversion to Projects or prints is measured (journal).

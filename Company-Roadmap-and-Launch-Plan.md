@@ -93,7 +93,7 @@ Scoring is my honest read, 1–5 (5 = best). "Monetization viability" = how real
 
 ## 4. Unified architecture — one account, one database
 
-> **Superseded 2026-10-23:** each app now gets its own Supabase and Vercel project (see Phase 2). The shared `core` schema and single sign-on below are no longer the plan; keep reading for the shared *code and patterns* (LLM budgets, media access control, the change-request engine).
+> **Superseded 2026-10-23:** each app now gets its own Supabase and Vercel project (see Phase 2). **Confirmed 2026-11-01:** Kinmap also keeps its own sign-in; no shared login across the apps. The shared `core` schema and single sign-on below are no longer the plan; keep reading for the shared *code and patterns* (LLM budgets, media access control, the change-request engine).
 
 The single most valuable unification decision: **one identity, one Postgres, shared services.** Here's the concrete shape.
 

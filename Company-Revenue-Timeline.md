@@ -185,8 +185,9 @@ relationships, photos, sometimes minors).
 
 - **Never sell or share it,** including for ads, "anonymized" insights, or AI training. The Anthropic API
   doesn't train on API data by default; keep it that way contractually.
-- **Shared SomeDude login:** sharing an account across your own apps is fine, but disclose it in the
-  privacy policy and never pass family data across apps.
+- **Kinmap keeps its own sign-in (decided 2026-11-01):** no shared SomeDude login. Kinmap has its own
+  Supabase project, accounts and data, separate from Afoot and NoBucks; there's little natural overlap
+  between the audiences, and one breach or bug shouldn't reach family data.
 - **What you *may* collect:** first-party product analytics (sign-ups, activation, "talk" usage, upgrade
   and cancel events). You need these to measure conversion and churn. Keep them in your own database
   rather than a third-party tracker.

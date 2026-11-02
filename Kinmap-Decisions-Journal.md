@@ -23,7 +23,7 @@ Update this whenever a price or package changes, and log the change in §5.
 | Reopen editing | $9.99 a month | planned |
 | Keep forever alone | $59 once | planned |
 | Hardcover book · calendar · binder · poster | $59 · $35 · $29 · $39, US shipping included | planned |
-| Free | unlimited people, 10 members, 1 GB, ~30 AI uses a month | live |
+| Free | unlimited people, **5 members**, 1 GB, ~30 AI uses a month, **kept 1 year after the last activity** | 2026-11-01 |
 
 Print partners: books **RPI Print**; calendars and binders **Lulu**; posters **Printful or Prodigi**.
 
@@ -100,6 +100,8 @@ Newest first. Write the decision, why, and when to look at it again.
 
 | Date | Decision | Why | Look again |
 |---|---|---|---|
+| 2026-11-01 | **Free: share with up to 5 relatives; a Free tree is kept 1 year after the last activity** (warned 30 days ahead; projects and kept-forever trees never deleted) | Keeps Free cheap and gives a clear reason to start a project, without surprising anyone | After 3 months: watch Free → Project and complaints |
+| 2026-11-01 | **Kinmap keeps its own sign-in and data**, separate from Afoot and NoBucks | Little overlap between audiences; a problem in one app shouldn't reach family data | Only if many families ask to use the other apps |
 | 2026-11-01 | Sell **Family Projects** paid monthly (Year $12.99 × 12, 6-Month $14.99 × 6), each ending in **Keep forever** with a print credit, instead of an open-ended subscription | Matches how families work (a season of gathering, then years of looking); easier to say yes to; works as a gift; model shows cash sooner (Revenue Timeline §3c) | After the first 50 projects |
 | 2026-11-01 | **Printed keepsakes for anyone, any time**: book $59, calendar $35, binder $29, poster $39, shipping included | A first purchase that doesn't need a plan; strong in Nov–Dec | After 3 months of orders |
 | 2026-11-01 | Use **print partners** (RPI books; Lulu calendars and binders; Printful/Prodigi posters). Posters and binders move **in house only when the business can pay for the machines and has steady volume** | No equipment risk, no shipping work with a day job | Trigger in §3 |
