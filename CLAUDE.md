@@ -141,9 +141,8 @@ Check OTA compatibility against this build id from now on. Sample families: `npm
 `GET /trees/:id/translations`, cached in `content_translations`); the app overlays it (`mobile/src/lib/translations.ts`). somedude.app/privacy
 covers the company site. The free plan has no backups: no real family data before Pro
 or a backup script. `npm run backup:media` in `kinmap/server` (Kinmap `d5e954d`) mirrors photos/videos and needs
-`SUPABASE_SECRET_KEY` in the local `server/.env` only. **Places in the timeline (2026-11-01, live):** Kinmap `95c8acd` folds Places into timeline
-entries (optional place per entry); migration `20261101010000` applied after a backup, API deployed, OTA update
-published. Printing, Keep forever, project pricing ($99 Summer / $149 Year) and LA print partners are in
+`SUPABASE_SECRET_KEY` in the local `server/.env` only. **Places in the timeline (2026-11-01):** Kinmap `95c8acd` folds Places into timeline
+entries (optional place per entry). Printing, Keep forever, project pricing ($99 Summer / $149 Year) and LA print partners are in
 [Kinmap-Monetization.md §8–10](./Kinmap-Monetization.md).
 **Offer decided 2026-11-01** ([Kinmap-Monetization.md §1](./Kinmap-Monetization.md)): Year Family Project $12.99/mo × 12
 and 6-Month $14.99/mo × 6, each then Keep forever with a $30/$15 print credit; printed keepsakes for anyone (book $59,
@@ -151,11 +150,13 @@ calendar $35, binder $29, poster $39) through partners (RPI books, Lulu calendar
 posters and binders in house only once profit pays for the machines and volume is steady). Founding pre-sale for the
 first 100 families at kinmap.somedude.app/founding (buttons email until Stripe links go in `kinmap/website/links.js`).
 Timeline edits and future admins (heirs) shipped 2026-11-01 (Kinmap `08cfa5b`). Decisions and monthly numbers go in
-[Kinmap-Decisions-Journal.md](./Kinmap-Decisions-Journal.md). **Waiting to ship (2026-11-01):** Kinmap branch `release-projects-demo-site`
-(Family Projects billing, live demo, four-language site, draft terms/privacy; 106 tests pass). Ship: backup, apply
-`20261102000000_family_projects.sql` and `20261102010000_demo.sql`, merge to `main`, `npm run update:preview`, then
-`npm run demo:publish` in `server/` (needs `SUPABASE_SECRET_KEY` in the local `.env` only). Billing env vars renamed
-`FAMILY_*` → `PROJECT_*`. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
+[Kinmap-Decisions-Journal.md](./Kinmap-Decisions-Journal.md). **Shipped 2026-11-01:** Family Projects billing (off until `BILLING_ENABLED=true`), the
+live demo (app.kinmap.somedude.app/demo), the four-language site and draft terms/privacy (Kinmap `ade5c66`). All four
+2026-11-01/02 migrations (places in timeline, tree heirs, family projects, demo) were applied late on 2026-11-01: an
+earlier run hadn't applied them, which broke opening trees until then. The demo shows no families until
+`npm run demo:publish` runs with `SUPABASE_SECRET_KEY` filled in `server/.env` (the line is empty). Billing env vars
+renamed `FAMILY_*` → `PROJECT_*`. **After every migration, check it took effect** (query the new table or column)
+before relying on it. The direct DB host is IPv6-only; a Vercel-hosted API needs the pooler string.
 
 The database password lives in the git-ignored `kinmap/server/.env` (`DATABASE_URL`) and in
 `supabase_kinmap_key.txt` here, which `.gitignore` now excludes (`*key*`); move it to a password manager.
